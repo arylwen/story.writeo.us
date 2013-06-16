@@ -1,4 +1,4 @@
-package com.halcyon.storywriter.template;
+package com.halcyon.storywriter;
 
 public class SNode
 {

@@ -50,19 +50,19 @@ public class TemplateFileManager
 	}
 
 
-	public List<StructureTemplate> getStructureTemplates()
+	public List<StructureFileTemplate> getStructureTemplates()
 	{
-		ArrayList<StructureTemplate> ret = new ArrayList<StructureTemplate>();
+		ArrayList<StructureFileTemplate> ret = new ArrayList<StructureFileTemplate>();
 
 		AssetManager assetManager = context.getAssets();
 
 		try
 		{
 		    String[] files = assetManager.list("templates");
-			StructureTemplate st;
+			StructureFileTemplate st;
 			for(int i=0; i<files.length; i++) {
 				//Toast.makeText(this, files[i], Toast.LENGTH_SHORT);
-				st = new StructureTemplate();
+				st = new StructureFileTemplate();
 				st.setFile(files[i]);
 				st.setName(files[i].substring(0, files[i].lastIndexOf('.')).replace('_', ' '));
 				ret.add(st);

@@ -17,7 +17,7 @@ public class ChooseTemplateDialogFragment extends SherlockDialogFragment {
 	}
 
 	public interface TemplateDialogListener {
-		public void onTemplateChosen(StructureTemplate file);
+		public void onTemplateChosen(StructureFileTemplate file);
 	}
 
     // Use this instance of the interface to deliver action events    
@@ -43,7 +43,7 @@ public class ChooseTemplateDialogFragment extends SherlockDialogFragment {
 	public Dialog onCreateDialog(Bundle savedInstanceState) {  	
 
 		tfm = new TemplateFileManager(getActivity());
-	    final List<StructureTemplate> templates = tfm.getStructureTemplates();
+	    final List<StructureFileTemplate> templates = tfm.getStructureTemplates();
 		final TemplateArrayAdapter adapter = new TemplateArrayAdapter(getActivity(),
 																	  0, templates); 
 	

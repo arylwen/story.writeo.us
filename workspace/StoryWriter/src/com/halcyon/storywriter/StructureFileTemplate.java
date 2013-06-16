@@ -1,6 +1,6 @@
 package com.halcyon.storywriter;
 
-public class StructureTemplate {
+public class StructureFileTemplate {
 	private String name;
 	private String file;
 

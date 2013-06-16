@@ -8,17 +8,17 @@ import com.halcyon.storywriter.*;
 import com.halcyon.storywriter.template.*;
 import java.util.*;
 
-import com.halcyon.storywriter.StructureTemplate;
+import com.halcyon.storywriter.StructureFileTemplate;
 
-public class TemplateArrayAdapter extends ArrayAdapter<StructureTemplate>
+public class TemplateArrayAdapter extends ArrayAdapter<StructureFileTemplate>
  { 
-	    private HashMap<StructureTemplate, Integer> mIdMap = new HashMap<StructureTemplate, Integer>(); 
+	    private HashMap<StructureFileTemplate, Integer> mIdMap = new HashMap<StructureFileTemplate, Integer>(); 
 		// used to keep selected position in ListView 		
 		private int selectedPos = -1;	// init value for not-selected 
 		
 		//private StoryTemplateHelper storyTemplateHelper;
 		
-		public TemplateArrayAdapter(Context context, int textViewResourceId, List<StructureTemplate> objects) {
+		public TemplateArrayAdapter(Context context, int textViewResourceId, List<StructureFileTemplate> objects) {
 			super(context, textViewResourceId, objects); 
 			for (int i = 0; i < objects.size(); ++i) { 
 			    mIdMap.put(objects.get(i), i); 
@@ -27,7 +27,7 @@ public class TemplateArrayAdapter extends ArrayAdapter<StructureTemplate>
 		
 		@Override 
 		public long getItemId(int position) { 
-		    StructureTemplate item = getItem(position); 
+		    StructureFileTemplate item = getItem(position); 
 			return mIdMap.get(item); 
 		} 
 		
@@ -66,7 +66,7 @@ public class TemplateArrayAdapter extends ArrayAdapter<StructureTemplate>
 			} 	 
 			//label.setText(this.getItem(position).toString()); 	 
 			 // to use something other than .toString()
-			StructureTemplate myobj = this.getItem(position);
+			StructureFileTemplate myobj = this.getItem(position);
 			label.setText(myobj.getName());
 			
 			

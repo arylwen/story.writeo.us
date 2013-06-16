@@ -1,14 +1,15 @@
 package com.halcyon.storywriter.template;
 
 import android.graphics.*;
+import android.text.style.*;
 import android.util.*;
+import com.halcyon.storywriter.*;
 import java.io.*;
 import java.util.*;
 import org.simpleframework.xml.*;
 import org.simpleframework.xml.core.*;
-import android.text.style.*;
 
-public class StoryTemplateHelper
+public class StoryTemplateHelper implements StructureTemplateHelper
 {
     private final static String TAG = "SW";
 

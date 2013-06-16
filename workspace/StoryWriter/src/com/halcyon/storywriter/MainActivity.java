@@ -22,7 +22,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
 public class MainActivity extends SherlockFragmentActivity 
-    implements ChooseTemplateDialogFragment.TemplateDialogListener
+    implements ChooseTemplateDialogFragment.TemplateDialogListener, Coloriser.CounterListener
 {
 
 	private final static int MENU_NEW_FILE = Menu.FIRST;
@@ -43,8 +43,10 @@ public class MainActivity extends SherlockFragmentActivity
 	private boolean isUntitled = true;
 	private boolean isChanged = false;
 	
-	private final StoryTemplateHelper helper = new StoryTemplateHelper();
+	private final StructureTemplateHelper helper = new StoryTemplateHelper();
 	private TemplateFileManager tfm;
+	StructureFileTemplate currentFileTemplate;
+	Coloriser coloriser;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -78,98 +80,28 @@ public class MainActivity extends SherlockFragmentActivity
 		templateName = (TextView) findViewById(R.id.template_name);
 		templateSummary = (TextView) findViewById(R.id.template_summary);
 		
+		coloriser = new Coloriser(text, helper);
 		tfm = new TemplateFileManager(this);
-		List<StructureTemplate> templates = tfm.getStructureTemplates();
-		onTemplateChosen(templates.get(0));
+		List<StructureFileTemplate> templates = tfm.getStructureTemplates();
+		onTemplateChosen(templates.get(0));	
+		coloriser.setCounterListener(this);
 		
-		text.addTextChangedListener(new TextWatcher() {
-
+		text.addTextChangedListener( new TextWatcher() {
 				public void onTextChanged(CharSequence one, int a, int b, int c) {
-
-					Map<Integer, SNode> structure = helper.getStructure();
-					List<Integer> limits = helper.getLimits();
-					Map<Integer, ForegroundColorSpan> spans = helper.getSpans();
-					
-					//Log.e("limits "+limits.size(), "SW");
-					
+					coloriser.onTextChanged(one, a,b,c);
 					isChanged = true;
-					long wordc = updateTitle();
-					
-					//color according to structure
-					String stext = text.getText().toString();
-					Editable s = text.getText();
-					int lower = 0;
-					int clower = 0;
-					
-					for(int i=0; i < limits.size(); i++)
-					{
-						int upper = limits.get(i);
-						SNode current = structure.get(upper);
-						if(upper < wordc)
-						{
-							//still inside the text
-							int cupper = charCount(stext, clower, upper-lower);
-							//s.setSpan(new ForegroundColorSpan(current.getColor()), clower, cupper, 
-							//     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE); 
-
-							s.setSpan(spans.get(current.getId()), clower, cupper, 
-									  Spannable.SPAN_EXCLUSIVE_EXCLUSIVE); 
-							
-								 
-							lower = upper;
-							clower = cupper-1;
-						} else {
-							//color up to the end of the text; break
-							//s.setSpan(new ForegroundColorSpan(current.getColor()), clower, stext.length(), 
-							//		  Spannable.SPAN_EXCLUSIVE_EXCLUSIVE); 
-									  
-							s.setSpan(spans.get(current.getId()), clower, stext.length(), 
-									  Spannable.SPAN_EXCLUSIVE_EXCLUSIVE); 
-									  
-									  
-						    break;
-						}
-					}
 				}
-
+					
 				// complete the interface
 				public void afterTextChanged(Editable s) { }
 				public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-			});
-					
+		});	
     }
-	
 	
 	private void updateTemplateSummary()
 	{
-		StringBuilder sb = new StringBuilder();
-		List<Integer> limits = helper.getLimits();
-		List<Integer> slimits = new ArrayList<Integer>();
-		for(Integer limit:limits)
-		{
-			SNode node = helper.getStructure().get(limit);
-			sb.append(node.getName());
-			sb.append("--");
-			sb.append(limit.intValue());
-			sb.append("\n");
-			slimits.add(sb.length());
-		}
-		
-		SpannableString spannablecontent=new SpannableString(sb.toString()); 
-		Map<Integer, ForegroundColorSpan> spans = helper.getSpans();
-		
-		int prev = 0;
-		int idx =0;
-		for(Integer limit:limits)
-		{
-			SNode node = helper.getStructure().get(limit);
-			ForegroundColorSpan span = spans.get(node.getId());
-		    spannablecontent.setSpan(span, prev,slimits.get(idx), 
-			                          SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE); 
-			prev = slimits.get(idx);
-			idx++;
-		}
-		
+	
+		SpannableString spannablecontent = coloriser.getColorisedTemplateInfo();		
 		templateSummary.setText(spannablecontent);
 	}
 	
@@ -180,9 +112,10 @@ public class MainActivity extends SherlockFragmentActivity
 	}
 	
 	@Override
-	public void onTemplateChosen(StructureTemplate file){
+	public void onTemplateChosen(StructureFileTemplate file){
 		String template = tfm.readAssetFile("templates"+File.separator+ file.getFile());
 		helper.setTemplate(template);
+		currentFileTemplate = file;
 		if(templateName != null)
 		{
 			//this widget doesn't exist in portrait mode
@@ -193,107 +126,14 @@ public class MainActivity extends SherlockFragmentActivity
 		text.setText(text.getText());
 	}
 		
-	private long updateTitle()
+	@Override
+	public void onWordCountUpdate(long wordc)
 	{
-		//update file name and counter					
-		long wordc = wordCount(text.getText().toString());					
+		//update file name and counter									
 		String temp = (isChanged?"*":"") + fileName + " " + wordc + " words";		
-		//Toast.makeText(this, "temp "+temp+" fileName "+fileName+" wordc "+wordc, Toast.LENGTH_SHORT).show();
 		title.setText(temp);
 		
-		return wordc;
 	}
-	
-	private static long wordCount(String line){
-		long numWords = 0;
-		int index = 0;
-		boolean prevWhiteSpace = true;
-		
-		while(index < line.length())
-		{ 
-		    char c = line.charAt(index++);
-			boolean currWhiteSpace = Character.isWhitespace(c);
-			if(prevWhiteSpace && !currWhiteSpace)
-				{numWords++;}
-			prevWhiteSpace = currWhiteSpace;
-		}
-		
-	    return numWords;
-	}
-	
-	/**
-	    determines the index of the last char for the next numWords words
-	**/
-	private static int charCount(String line, int start, int numWords){
-		long localNumWords = 0;
-		int index = start;
-		boolean prevWhiteSpace = true;
-
-		while((index < line.length()) && (localNumWords <= numWords))
-		{ 
-		    char c = line.charAt(index++);
-			boolean currWhiteSpace = Character.isWhitespace(c);
-			if(prevWhiteSpace && !currWhiteSpace)
-			{
-				localNumWords++;
-			}
-			prevWhiteSpace = currWhiteSpace;
-		}
-
-	    return index;
-	}
-	
-	
-	/*public boolean alreadyMarkedDirty()	// checks if the text is already marked dirty
-	{
-		CharSequence temp = title.getText();
-
-		try {	
-
-			if (temp.charAt(0) == '*')
-			{
-				return true;
-			}
-		} catch (Exception e) {
-			return false;
-		} 
-
-		return false;
-	} 
-	
-	public Map<Integer, SNode> getStructure()
-	{
-		Map<Integer, SNode> result = new HashMap<Integer, SNode>();
-		
-		SNode node;
-		
-		node = new SNode();
-		node.setName("Act 1");
-		node.setColor(Color.BLUE);		
-		result.put(new Integer(75), node);
-		
-		node = new SNode();
-		node.setName("Act 2");
-		node.setColor(Color.GREEN);	
-		result.put(new Integer(225), node);
-		
-		node = new SNode();
-		node.setName("Act 3");
-		node.setColor(Color.YELLOW);			
-		result.put(new Integer(300), node);
-		
-		return result;
-	} 
-	
-	public static <T extends Comparable<? super T>> List<T> asSortedList(Collection<T> c) 
-	{ 
-	  List<T> list = new ArrayList<T>(c); 
-	  java.util.Collections.sort(list); 
-	  
-	  return list; 
-	}*/
-	
-
 	
 	protected void onPause()
 	{
@@ -326,6 +166,9 @@ public class MainActivity extends SherlockFragmentActivity
 
 			editor.putBoolean("isUntitled", isUntitled);
 			editor.putBoolean("isChanged", isChanged);
+			
+		    editor.putString("templateName", currentFileTemplate.getName());
+			editor.putString("templateFile", currentFileTemplate.getFile());
 
 			editor.commit();
 		}
@@ -341,7 +184,10 @@ public class MainActivity extends SherlockFragmentActivity
 		String restoredText = prefs.getString("text", null);
 		String restoredPrompt = prefs.getString("prompt", null);
 		String restoredFileName = prefs.getString("fileName", null);
+		String restoredTemplateName = prefs.getString("templateName", null);
+		String restoredTemplateFileName = prefs.getString("templateFile", null);
 		
+		fileName = restoredFileName;
 		if (restoredText != null && text != null )
 		{
 			text.setText(restoredText);
@@ -352,11 +198,17 @@ public class MainActivity extends SherlockFragmentActivity
 			prompt.setText(restoredPrompt);
 		}
 
-		fileName = restoredFileName;
 		isChanged = prefs.getBoolean("isChanged", false);
 		isUntitled = prefs.getBoolean("isUntitled", true);
 		
-		updateTitle();
+		if(restoredTemplateName != null)
+		{
+			StructureFileTemplate ft = new StructureFileTemplate();
+			ft.setFile(restoredTemplateFileName);
+			ft.setName(restoredTemplateName);
+			//load template and update the colors
+			onTemplateChosen(ft);
+		}
 		
 		if (text != null)
 			text.requestFocus();
@@ -383,37 +235,43 @@ public class MainActivity extends SherlockFragmentActivity
 			case MENU_NEW_FILE:
 			    //TO DO check if dirty
 				//initialize
-				text.setText("");
 				prompt.setText("add notes here");
 				title.setText("");
-				isChanged = false;
 				isUntitled = true;
+				isChanged = false;
 				fileName = getResources().getString( R.string.newFileName);
 				
-				updateTitle();
+				//this would also trigger the update of the word counter and file name
+				text.setText("");
+			
 			    break;
-			case MENU_SAVE_FILE:	// Save
-				//savingFile = true;
+			case MENU_OPEN_FILE:
+			    pickFileForOpen();
+				break;
+			case MENU_SAVE_FILE:	
+		
 				if (isUntitled) {
 					//browse for a file
-					pickFile();
+					pickFileForSave();
 				} else
 				    //see if in text or meta
 					saveText(fileName);
+					updateText(text.getText().toString(), fileName);
 				break;
 				
 			case MENU_SAVE_FILE_AS:
-			    pickFile();
+			    pickFileForSave();
 			break;
 			
 			case MENU_CHOOSE_STRUCT:
 				showChooseTemplateDialog();
 			break;
 		}
+		
 		return super.onOptionsItemSelected(item);
 	}
 
-	private void pickFile()
+	private void pickFileForSave()
 	{
 		Intent intent2Browse = new Intent();
 		intent2Browse.setAction(Intent.ACTION_PICK);
@@ -427,6 +285,22 @@ public class MainActivity extends SherlockFragmentActivity
 		intent2Browse.putExtra("browser_list_background_color", "66000000");
 
 		startActivityForResult(intent2Browse, SAVE_FILE_REQUEST_CODE);
+	}
+	
+	private void pickFileForOpen()
+	{
+		Intent intent2Browse = new Intent();
+		intent2Browse.setAction(Intent.ACTION_PICK);
+		Uri startDir = Uri.fromFile(new File("/sdcard"));
+		intent2Browse.setDataAndType(startDir, "vnd.android.cursor.dir/lysesoft.andexplorer.file");
+
+		//intent2Browse.putExtra("browser_line", "enabled");
+		//intent2Browse.putExtra("browser_line_textfield", "story.txt");
+
+		intent2Browse.putExtra("explorer_title", "Select file...");
+		intent2Browse.putExtra("browser_list_background_color", "66000000");
+
+		startActivityForResult(intent2Browse, OPEN_FILE_REQUEST_CODE);
 	}
 	
 	private void saveText(String fName)
@@ -447,7 +321,7 @@ public class MainActivity extends SherlockFragmentActivity
 				f = null;
 			
 			} else {
-			    f = null; // hopefully this gets garbage colle
+			    f = null; // hopefully this gets garbage collected
 
 			    // Create file 
 			    FileWriter fstream = new FileWriter(fName.toString());
@@ -458,22 +332,80 @@ public class MainActivity extends SherlockFragmentActivity
 			    out.close();
 
 			    // inform the user of success			     				 				 
-				Toast.makeText(this, "File Saved", Toast.LENGTH_SHORT).show();
-
-			    // the filename is the new title
-			    //title.setText(fName);
-			    fileName = fName;
-			    isUntitled = false;
-				isChanged = false;
-				
-				saveState();
-				
-				updateTitle();
+				Toast.makeText(this, "File Saved", Toast.LENGTH_SHORT).show();			
 			}
 		} catch (Exception e) { //Catch exception if any
-			Toast.makeText(this, "There was an error saving the file. "+e.getMessage(), Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "There was an error saving the file. "+
+			                       e.getMessage(), Toast.LENGTH_SHORT).show();
 		}
 
+	}
+	
+	public StringBuffer openFile(CharSequence fname)
+	{
+		
+		Toast.makeText(this, "Opening..."+fname, Toast.LENGTH_SHORT).show();
+		
+		StringBuffer result = new StringBuffer();
+		
+		try {
+			// open file
+			FileReader f = new FileReader(fname.toString());
+			File file = new File(fname.toString());
+			
+			if (f == null)
+			{
+				throw(new FileNotFoundException());
+			}
+
+			if (file.isDirectory())
+			{
+				throw(new IOException());
+			}
+			
+			// if the file has nothing in it there will be an exception here
+			// that actually isn't a problem
+			if (file.length() != 0 && !file.isDirectory())
+			{			
+				char[] buffer;
+				buffer = new char[4800];	// made it bigger just in case
+	
+				int read = 0;
+
+				do {
+					read = f.read(buffer, 0, 4800);
+					
+					if (read >= 0)
+					{
+						result.append(buffer, 0, read);
+					}
+				} while (read >= 0);
+			}
+		} catch (FileNotFoundException e) {
+			Toast.makeText(this, "Couldn't find file. "+
+						   e.getMessage(), Toast.LENGTH_SHORT).show();
+		} catch (IOException e) {
+			Toast.makeText(this, "There was an error opening the file. "+
+						   e.getMessage(), Toast.LENGTH_SHORT).show();
+	
+		} catch (Exception e) {
+			Toast.makeText(this, "There was an error opening the file. "+
+						   e.getMessage(), Toast.LENGTH_SHORT).show();
+		}
+		
+		return result;
+		
+	} // end openFile(CharSequence fname)
+
+	private void updateText(String aText, String aFileName){
+		// the filename is the new title
+		fileName = aFileName;		
+		isUntitled = false;
+		isChanged = false;
+		//saveState();
+		//refreshes the spans and updates the title
+		text.setText(aText);
+		saveState();
 		text.requestFocus();
 	}
 	
@@ -489,10 +421,37 @@ public class MainActivity extends SherlockFragmentActivity
 
 				    Uri fileUri = intent.getData();
 					saveText(fileUri.getPath());
+					
+					updateText(text.getText().toString(), fileUri.getPath());
+					/*
+					// the filename is the new title
+					fileName = fileUri.getPath();		
+					isUntitled = false;
+					isChanged = false;
+					saveState();
+					//refreshes the spans and updates the title
+					text.setText(text.getText());
+					text.requestFocus();*/
 				}
-			}
-		}
-		
-		
+			break;
+			
+			case OPEN_FILE_REQUEST_CODE:
 
+				if(RESULT_OK == resultCode) {
+
+				    Uri fileUri = intent.getData();
+					StringBuffer txt = openFile(fileUri.getPath());
+					
+					updateText(txt.toString(), fileUri.getPath());
+					
+					/*fileName = fileUri.getPath();
+					isChanged = false;
+					isUntitled = false;
+					saveState();
+					text.setText(txt.toString());
+					text.requestFocus();*/
+				}
+			break;
+		}
+	}
 }

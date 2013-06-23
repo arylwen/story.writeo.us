@@ -30,6 +30,25 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".PartListActivity" />
         </activity>
+		
+		<activity
+            android:name=".SaveAsActivity"
+            android:label="Save as"
+			android:theme="@style/Theme.Light.DarkTitle"	>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.OPENABLE" />
+
+                <data
+                    android:mimeType="*/*"
+                    android:scheme="content" />
+            </intent-filter>
+      
+		</activity>
+		
+		
     </application>
 
 </manifest>

@@ -31,8 +31,8 @@ public class StoryWriterActivity extends SherlockFragmentActivity
 	private final static int MENU_SAVE_FILE_AS = Menu.FIRST + 3;
 	private final static int MENU_CHOOSE_STRUCT = Menu.FIRST + 4;
 	
-	private final static int SAVE_FILE_REQUEST_CODE = 10;
-	private final static int OPEN_FILE_REQUEST_CODE = 20;
+	//private final static int SAVE_FILE_REQUEST_CODE = 10;
+	//private final static int OPEN_FILE_REQUEST_CODE = 20;
 
     private EditText text;
 	private EditText prompt;
@@ -48,6 +48,7 @@ public class StoryWriterActivity extends SherlockFragmentActivity
 	private StructureFileTemplate currentFileTemplate;
 	private Coloriser coloriser;
 	private FileManager fm;
+	private FilePicker fpk;
 	
 
     @Override
@@ -56,6 +57,9 @@ public class StoryWriterActivity extends SherlockFragmentActivity
         super.onCreate(savedInstanceState);
 		fm = new FileManager();
 		helper = new StoryTemplateHelper();
+		//fpk = new AndFMFilePicker(this);
+		//fpk = new OIFMFilePicker(this);
+		fpk = new SWFilePicker(this);
 						
         setContentView(R.layout.edit);
 		
@@ -244,13 +248,13 @@ public class StoryWriterActivity extends SherlockFragmentActivity
 			
 			    break;
 			case MENU_OPEN_FILE:
-			    pickFileForOpen();
+			    fpk.pickFileForOpen();
 				break;
 			case MENU_SAVE_FILE:	
 		
 				if (isUntitled) {
 					//browse for a file
-					pickFileForSave();
+					fpk.pickFileForSave();
 				} else
 				    //see if in text or meta
 					fm.saveText(fileName, text.getText().toString(), this);
@@ -260,7 +264,7 @@ public class StoryWriterActivity extends SherlockFragmentActivity
 				break;
 				
 			case MENU_SAVE_FILE_AS:
-			    pickFileForSave();
+			    fpk.pickFileForSave();
 			break;
 			
 			case MENU_CHOOSE_STRUCT:
@@ -271,7 +275,7 @@ public class StoryWriterActivity extends SherlockFragmentActivity
 		return super.onOptionsItemSelected(item);
 	}
 
-	private void pickFileForSave()
+	/*private void pickFileForSave()
 	{
 		Intent intent2Browse = new Intent();
 		intent2Browse.setAction(Intent.ACTION_PICK);
@@ -298,7 +302,7 @@ public class StoryWriterActivity extends SherlockFragmentActivity
 		intent2Browse.putExtra("browser_list_background_color", "66000000");
 
 		startActivityForResult(intent2Browse, OPEN_FILE_REQUEST_CODE);
-	}
+	}*/
 	
 
 	
@@ -309,7 +313,7 @@ public class StoryWriterActivity extends SherlockFragmentActivity
 		
 	    switch (requestCode) {
 
-			case SAVE_FILE_REQUEST_CODE:
+			case FilePicker.SAVE_FILE_REQUEST_CODE:
 
 				if(RESULT_OK == resultCode) {
 
@@ -325,7 +329,7 @@ public class StoryWriterActivity extends SherlockFragmentActivity
 				}
 			break;
 			
-			case OPEN_FILE_REQUEST_CODE:
+			case FilePicker.OPEN_FILE_REQUEST_CODE:
 
 				if(RESULT_OK == resultCode) {
 
@@ -346,9 +350,14 @@ public class StoryWriterActivity extends SherlockFragmentActivity
 	}
 	
 	private String getPromptFileName(String fName){
-		String ret = fName.substring(0, fName.lastIndexOf('.'))+".pmt";
+		String ret = fName;
 		
-		return ret;
+		if(ret.contains("."))
+		{
+		  ret  = ret.substring(0, fName.lastIndexOf('.'));
+		}
+		
+		return ret + ".pmt";
 	}
 	
 	private void updateText(String aText, String aFileName){

@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">The Writeo.US Story Edition</string>
+    <string name="application_name">The Writeo.US Story Edition</string>
 	<string name="newFileName">Untitled</string>
-
+	<string name="save_title">Save as...</string>
+	<string name="save_button">Save</string>
+	<string name="open_title">Choose story...</string>
+	<string name="open_button">Open</string>
 </resources>

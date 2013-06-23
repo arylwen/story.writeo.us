@@ -1,0 +1,11 @@
+package com.halcyon.storywriter;
+
+public interface FilePicker
+{
+	public final static int SAVE_FILE_REQUEST_CODE = 10;
+	public final static int OPEN_FILE_REQUEST_CODE = 20;
+	
+	public void pickFileForSave();
+	
+	public void pickFileForOpen();
+}

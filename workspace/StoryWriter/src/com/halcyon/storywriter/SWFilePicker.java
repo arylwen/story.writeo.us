@@ -3,6 +3,7 @@ package com.halcyon.storywriter;
 import android.app.*;
 import android.content.*;
 import android.net.*;
+import com.halcyon.filepicker.*;
 import java.io.*;
 import org.openintents.intents.*;
 
@@ -18,7 +19,7 @@ public class SWFilePicker implements FilePicker
 	public void pickFileForSave()
 	{
 		Intent intent2Browse = new Intent();
-		intent2Browse.setAction(StoryWriterIntents.ACTION_PICK_FILE);
+		intent2Browse.setAction(FilePickerIntents.ACTION_PICK_FILE);
 		Uri startDir = Uri.fromFile(new File("/sdcard"));
 		intent2Browse.setData(startDir);
 
@@ -31,7 +32,7 @@ public class SWFilePicker implements FilePicker
 	public void pickFileForOpen()
 	{
 		Intent intent2Browse = new Intent();
-		intent2Browse.setAction(StoryWriterIntents.ACTION_PICK_FILE);
+		intent2Browse.setAction(FilePickerIntents.ACTION_PICK_FILE);
 		Uri startDir = Uri.fromFile(new File("/sdcard"));
 		intent2Browse.setData(startDir);
 

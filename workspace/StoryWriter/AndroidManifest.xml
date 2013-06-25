@@ -16,7 +16,7 @@
 		android:theme="@style/Theme.Sherlock.Light"	>
 		
         <activity
-            android:label="@string/application_name"
+            android:label="@string/story_app_name"
             android:name=".StoryWriterActivity" >
             <intent-filter >
                 <action android:name="android.intent.action.MAIN" />
@@ -25,6 +25,26 @@
             </intent-filter>
         </activity>
 		
+		<activity
+            android:name="com.halcyon.novelwriter.PartListActivity"
+            android:label="@string/novel_app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+				<category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+		
+        <activity
+            android:name="com.halcyon.novelwriter.PartDetailActivity"
+            android:label="@string/title_part_detail"
+            android:parentActivityName=".PartListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".PartListActivity" />
+        </activity>
+				
 		<activity 
 			android:name="org.openintents.filemanager.IntentFilterActivity"
 			android:theme="@style/Theme.Light.DarkTitle" >

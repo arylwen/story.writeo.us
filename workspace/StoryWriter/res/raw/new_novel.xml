@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<novel>
+	<name>New Novel</name>
+	<chapters>
+		<chapter>
+			<name>Chapter 1</name>
+			<scenes>
+				<scene>
+					<name>Scene 1</name>
+					<file>scenes/scene1</file>
+				</scene>
+			</scenes>
+		</chapter>
+		<chapter>
+			<name>Chapter 2</name>
+			<scenes>
+				<scene>
+					<name>Scene 2</name>
+					<file>scenes/scene2</file>
+				</scene>
+			</scenes>
+		</chapter>
+		<chapter>
+			<name>Chapter 3</name>
+			<scenes>
+				<scene>
+					<name>Scene 3</name>
+					<file>scenes/scene3</file>
+				</scene>
+			</scenes>
+		</chapter>
+    </chapters>
+</novel>

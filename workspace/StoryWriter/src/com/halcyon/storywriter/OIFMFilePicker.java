@@ -15,6 +15,19 @@ public class OIFMFilePicker implements FilePicker
 		activity = aActivity;
 	}
 
+	public void pickFileForNew()
+	{
+		Intent intent2Browse = new Intent();
+		intent2Browse.setAction(FileManagerIntents.ACTION_PICK_FILE);
+		Uri startDir = Uri.fromFile(new File("/sdcard"));
+		intent2Browse.setData(startDir);
+
+		intent2Browse.putExtra(FileManagerIntents.EXTRA_TITLE, activity.getString(R.string.save_title));
+		intent2Browse.putExtra(FileManagerIntents.EXTRA_BUTTON_TEXT, activity.getString(R.string.save_button));
+
+		activity.startActivityForResult(intent2Browse, SAVE_FILE_REQUEST_CODE);
+	}
+	
 	public void pickFileForSave()
 	{
 		Intent intent2Browse = new Intent();

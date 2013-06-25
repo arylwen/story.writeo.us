@@ -31,9 +31,6 @@ public class StoryWriterActivity extends SherlockFragmentActivity
 	private final static int MENU_SAVE_FILE_AS = Menu.FIRST + 3;
 	private final static int MENU_CHOOSE_STRUCT = Menu.FIRST + 4;
 	
-	//private final static int SAVE_FILE_REQUEST_CODE = 10;
-	//private final static int OPEN_FILE_REQUEST_CODE = 20;
-
     private EditText text;
 	private EditText prompt;
 	private TextView title = null;
@@ -57,8 +54,6 @@ public class StoryWriterActivity extends SherlockFragmentActivity
         super.onCreate(savedInstanceState);
 		fm = new FileManager();
 		helper = new StoryTemplateHelper();
-		//fpk = new AndFMFilePicker(this);
-		//fpk = new OIFMFilePicker(this);
 		fpk = new SWFilePicker(this);
 						
         setContentView(R.layout.edit);
@@ -275,37 +270,7 @@ public class StoryWriterActivity extends SherlockFragmentActivity
 		return super.onOptionsItemSelected(item);
 	}
 
-	/*private void pickFileForSave()
-	{
-		Intent intent2Browse = new Intent();
-		intent2Browse.setAction(Intent.ACTION_PICK);
-		Uri startDir = Uri.fromFile(new File("/sdcard"));
-		intent2Browse.setDataAndType(startDir, "vnd.android.cursor.dir/lysesoft.andexplorer.file");
 
-		intent2Browse.putExtra("browser_line", "enabled");
-		intent2Browse.putExtra("browser_line_textfield", "story.txt");
-
-		intent2Browse.putExtra("explorer_title", "Save As...");
-		intent2Browse.putExtra("browser_list_background_color", "66000000");
-
-		startActivityForResult(intent2Browse, SAVE_FILE_REQUEST_CODE);
-	}
-	
-	private void pickFileForOpen()
-	{
-		Intent intent2Browse = new Intent();
-		intent2Browse.setAction(Intent.ACTION_PICK);
-		Uri startDir = Uri.fromFile(new File("/sdcard"));
-		intent2Browse.setDataAndType(startDir, "vnd.android.cursor.dir/lysesoft.andexplorer.file");
-
-		intent2Browse.putExtra("explorer_title", "Select file...");
-		intent2Browse.putExtra("browser_list_background_color", "66000000");
-
-		startActivityForResult(intent2Browse, OPEN_FILE_REQUEST_CODE);
-	}*/
-	
-
-	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
 

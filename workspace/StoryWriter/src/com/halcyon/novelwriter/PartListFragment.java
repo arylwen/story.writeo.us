@@ -96,7 +96,7 @@ public class PartListFragment extends SherlockExpandableListFragment {
 
 	    adapter = new ExpandableNovelAdapter(getActivity(), getNovel());	
 		setListAdapter(adapter);
-		
+
 
 	}
 	
@@ -141,7 +141,9 @@ public class PartListFragment extends SherlockExpandableListFragment {
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 
+		//the expandable list is only available here
 		registerForContextMenu(getExpandableListView());
+		setOnClickListener(adapter);
 		Log.e(TAG, "registered for context menu");
 		
 		// Restore the previously serialized activated item position.
@@ -328,7 +330,20 @@ public class PartListFragment extends SherlockExpandableListFragment {
 
 				return true; 
 		   
-		   
+			case MENU_EDIT_CHAPTER: 
+
+				if(getExpandableListView().getPackedPositionType(packed) 
+				   != ExpandableListView.PACKED_POSITION_TYPE_NULL){
+
+					if(getExpandableListView().getPackedPositionType(packed) 
+					   == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
+
+						int chapterIndex = getExpandableListView().getPackedPositionGroup(packed);
+						//((ExpandableNovelAdapter)getExpandableListAdapter()).insertChapter(chapterIndex);
+					}
+				}
+
+				return true; 
 		   
 		   case MENU_REMOVE_CHAPTER: 
 		   
@@ -356,6 +371,38 @@ public class PartListFragment extends SherlockExpandableListFragment {
 						int chapterIndex = getExpandableListView().getPackedPositionGroup(packed);
 						int sceneIndex = getExpandableListView().getPackedPositionChild(packed);
 						((ExpandableNovelAdapter)getExpandableListAdapter()).insertScene(chapterIndex, sceneIndex);
+					}
+				}
+
+				return true; 
+		   
+			case MENU_EDIT_SCENE: 
+
+				if(getExpandableListView().getPackedPositionType(packed) 
+				   != ExpandableListView.PACKED_POSITION_TYPE_NULL){
+
+					if(getExpandableListView().getPackedPositionType(packed) 
+					   == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
+
+						int chapterIndex = getExpandableListView().getPackedPositionGroup(packed);
+						int sceneIndex = getExpandableListView().getPackedPositionChild(packed);
+						//((ExpandableNovelAdapter)getExpandableListAdapter()).insertScene(chapterIndex, sceneIndex);
+					}
+				}
+
+				return true; 
+		   
+			case MENU_REMOVE_SCENE: 
+
+				if(getExpandableListView().getPackedPositionType(packed) 
+				   != ExpandableListView.PACKED_POSITION_TYPE_NULL){
+
+					if(getExpandableListView().getPackedPositionType(packed) 
+					   == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
+
+						int chapterIndex = getExpandableListView().getPackedPositionGroup(packed);
+						int sceneIndex = getExpandableListView().getPackedPositionChild(packed);
+						((ExpandableNovelAdapter)getExpandableListAdapter()).removeScene(chapterIndex, sceneIndex);
 					}
 				}
 

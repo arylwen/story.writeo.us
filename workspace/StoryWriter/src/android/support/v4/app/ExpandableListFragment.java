@@ -1,22 +1,11 @@
 package android.support.v4.app;
 
-import android.os.Bundle;
-import android.os.Handler;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnCreateContextMenuListener;
-import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
-import android.widget.ExpandableListAdapter;
-import android.widget.ExpandableListView;
-import android.widget.FrameLayout;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.os.*;
+import android.view.*;
+import android.view.ContextMenu.*;
+import android.view.View.*;
+import android.view.animation.*;
+import android.widget.*;
 
 /**
  * This class has originally been taken from
@@ -28,7 +17,7 @@ import android.widget.TextView;
  */
 public class ExpandableListFragment extends Fragment
 implements OnCreateContextMenuListener, ExpandableListView.OnChildClickListener,
-ExpandableListView.OnGroupCollapseListener, ExpandableListView.OnGroupExpandListener {
+ExpandableListView.OnGroupCollapseListener, ExpandableListView.OnGroupExpandListener{
 
     static final int INTERNAL_EMPTY_ID = 0x00ff0001;
     static final int INTERNAL_LIST_CONTAINER_ID = 0x00ff0003;
@@ -314,10 +303,20 @@ ExpandableListView.OnGroupCollapseListener, ExpandableListView.OnGroupExpandList
         return false;
     }
 
+	//@Override
+	//public void onClick(View view){
+		//mAdapter.o
+	//}
+	
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
     }
 
+	public void setOnClickListener(OnClickListener listener){
+		//Don't call setOnClickListener for an adapter view error
+		//mList.setOnClickListener(listener);
+	}
+	
     public void onContentChanged() {
 		
 		
@@ -330,6 +329,8 @@ ExpandableListView.OnGroupCollapseListener, ExpandableListView.OnGroupExpandList
         if (emptyView != null) {
             mList.setEmptyView(emptyView);
         }
+		
+		//mList.setOnClickListener(this);
         mList.setOnChildClickListener(this);
         mList.setOnGroupExpandListener(this);
         mList.setOnGroupCollapseListener(this);

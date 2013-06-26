@@ -2,14 +2,19 @@ package com.halcyon.novelwriter;
 
 import android.content.*;
 import android.database.*;
+import android.util.*;
 import android.view.*;
+import android.view.View.*;
 import android.widget.*;
 import com.halcyon.novelwriter.model.*;
 import com.halcyon.storywriter.*;
-import org.openintents.distribution.*;
+import java.util.*;
 
 
-public class ExpandableNovelAdapter extends BaseExpandableListAdapter {
+public class ExpandableNovelAdapter extends BaseExpandableListAdapter implements OnClickListener {
+
+      private static final String TAG = "NW ExpandableNovelAdapter";
+
       private LayoutInflater inflater;
 	  private Novel novel;
 	  
@@ -76,6 +81,11 @@ public class ExpandableNovelAdapter extends BaseExpandableListAdapter {
 	   
 	   ImageButton up = (ImageButton) view.findViewById(R.id.up);
 	   ImageButton down = (ImageButton) view.findViewById(R.id.down);
+	   
+	   up.setOnClickListener(this);
+	   down.setOnClickListener(this);
+	   up.setTag(holder);
+	   down.setTag(holder);
 
 	   holder.up = up;
 	   holder.down = down;
@@ -121,6 +131,11 @@ public class ExpandableNovelAdapter extends BaseExpandableListAdapter {
 	   
 	   ImageButton up = (ImageButton) view.findViewById(R.id.up);
 	   ImageButton down = (ImageButton) view.findViewById(R.id.down);
+	   
+	   up.setOnClickListener(this);
+	   down.setOnClickListener(this);
+	   up.setTag(holder);
+	   down.setTag(holder);
 	   
 	   holder.up = up;
 	   holder.down = down;
@@ -205,17 +220,65 @@ public class ExpandableNovelAdapter extends BaseExpandableListAdapter {
    }
    
    // Intentionally put on comment, if you need on click deactivate it
-   /*  @Override    public void onClick(View view) { 
-          ViewHolder holder = (ViewHolder)view.getTag(); 
-          if (view.getId() == holder.button.getId()){ 
-              // DO YOUR ACTION  
-       }    }*/
+   @Override public void onClick(View view) {
+	   Log.e(TAG, "onClick called");
+	   
+       ViewHolder holder = (ViewHolder)view.getTag();
+	   //Log.e(TAG, "holder "+holder);
+	   if(holder != null ){
+	       if(holder.up != null){
+			   //Log.e(TAG, "view "+ view.getId());
+               if (view.getId() == holder.up.getId()){
+                    // up pressed
+			        if(holder.childPosition == -1){
+				        //chapter button presses
+			            swapChapters(novel.getChapters(), holder.groupPosition, holder.groupPosition-1);
+			            notifyDataSetChanged();
+			        } else {
+			           swapScenes(novel.getChapters().get(holder.groupPosition).getScenes(), 
+			                holder.childPosition, holder.childPosition-1);
+				        notifyDataSetChanged();
+			        }				
+                }
+	        }
+			
+		   if(holder.down != null){
+			   //Log.e(TAG, "view "+ view.getId());
+               if (view.getId() == holder.down.getId()){
+				   // up pressed
+				   if(holder.childPosition == -1){
+					   //chapter button presses
+					   swapChapters(novel.getChapters(), holder.groupPosition, holder.groupPosition+1);
+					   notifyDataSetChanged();
+				   } else {
+			           swapScenes(novel.getChapters().get(holder.groupPosition).getScenes(), 
+								  holder.childPosition, holder.childPosition+1);
+					   notifyDataSetChanged();
+				   }				
+			   }
+		   }
+	   }
+   }
    
    protected class ViewHolder {
-	   protected int childPosition;
-	   protected int groupPosition;
+	   protected int childPosition = -1;
+	   protected int groupPosition = -1 ;
 	   protected ImageButton up;
 	   protected ImageButton down;
 	}
 	
+	/*ArrayList<T> syntax doesn't work */
+	
+	
+	
+	
+	public void swapChapters( List<Chapter> list, int firstInd, int secondInd ) { 
+	    Chapter temp =  list.set( firstInd, list.get( secondInd ) ) ; 
+	    list.set( secondInd, temp ) ; 
+	}
+	
+	public void swapScenes( List<Scene> list, int firstInd, int secondInd ) { 
+	    Scene temp =  list.set( firstInd, list.get( secondInd ) ) ; 
+	    list.set( secondInd, temp ) ; 
+	}
 }

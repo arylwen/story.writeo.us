@@ -33,19 +33,9 @@
 		android:text="down"
 		android:focusable="false"
 		android:layout_gravity="right|center_vertical"
-		android:focusableInTouchMode="false"
+		
 		android:src="@drawable/arrow_down"
 		android:background="@android:color/transparent"
 		android:id="@+id/down"/>
-	
-
-	<!--Button
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="e"
-		android:focusable="false"
-		android:layout_gravity="right"
-		android:focusableInTouchMode="false"
-		android:id="@+id/button"/-->
 	
 </LinearLayout>

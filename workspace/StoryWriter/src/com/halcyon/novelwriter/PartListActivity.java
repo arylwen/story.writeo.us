@@ -11,6 +11,7 @@ import com.actionbarsherlock.view.*;
 import com.halcyon.novelwriter.model.*;
 import com.halcyon.storywriter.*;
 import java.io.*;
+import java.util.zip.*;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
@@ -31,7 +32,7 @@ import com.actionbarsherlock.view.MenuItem;
  * interface to listen for item selections.
  */
 public class PartListActivity extends SherlockFragmentActivity implements
-		PartListFragment.Callbacks {
+		PartListFragment.Callbacks, EditChapterDialogListener, EditSceneDataDialogFragment.EditSceneDialogListener {
 
 	private final static int MENU_NEW_FILE = Menu.FIRST;
 	private final static int MENU_SAVE_FILE = Menu.FIRST + 1;
@@ -49,12 +50,14 @@ public class PartListActivity extends SherlockFragmentActivity implements
 	private TextView title;
 	private String fileName;
 	private boolean isUntitled = true;
-	private boolean isChanged = false;
+	
 	private PartListFragment partList;
+	private Scene currentScene;
 	
 	private FileManager fm;
 	private FilePicker fpk;
 	private NovelHelper nh;
+	private NovelPersistenceManager npm;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -115,7 +118,7 @@ public class PartListActivity extends SherlockFragmentActivity implements
 	 * Callback method from {@link PartListFragment.Callbacks} indicating that
 	 * the item with the given ID was selected.
 	 */
-	@Override
+	/*@Override
 	public void onItemSelected(String id) {
 		Toast.makeText(this, "on item selected", Toast.LENGTH_SHORT);
 		if (mTwoPane) {
@@ -136,7 +139,7 @@ public class PartListActivity extends SherlockFragmentActivity implements
 			detailIntent.putExtra(PartDetailFragment.ARG_ITEM_ID, id);
 			startActivity(detailIntent);
 		}
-	}
+	}*/
 	
 	@Override
 	public void onChapterSelected(Chapter chapter)
@@ -146,13 +149,25 @@ public class PartListActivity extends SherlockFragmentActivity implements
 	
 	public void onSceneSelected(Scene scene)
 	{
-		if (mTwoPane) {
+		if(currentScene != null){
+			//find the edit text
+			String newScene = ((EditText) findViewById(R.id.note)).getText().toString();
+			String newPrompt = ((EditText) findViewById(R.id.prompt)).getText().toString();
+			npm.updateScene(currentScene.getPath(), newScene, newPrompt);
+		}
+		currentScene = scene;
+		if (mTwoPane) {			
 			// In two-pane mode, show the detail view in this activity by
 			// adding or replacing the detail fragment using a
 			// fragment transaction.
 			Bundle arguments = new Bundle();
 			arguments.putSerializable("scene", scene);
-			//arguments.putString(PartDetailFragment.ARG_ITEM_ID, id);
+			String text = npm.getScene(scene.getPath());
+			arguments.putSerializable("text", text);
+			String prompt = npm.getScene(scene.getPath()+".1");
+			arguments.putSerializable("prompt", prompt);
+			
+			
 			PartDetailFragment fragment = new PartDetailFragment();
 			fragment.setArguments(arguments);
 			getSupportFragmentManager().beginTransaction()
@@ -173,10 +188,10 @@ public class PartListActivity extends SherlockFragmentActivity implements
 	{
 		super.onCreateOptionsMenu(menu);
 
-		menu.add(0, MENU_NEW_FILE, 0, "New").setShortcut('0', 'n').setIcon(R.drawable.ic_new);		
-		menu.add(0, MENU_OPEN_FILE, 0, "Open").setShortcut('0', 'o').setIcon(R.drawable.ic_open);
-		menu.add(0, MENU_SAVE_FILE, 0, "Save").setShortcut('0', 's').setIcon(R.drawable.ic_save);
-		menu.add(0, MENU_SAVE_FILE_AS, 0, "Save As...").setShortcut('0', 'a').setIcon(R.drawable.ic_save);
+		menu.add(0, MENU_NEW_FILE, 0, "New Novel").setShortcut('0', 'n').setIcon(R.drawable.ic_new);		
+		menu.add(0, MENU_OPEN_FILE, 0, "Open Novel").setShortcut('0', 'o').setIcon(R.drawable.ic_open);
+		//menu.add(0, MENU_SAVE_FILE, 0, "Save").setShortcut('0', 's').setIcon(R.drawable.ic_save);
+		//menu.add(0, MENU_SAVE_FILE_AS, 0, "Save As...").setShortcut('0', 'a').setIcon(R.drawable.ic_save);
 		menu.add(0, MENU_CHOOSE_STRUCT, 0, "Choose Structure...").setShortcut('0', 'a').setIcon(R.drawable.ic_open);
 		
 		return true;
@@ -187,23 +202,14 @@ public class PartListActivity extends SherlockFragmentActivity implements
 	{
 		switch (item.getItemId()) {
 			case MENU_NEW_FILE:
-			    //TO DO check if dirty
-				//initialize
-				//prompt.setText("add notes here");
-				//title.setText("");
-				//isUntitled = true;
-				//isChanged = false;
-				//fileName = getResources().getString( R.string.newFileName);
-				
-				//this would also trigger the update of the word counter and file name
-				//text.setText("");
-			
-			    fpk.pickFileForNew();
-			
+			    //TO DO check if dirty			
+			    fpk.pickFileForNew();			
 			    break;
+				
 			case MENU_OPEN_FILE:
 			    fpk.pickFileForOpen();
 				break;
+				
 			case MENU_SAVE_FILE:	
 		
 				if (isUntitled) {
@@ -245,25 +251,48 @@ public class PartListActivity extends SherlockFragmentActivity implements
 					String fName = fileUri.getPath();
 					
 					InputStream inputStream = null;
+					ZipOutputStream zos = null;
 					try{
 						inputStream = getResources().openRawResource(R.raw.new_novel);
 						byte[] reader = new byte[inputStream.available()];
-						while (inputStream.read(reader) != -1) {};
+						while (inputStream.read(reader) != -1) {};						
+						String xml = new String(reader);						
+						Log.e(TAG, xml);						
+						Novel novel = nh.readNovel(xml);						
 						
-						String xml = new String(reader);
+						//inputStream = getResources().openRawResource(R.raw.default_scene);
+						//reader = new byte[inputStream.available()];
+						//while (inputStream.read(reader) != -1) {};	
 						
-						Log.e(TAG, xml);
+						/*OutputStream os = new FileOutputStream(fName);
+						zos = new ZipOutputStream(new BufferedOutputStream(os));
 						
-						Novel novel = nh.readNovel(xml);
+						String filename = "novel.xml";
+						byte[] bytes = reader;
+						ZipEntry entry = new ZipEntry(filename);
+						zos.putNextEntry(entry);
+						zos.write(bytes);
+						zos.closeEntry();*/
 						
-						partList.resetModel(novel);
-						
+						fileName = fName;
+						updateTitle();
+						npm = new NovelZipManager(fileName, novel, getCacheDir());
+						npm.createNovel();
+						partList.resetModel(npm);
 					}catch(IOException e) {
 						Log.e(TAG, e.getMessage());
 					} finally {
 						if(inputStream != null) {
 							try { 
 							    inputStream.close();
+							} catch (IOException e) { 
+							    Log.e(TAG, e.getMessage());
+							}
+						}
+						
+						if(zos != null) {
+							try { 
+							    zos.close();
 							} catch (IOException e) { 
 							    Log.e(TAG, e.getMessage());
 							}
@@ -295,18 +324,32 @@ public class PartListActivity extends SherlockFragmentActivity implements
 				if(RESULT_OK == resultCode) {
 
 				    Uri fileUri = intent.getData();
-					String fName = fileUri.getPath();
+					fileName = fileUri.getPath();
 					
-					//restore prompt 
-					//StringBuffer pmt = fm.openFile(getPromptFileName(fName), this);
-					//prompt.setText(pmt.toString());
-					
-					//restore story
-					StringBuffer txt = fm.openFile(fName, this);	
-					//update file name, save story and prompt as state
-					//updateText(txt.toString(), fName);
+					updateTitle();
+					npm = new NovelZipManager(fileName, null, getCacheDir());
+					partList.resetModel(npm);
 				}
 			break;
 		}
+	}
+	
+	private void updateTitle(){
+		title.setText(fileName);
+		
+	}
+	
+	/*public PartListFragment getPartListFragment(){
+		return partList;
+	}*/
+	
+	@Override
+	public void onChapterChanged(Chapter chapter){
+        partList.onChapterChanged(chapter);
+	}
+	
+	@Override
+	public void onSceneChanged(Scene scene){
+        partList.onSceneChanged(scene);
 	}
 }

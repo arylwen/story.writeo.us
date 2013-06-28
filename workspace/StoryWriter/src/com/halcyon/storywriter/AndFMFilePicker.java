@@ -64,6 +64,6 @@ public class AndFMFilePicker implements FilePicker
 		activity.startActivityForResult(intent2Browse, OPEN_FILE_REQUEST_CODE);
 	}
 	
-
+    public void pickDirectory(){}
 	
 }

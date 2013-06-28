@@ -6,6 +6,8 @@
     android:layout_marginRight="16dp"
     android:orientation="horizontal"
     android:showDividers="middle"
+	android:divider="?android:attr/dividerVertical" 
+	android:dividerPadding="12dip"
     tools:context=".PartListActivity" >
 
     <!--
@@ -30,6 +32,6 @@
         android:id="@+id/part_detail_container"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="3" />
+        android:layout_weight="5" />
 
 </LinearLayout>

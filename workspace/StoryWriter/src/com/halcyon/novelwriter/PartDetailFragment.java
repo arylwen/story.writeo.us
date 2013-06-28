@@ -49,13 +49,39 @@ public class PartDetailFragment extends SherlockFragment {
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_part_detail,
 				container, false);
-
-		// Show the dummy content as text in a TextView.
-		if (mItem != null) {
-			((TextView) rootView.findViewById(R.id.part_detail))
-					.setText(mItem.getName());
+				
+		// setup the scroll view to fill the parent
+		ScrollView scroll = (ScrollView) rootView.findViewById(R.id.scroll);	
+		if (scroll != null)
+		{
+			scroll.setFillViewport(true);
+			scroll.setHorizontalScrollBarEnabled(false);
+		}		
+			
+		String text = null;
+		if (getArguments().containsKey("text")) {
+			// Load the dummy content specified by the fragment
+			// arguments. In a real-world scenario, use a Loader
+			// to load content from a content provider.
+			text = (String)getArguments().getSerializable((
+										 "text"));
+		}
+			
+		if (text != null) {
+			((EditText) rootView.findViewById(R.id.note))
+					.setText(text);
 		}
 
+		String prompt = null;
+		if (getArguments().containsKey("prompt")) {
+			prompt = (String)getArguments().getSerializable(("prompt"));
+		}
+		
+		if (prompt != null) {
+			((EditText) rootView.findViewById(R.id.prompt))
+					.setText(prompt);
+		}
+		
 		return rootView;
 	}
 }

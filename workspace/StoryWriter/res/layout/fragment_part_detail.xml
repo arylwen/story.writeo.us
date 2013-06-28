@@ -1,9 +1,62 @@
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/part_detail"
-    style="?android:attr/textAppearanceLarge"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp"
-    tools:context=".PartDetailFragment" />
+<?xml version="1.0" encoding="utf-8"?>
+
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:orientation="horizontal"
+	    android:layout_marginLeft="16dp"
+		android:layout_marginRight="16dp"
+		android:showDividers="middle"
+		android:divider="?android:attr/dividerVertical" 
+		android:dividerPadding="12dip"	>
+
+		<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
+			android:id="@+id/scroll"
+			android:orientation="vertical"
+			android:layout_width="0dp"
+			android:layout_weight="4"
+			android:layout_height="fill_parent"
+			android:background="@null"
+			android:fadingEdge="none">
+			<EditText xmlns:android="http://schemas.android.com/apk/res/android"
+				android:id="@+id/note"
+				android:layout_width="fill_parent"
+				android:layout_height="fill_parent"
+				android:background="@null"
+				android:padding="10dip"
+				android:fadingEdge="none"
+				android:scrollbars="vertical|horizontal"
+				android:gravity="top"
+				android:autoText="false"
+				android:capitalize="none"
+				android:textColor="#FF888888"
+				android:textCursorDrawable="@null"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+			/>
+		</ScrollView>
+
+		<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
+			android:id="@+id/promptscroll"
+			android:orientation="vertical"
+			android:layout_width="0dp"
+			android:layout_weight="1"
+			android:layout_height="fill_parent"
+			android:fadingEdge="none">
+			<EditText xmlns:android="http://schemas.android.com/apk/res/android"
+				android:id="@+id/prompt"
+				android:layout_width="fill_parent"
+				android:layout_height="fill_parent"
+				android:background="@null"
+				android:textColor="#FFCCCCCC"
+				android:padding="5dip"
+				android:fadingEdge="none"
+				android:scrollbars="vertical|horizontal"
+				android:gravity="top"
+				android:autoText="false"
+				android:capitalize="none"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+			/>
+		</ScrollView>
+
+	</LinearLayout>
 

@@ -1,6 +1,7 @@
 package com.halcyon.novelwriter.model;
 
 import java.io.*;
+import java.util.*;
 import org.simpleframework.xml.*;
 
 @Element(name="scene")
@@ -10,14 +11,13 @@ public class Scene implements Serializable
     protected String name = "Untitled";
 	
 	@Element(name="file")
-	protected String path;
+	protected String path = "scenes/"+UUID.randomUUID().toString();
 
 	public void setName(String aName)
 	{
 		name = aName;
 	}
 	
-
 	public String getName()
 	{
 		return name;
@@ -28,11 +28,8 @@ public class Scene implements Serializable
 		path = aPath;
 	}
 
-
 	public String getPath()
 	{
-		return name;
-	}
-	
-	
+		return path;
+	}	
 }

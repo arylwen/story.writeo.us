@@ -8,9 +8,9 @@ import org.simpleframework.xml.core.*;
 
 public class NovelHelper
 {
-    private static final String TAG = "NW:NovelHelper";
+    private static final String TAG = "NW NovelHelper";
 
-    public Novel readNovel(String novelXml)
+    public static Novel readNovel(String novelXml)
 	{
 		Novel novel = null;
 		
@@ -29,5 +29,29 @@ public class NovelHelper
 		}
 		
 		return novel;
+	}
+	
+	public static String novelToString(Novel novel){
+		
+		Serializer serializer = new Persister(); 
+		StringWriter writer = new StringWriter(); 
+		try
+		{
+		    serializer.write(novel, writer);
+			Log.e(TAG, "we got a novel"+novel);
+		} catch (Exception e) 
+		{ 
+		    //todo
+			Log.e(TAG, e.getMessage());
+		} catch (Throwable t) {
+			Log.e(TAG, t.getMessage());
+		}
+		
+		StringBuffer sb = writer.getBuffer();
+		String ret = sb.toString();
+		
+		Log.e(TAG, "noveltostring "+ret);
+		
+		return ret;
 	}
 }

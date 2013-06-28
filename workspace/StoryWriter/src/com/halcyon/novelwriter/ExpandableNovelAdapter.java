@@ -17,6 +17,7 @@ public class ExpandableNovelAdapter extends BaseExpandableListAdapter implements
 
       private LayoutInflater inflater;
 	  private Novel novel;
+	  private NovelPersistenceManager npm = null;
 	  
 	  public ExpandableNovelAdapter(Context context, Novel aNovel){	  
 	      novel = aNovel;
@@ -38,8 +39,8 @@ public class ExpandableNovelAdapter extends BaseExpandableListAdapter implements
 	@Override
 	//gets the title of each parent/group    
 	public Object getGroup(int i) {
-		return novel.getChapters().get(i).getName();
-		}
+		return novel.getChapters().get(i);
+	}
 		
 		
    @Override
@@ -76,7 +77,7 @@ public class ExpandableNovelAdapter extends BaseExpandableListAdapter implements
 	   TextView textView = (TextView) view.findViewById(R.id.list_item_text_view);
 	   
 	   //"i" is the position of the parent/group in the list        
-	   textView.setText(getGroup(groupPosition).toString());
+	   textView.setText(((Chapter)getGroup(groupPosition)).getName());
 	   view.setTag(holder);
 	   
 	   ImageButton up = (ImageButton) view.findViewById(R.id.up);
@@ -181,33 +182,46 @@ public class ExpandableNovelAdapter extends BaseExpandableListAdapter implements
 	   notifyDataSetChanged();
    }
    
+	public void resetModel(NovelPersistenceManager aNpm)
+	{
+		novel = aNpm.getNovel();
+		npm = aNpm;
+		notifyDataSetChanged();
+	}
+	
+   
    public void addChapter()
    {
 	   novel.addChapter(new Chapter());
+	   npm.updateNovel();
 	   notifyDataSetChanged();
    }
    
 	public void addScene(int toChapter)
 	{
 		novel.getChapters().get(toChapter).addScene(new Scene());
+		npm.updateNovel();
 		notifyDataSetChanged();
 	}
    
    	public void insertScene(int toChapter, int beforeScene)
 	{
 		novel.getChapters().get(toChapter).getScenes().add(beforeScene, new Scene());
+		npm.updateNovel();
 		notifyDataSetChanged();
 	}
    
 	public void insertChapter(int position)
 	{
 		novel.insertChapter(new Chapter(), position);
+		npm.updateNovel();
 		notifyDataSetChanged();
 	}
    
    public void removeChapter(int position)
    {
 	   novel.removeChapter(position);
+	   npm.updateNovel();
 	   notifyDataSetChanged();
    }
    
@@ -215,37 +229,41 @@ public class ExpandableNovelAdapter extends BaseExpandableListAdapter implements
    {
 	   Chapter c = novel.getChapters().get(chapterPos);
 	   c.removeScene(scenePos);
-	   
+	   npm.updateNovel();
 	   notifyDataSetChanged();
    }
    
+   public void updateNovel(){
+	   npm.updateNovel();
+	   notifyDataSetChanged();
+   }
+      
    // Intentionally put on comment, if you need on click deactivate it
    @Override public void onClick(View view) {
 	   Log.e(TAG, "onClick called");
 	   
        ViewHolder holder = (ViewHolder)view.getTag();
-	   //Log.e(TAG, "holder "+holder);
 	   if(holder != null ){
 	       if(holder.up != null){
-			   //Log.e(TAG, "view "+ view.getId());
                if (view.getId() == holder.up.getId()){
                     // up pressed
 			        if(holder.childPosition == -1){
 				        //chapter button presses
 			            swapChapters(novel.getChapters(), holder.groupPosition, holder.groupPosition-1);
+						npm.updateNovel();
 			            notifyDataSetChanged();
 			        } else {
 			           swapScenes(novel.getChapters().get(holder.groupPosition).getScenes(), 
 			                holder.childPosition, holder.childPosition-1);
+						npm.updateNovel();
 				        notifyDataSetChanged();
 			        }				
                 }
 	        }
 			
 		   if(holder.down != null){
-			   //Log.e(TAG, "view "+ view.getId());
                if (view.getId() == holder.down.getId()){
-				   // up pressed
+				   // down pressed
 				   if(holder.childPosition == -1){
 					   //chapter button presses
 					   swapChapters(novel.getChapters(), holder.groupPosition, holder.groupPosition+1);

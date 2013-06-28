@@ -60,29 +60,4 @@ public class ChooseTemplateDialogFragment extends SherlockDialogFragment {
 			
 		return builder.create();
 	}
-
-	
-	/*private List<StructureTemplate> getStructureTemplates()
-	{
-		ArrayList<StructureTemplate> ret = new ArrayList<StructureTemplate>();
-
-		AssetManager assetManager = getActivity().getAssets();
-
-		try
-		{
-		    String[] files = assetManager.list("templates");
-			StructureTemplate st;
-			for(int i=0; i<files.length; i++) {
-				//Toast.makeText(this, files[i], Toast.LENGTH_SHORT);
-				st = new StructureTemplate();
-				st.setFile(files[i]);
-				st.setName(files[i].substring(0, files[i].lastIndexOf('.')).replace('_', ' '));
-				ret.add(st);
-			}
-		}catch (IOException e1) {
-		    e1.printStackTrace();
-		}
-
-		return ret;
-	}*/
 }

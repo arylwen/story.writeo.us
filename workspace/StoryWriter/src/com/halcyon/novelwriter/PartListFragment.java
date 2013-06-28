@@ -21,14 +21,15 @@ import com.halcyon.novelwriter.model.*;
  * Activities containing this fragment MUST implement the {@link Callbacks}
  * interface.
  */
-public class PartListFragment extends SherlockExpandableListFragment {
+public class PartListFragment extends SherlockExpandableListFragment 
+                    implements EditChapterDialogListener, EditSceneDataDialogFragment.EditSceneDialogListener  {
 
 	/**
 	 * The serialization (saved instance state) Bundle key representing the
 	 * activated item position. Only used on tablets.
 	 */
 	private static final String STATE_ACTIVATED_POSITION = "activated_position";
-	private static final String TAG = "PartListFragment";
+	private static final String TAG = "NW PartListFragment";
 	
 	//Constants for context menu options
 	public static final int MENU_INSERT_CHAPTER = 1; 
@@ -83,6 +84,17 @@ public class PartListFragment extends SherlockExpandableListFragment {
 		}
 	};
 
+	/*persist the changed name */
+	public void onChapterChanged(Chapter Chapter){
+		((ExpandableNovelAdapter)getExpandableListAdapter()).updateNovel();
+	}
+	
+	/*persist the changed name */
+	public void onSceneChanged(Scene scene){
+		((ExpandableNovelAdapter)getExpandableListAdapter()).updateNovel();
+	}
+	
+	
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
 	 * fragment (e.g. upon screen orientation changes).
@@ -106,13 +118,17 @@ public class PartListFragment extends SherlockExpandableListFragment {
 		
 	}
 	
-	
+	public void resetModel(NovelPersistenceManager npm)
+	{
+		((ExpandableNovelAdapter)getExpandableListAdapter()).resetModel(npm);
+
+	}
 	
 	private Novel getNovel()
 	{
 		Novel novel = new Novel();
 		
-		Chapter c ;
+		/*Chapter c ;
 		Scene s;
 		
 		c = new Chapter();
@@ -131,7 +147,7 @@ public class PartListFragment extends SherlockExpandableListFragment {
 		s.setName("Scene 2");
 
 		c.addScene(s);
-		novel.addChapter(c);
+		novel.addChapter(c);*/
 		
 		return novel;
 	}
@@ -339,7 +355,13 @@ public class PartListFragment extends SherlockExpandableListFragment {
 					   == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
 
 						int chapterIndex = getExpandableListView().getPackedPositionGroup(packed);
-						//((ExpandableNovelAdapter)getExpandableListAdapter()).insertChapter(chapterIndex);
+						
+						Chapter chapter = (Chapter)((ExpandableNovelAdapter)getExpandableListAdapter()).
+							getGroup(chapterIndex);
+		                EditChapterDataDialogFragment newFragment = new EditChapterDataDialogFragment(chapter);
+
+						//newFragment.selectChapter(chapter);
+		                newFragment.show(getActivity().getSupportFragmentManager(), "editChapter");	
 					}
 				}
 
@@ -387,6 +409,14 @@ public class PartListFragment extends SherlockExpandableListFragment {
 						int chapterIndex = getExpandableListView().getPackedPositionGroup(packed);
 						int sceneIndex = getExpandableListView().getPackedPositionChild(packed);
 						//((ExpandableNovelAdapter)getExpandableListAdapter()).insertScene(chapterIndex, sceneIndex);
+
+						Scene scene = (Scene)((ExpandableNovelAdapter)getExpandableListAdapter()).
+							getChild(chapterIndex, sceneIndex);
+		                EditSceneDataDialogFragment newFragment = new EditSceneDataDialogFragment(scene);
+
+						//newFragment.selectChapter(chapter);
+		                newFragment.show(getActivity().getSupportFragmentManager(), "editScene");	
+						
 					}
 				}
 

@@ -11,7 +11,7 @@ import org.simpleframework.xml.core.*;
 
 public class StoryTemplateHelper implements StructureTemplateHelper
 {
-    private final static String TAG = "SW";
+    private final static String TAG = "SW StructureTemplateHelper";
 
 	private Map<Integer, SNode> template ;
 	private List<Integer> limits;

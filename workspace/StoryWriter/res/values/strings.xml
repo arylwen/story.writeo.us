@@ -15,4 +15,7 @@
 	<string name="save_button">Save</string>
 	<string name="open_title">Choose story...</string>
 	<string name="open_button">Open</string>
+	
+	<string name="ok">OK</string>
+	<string name="cancel">Cancel</string>
 </resources>

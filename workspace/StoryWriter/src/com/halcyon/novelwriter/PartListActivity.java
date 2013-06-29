@@ -11,6 +11,7 @@ import com.actionbarsherlock.view.*;
 import com.halcyon.novelwriter.model.*;
 import com.halcyon.storywriter.*;
 import java.io.*;
+import java.util.*;
 import java.util.zip.*;
 
 import com.actionbarsherlock.view.Menu;
@@ -32,7 +33,9 @@ import com.actionbarsherlock.view.MenuItem;
  * interface to listen for item selections.
  */
 public class PartListActivity extends SherlockFragmentActivity implements
-		PartListFragment.Callbacks, EditChapterDialogListener, EditSceneDataDialogFragment.EditSceneDialogListener {
+		PartListFragment.Callbacks, EditChapterDialogListener, 
+EditSceneDataDialogFragment.EditSceneDialogListener, NovelColoriser.CounterListener
+{
 
 	private final static int MENU_NEW_FILE = Menu.FIRST;
 	private final static int MENU_SAVE_FILE = Menu.FIRST + 1;
@@ -45,7 +48,7 @@ public class PartListActivity extends SherlockFragmentActivity implements
 	 * device.
 	 */
 	private boolean mTwoPane;
-	private static String TAG = "NW";
+	private static String TAG = "NW PartListActivity";
 	
 	private TextView title;
 	private String fileName;
@@ -58,6 +61,13 @@ public class PartListActivity extends SherlockFragmentActivity implements
 	private FilePicker fpk;
 	private NovelHelper nh;
 	private NovelPersistenceManager npm;
+	
+	private long totalWordCount = 0;
+	private long currentSceneWordCount = 0;
+	private long partialWordCount = 0;
+	private String currentPart = "";
+	
+	private Novel novel;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -94,15 +104,16 @@ public class PartListActivity extends SherlockFragmentActivity implements
 		    partList.setActivateOnItemClick(true);
 		}
 
+
+
+		
 		// TODO: If exposing deep links into your app, handle intents here.
 	}
 	
 	@Override
 	public void onViewCreated (View view, Bundle savedInstanceState)
     {
-		Log.e(TAG, "partlistactivity:onviewcreated");
-		//((PartListFragment) getSupportFragmentManager().findFragmentById(
-		//	R.id.part_list)).onContentChanged();
+		Log.e(TAG, "partlistactivity:onviewcreated");;
 	}
 
 	@Override
@@ -113,34 +124,60 @@ public class PartListActivity extends SherlockFragmentActivity implements
 			R.id.part_list)).onContentChanged();
 	}
 	
+	@Override
+	protected void onPause()
+	{
+		super.onPause();
+		Toast.makeText(this, "on pause called", Toast.LENGTH_SHORT).show();
+		saveState();
+	}
 	
-	/**
-	 * Callback method from {@link PartListFragment.Callbacks} indicating that
-	 * the item with the given ID was selected.
-	 */
-	/*@Override
-	public void onItemSelected(String id) {
-		Toast.makeText(this, "on item selected", Toast.LENGTH_SHORT);
-		if (mTwoPane) {
-			// In two-pane mode, show the detail view in this activity by
-			// adding or replacing the detail fragment using a
-			// fragment transaction.
-			Bundle arguments = new Bundle();
-			arguments.putString(PartDetailFragment.ARG_ITEM_ID, id);
-			PartDetailFragment fragment = new PartDetailFragment();
-			fragment.setArguments(arguments);
-			getSupportFragmentManager().beginTransaction()
-					.replace(R.id.part_detail_container, fragment).commit();
+	private void saveState(){
+		SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
 
-		} else {
-			// In single-pane mode, simply start the detail activity
-			// for the selected item ID.
-			Intent detailIntent = new Intent(this, PartDetailActivity.class);
-			detailIntent.putExtra(PartDetailFragment.ARG_ITEM_ID, id);
-			startActivity(detailIntent);
+		if (editor != null) {
+			if(!isUntitled){
+			   editor.putString("fileName", fileName);
+			   Toast.makeText(this, "saved "+fileName, Toast.LENGTH_SHORT).show();			   
+			}
+			
+			editor.commit();
 		}
-	}*/
-	
+	}
+		
+	@Override
+	protected void onResume()
+	{
+		super.onResume();	
+		Toast.makeText(this, "on resume called", Toast.LENGTH_SHORT).show();
+		SharedPreferences prefs = getPreferences(MODE_PRIVATE);
+		
+		String restoredFileName = prefs.getString("fileName", null);
+		Toast.makeText(this, "restoredFileName "+restoredFileName, Toast.LENGTH_SHORT).show();
+		if((restoredFileName != null)) {		
+			fileName = restoredFileName;
+			Toast.makeText(this, "restored 1 "+fileName, Toast.LENGTH_SHORT).show();
+			//File f = getFileStreamPath(fileName);
+			File f = new File(fileName);
+			if(!f.exists()){
+				fileName = getResources().getString( R.string.newFileName);
+				isUntitled = true;
+			} else {
+				isUntitled = false;
+			}
+		}
+		
+		Toast.makeText(this, "restored 2 "+fileName, Toast.LENGTH_SHORT).show();
+		
+		if( ( fileName != null ) && !isUntitled ){
+			totalWordCount = countWordsForNovel(fileName);
+			partialWordCount = totalWordCount; //no scene selected yet
+			updateTitle();
+			npm = new NovelZipManager(fileName, null, getCacheDir());
+			novel = partList.resetModel(npm);
+		}
+	}
+		
 	@Override
 	public void onChapterSelected(Chapter chapter)
 	{
@@ -156,18 +193,27 @@ public class PartListActivity extends SherlockFragmentActivity implements
 			npm.updateScene(currentScene.getPath(), newScene, newPrompt);
 		}
 		currentScene = scene;
+		String text = npm.getScene(scene.getPath());
+		String prompt = npm.getScene(scene.getPath()+".1");
+		//partialWordCount doesn't change, only the current scene does
+		if(text != null)
+		    partialWordCount = totalWordCount - NovelColoriser.wordCount(text);
+		else
+		    partialWordCount = totalWordCount;
+			
+		long wordsBeforeScene = countWordsBeforeScene(fileName, scene);
+		Log.e(TAG, "wordsBeforeScene "+wordsBeforeScene);
+		
 		if (mTwoPane) {			
 			// In two-pane mode, show the detail view in this activity by
 			// adding or replacing the detail fragment using a
 			// fragment transaction.
 			Bundle arguments = new Bundle();
 			arguments.putSerializable("scene", scene);
-			String text = npm.getScene(scene.getPath());
 			arguments.putSerializable("text", text);
-			String prompt = npm.getScene(scene.getPath()+".1");
 			arguments.putSerializable("prompt", prompt);
-			
-			
+			arguments.putLong("wordsBeforeScene", wordsBeforeScene);
+						
 			PartDetailFragment fragment = new PartDetailFragment();
 			fragment.setArguments(arguments);
 			getSupportFragmentManager().beginTransaction()
@@ -178,6 +224,12 @@ public class PartListActivity extends SherlockFragmentActivity implements
 			// for the selected item ID.
 			Intent detailIntent = new Intent(this, PartDetailActivity.class);
 			detailIntent.putExtra(PartDetailFragment.ARG_ITEM_ID, scene);
+			detailIntent.putExtra("fileName", fileName);
+			detailIntent.putExtra("text", text);
+			detailIntent.putExtra("prompt", prompt);
+			detailIntent.putExtra("wordsBeforeScene", wordsBeforeScene);
+			detailIntent.putExtra("partialWordCount", partialWordCount);
+			
 			startActivity(detailIntent);
 		}
 	}
@@ -251,34 +303,23 @@ public class PartListActivity extends SherlockFragmentActivity implements
 					String fName = fileUri.getPath();
 					
 					InputStream inputStream = null;
-					ZipOutputStream zos = null;
+					
 					try{
 						inputStream = getResources().openRawResource(R.raw.new_novel);
 						byte[] reader = new byte[inputStream.available()];
 						while (inputStream.read(reader) != -1) {};						
 						String xml = new String(reader);						
-						Log.e(TAG, xml);						
-						Novel novel = nh.readNovel(xml);						
-						
-						//inputStream = getResources().openRawResource(R.raw.default_scene);
-						//reader = new byte[inputStream.available()];
-						//while (inputStream.read(reader) != -1) {};	
-						
-						/*OutputStream os = new FileOutputStream(fName);
-						zos = new ZipOutputStream(new BufferedOutputStream(os));
-						
-						String filename = "novel.xml";
-						byte[] bytes = reader;
-						ZipEntry entry = new ZipEntry(filename);
-						zos.putNextEntry(entry);
-						zos.write(bytes);
-						zos.closeEntry();*/
-						
+						//Log.e(TAG, xml);						
+						novel = nh.readNovel(xml);						
+												
 						fileName = fName;
+						totalWordCount = countWordsForNovel(fileName);
+						partialWordCount = totalWordCount; //no scene selected yet
 						updateTitle();
 						npm = new NovelZipManager(fileName, novel, getCacheDir());
 						npm.createNovel();
 						partList.resetModel(npm);
+						isUntitled = false;
 					}catch(IOException e) {
 						Log.e(TAG, e.getMessage());
 					} finally {
@@ -289,17 +330,7 @@ public class PartListActivity extends SherlockFragmentActivity implements
 							    Log.e(TAG, e.getMessage());
 							}
 						}
-						
-						if(zos != null) {
-							try { 
-							    zos.close();
-							} catch (IOException e) { 
-							    Log.e(TAG, e.getMessage());
-							}
-						}
-					}
-					
-					
+					}					
 				}
 			break;
 			
@@ -325,23 +356,37 @@ public class PartListActivity extends SherlockFragmentActivity implements
 
 				    Uri fileUri = intent.getData();
 					fileName = fileUri.getPath();
-					
+					totalWordCount = countWordsForNovel(fileName);
+					partialWordCount = totalWordCount; //no scene selected yet
 					updateTitle();
 					npm = new NovelZipManager(fileName, null, getCacheDir());
-					partList.resetModel(npm);
+					novel = partList.resetModel(npm);
+					isUntitled = false;
 				}
 			break;
 		}
 	}
 	
 	private void updateTitle(){
-		title.setText(fileName);
-		
+		totalWordCount = currentSceneWordCount+partialWordCount;
+		title.setText(fileName+" "+currentSceneWordCount+":"+(totalWordCount)+":"+currentPart);		
 	}
 	
-	/*public PartListFragment getPartListFragment(){
-		return partList;
-	}*/
+	private long countWordsForNovel(String fileName){
+		SceneIterator si = new ZipSceneIterator(fileName);
+		CountWordsProcessor sp = new CountWordsProcessor();
+		si.iterate(sp, null);
+		
+		return sp.getWordCount();
+	}
+	
+	private long countWordsBeforeScene(String fileName, Scene scene){
+		SceneIterator si = new ZipSceneIterator(fileName);
+		CountWordsUpToProcessor sp = new CountWordsUpToProcessor(novel, scene);
+		si.iterate(sp, null);
+
+		return sp.getWordCount();
+	}
 	
 	@Override
 	public void onChapterChanged(Chapter chapter){
@@ -352,4 +397,17 @@ public class PartListActivity extends SherlockFragmentActivity implements
 	public void onSceneChanged(Scene scene){
         partList.onSceneChanged(scene);
 	}
+	
+	public void onWordCountUpdate(long wordCount)
+	{
+		currentSceneWordCount = wordCount;
+		updateTitle();
+	}
+	
+	public void onPartUpdate(String aPart)
+	{
+	    currentPart = aPart;
+		updateTitle();
+	}
+	
 }

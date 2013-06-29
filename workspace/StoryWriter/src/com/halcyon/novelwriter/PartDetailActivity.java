@@ -3,9 +3,14 @@ package com.halcyon.novelwriter;
 import android.content.*;
 import android.os.*;
 import android.support.v4.app.*;
+import android.view.*;
+import android.widget.*;
 import com.actionbarsherlock.app.*;
 import com.actionbarsherlock.view.*;
+import com.halcyon.novelwriter.model.*;
 import com.halcyon.storywriter.*;
+
+import com.actionbarsherlock.view.MenuItem;
 
 /**
  * An activity representing a single Part detail screen. This activity is only
@@ -15,8 +20,20 @@ import com.halcyon.storywriter.*;
  * This activity is mostly just a 'shell' activity containing nothing more than
  * a {@link PartDetailFragment}.
  */
-public class PartDetailActivity extends SherlockFragmentActivity {
+public class PartDetailActivity extends SherlockFragmentActivity 
+       implements NovelColoriser.CounterListener{
 
+    private TextView title;
+	private String fileName;
+	private Scene scene;
+		   
+	private long totalWordCount = 0;
+	private long currentSceneWordCount = 0;
+	private long partialWordCount = 0;
+	private String currentPart = "";	   
+	
+	private NovelPersistenceManager npm;
+		   
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -24,7 +41,19 @@ public class PartDetailActivity extends SherlockFragmentActivity {
 
 		// Show the Up button in the action bar.
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+		
+		View customNav = LayoutInflater.from(this).inflate(R.layout.custom_title_bar, null);		
+		title = (TextView) customNav.findViewById(R.id.notetitle);
+		getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM); 
+		getSupportActionBar().setCustomView(customNav);
+		getSupportActionBar().setDisplayShowTitleEnabled(false);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true); 
+		getSupportActionBar().setDisplayShowHomeEnabled(true);
+		
+        fileName = getIntent().getStringExtra("fileName");
+		scene = (Scene)getIntent().getSerializableExtra(PartDetailFragment.ARG_ITEM_ID);
+		npm = new NovelZipManager(fileName, null, getCacheDir());
+		
 		// savedInstanceState is non-null when there is fragment state
 		// saved from previous configurations of this activity
 		// (e.g. when rotating the screen from portrait to landscape).
@@ -38,8 +67,12 @@ public class PartDetailActivity extends SherlockFragmentActivity {
 			// Create the detail fragment and add it to the activity
 			// using a fragment transaction.
 			Bundle arguments = new Bundle();
-			arguments.putString(PartDetailFragment.ARG_ITEM_ID, getIntent()
-					.getStringExtra(PartDetailFragment.ARG_ITEM_ID));
+			arguments.putSerializable(PartDetailFragment.ARG_ITEM_ID, getIntent()
+					.getSerializableExtra(PartDetailFragment.ARG_ITEM_ID));
+			arguments.putSerializable("text", getIntent().getSerializableExtra("text"));
+			arguments.putSerializable("prompt", getIntent().getSerializableExtra("prompt"));			
+			arguments.putLong("wordsBeforeScene", getIntent().getLongExtra("wordsBeforeScene", 0));			
+			
 			PartDetailFragment fragment = new PartDetailFragment();
 			fragment.setArguments(arguments);
 			getSupportFragmentManager().beginTransaction()
@@ -58,10 +91,51 @@ public class PartDetailActivity extends SherlockFragmentActivity {
 			//
 			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
 			//
+			
+			//update current scene
+			String newScene = ((EditText) findViewById(R.id.note)).getText().toString();
+			String newPrompt = ((EditText) findViewById(R.id.prompt)).getText().toString();
+			npm.updateScene(scene.getPath(), newScene, newPrompt);
+			
 			NavUtils.navigateUpTo(this,
 					new Intent(this, PartListActivity.class));
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	public void onWordCountUpdate(long wordCount)
+	{
+		currentSceneWordCount = wordCount;
+		updateTitle();
+	}
+
+	public void onPartUpdate(String aPart)
+	{
+	    currentPart = aPart;
+		updateTitle();
+	}
+	
+	private void updateTitle(){
+		totalWordCount = currentSceneWordCount+partialWordCount;
+		title.setText(fileName+" "+currentSceneWordCount+":"+(totalWordCount)+":"+currentPart);		
+	}
+	
+	@Override
+	protected void onPause()
+	{
+		super.onPause();
+		Toast.makeText(this, "on pause called", Toast.LENGTH_SHORT).show();
+		saveState();
+	}
+
+	private void saveState(){
+		SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
+
+		if (editor != null) {
+			if(fileName != null){
+				editor.putString("fileName", fileName);
+			}
+		}
 	}
 }

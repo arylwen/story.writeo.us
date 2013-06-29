@@ -1,11 +1,15 @@
 package com.halcyon.novelwriter;
 
 import android.os.*;
+import android.text.*;
 import android.view.*;
 import android.widget.*;
 import com.actionbarsherlock.app.*;
 import com.halcyon.novelwriter.model.*;
 import com.halcyon.storywriter.*;
+import com.halcyon.storywriter.template.*;
+import java.io.*;
+import java.util.*;
 
 /**
  * A fragment representing a single Part detail screen. This fragment is either
@@ -20,9 +24,14 @@ public class PartDetailFragment extends SherlockFragment {
 	public static final String ARG_ITEM_ID = "item_id";
 
 	/**
-	 * The dummy content this fragment is presenting.
+	 * The content this fragment is presenting.
 	 */
 	private Scene mItem;
+	private StoryTemplateHelper helper;
+	private EditText text;
+	private NovelColoriser coloriser;
+	private TemplateFileManager tfm;
+	private StructureFileTemplate currentFileTemplate;
 
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
@@ -35,12 +44,11 @@ public class PartDetailFragment extends SherlockFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		helper = new StoryTemplateHelper();		
+		tfm = new TemplateFileManager(getActivity());
+		
 		if (getArguments().containsKey("scene")) {
-			// Load the dummy content specified by the fragment
-			// arguments. In a real-world scenario, use a Loader
-			// to load content from a content provider.
-			mItem = (Scene)getArguments().getSerializable((
-					"scene"));
+			mItem = (Scene)getArguments().getSerializable(("scene"));
 		}
 	}
 
@@ -58,20 +66,35 @@ public class PartDetailFragment extends SherlockFragment {
 			scroll.setHorizontalScrollBarEnabled(false);
 		}		
 			
-		String text = null;
+		String textStr = null;
 		if (getArguments().containsKey("text")) {
-			// Load the dummy content specified by the fragment
-			// arguments. In a real-world scenario, use a Loader
-			// to load content from a content provider.
-			text = (String)getArguments().getSerializable((
-										 "text"));
+			textStr = (String)getArguments().getSerializable(("text"));
+		}						
+		text = 	((EditText) rootView.findViewById(R.id.note));			
+		if (textStr != null) {		
+					text.setText(textStr);
 		}
-			
-		if (text != null) {
-			((EditText) rootView.findViewById(R.id.note))
-					.setText(text);
-		}
+		long wordsBeforeScene = 0;
+		if (getArguments().containsKey("wordsBeforeScene")) {
+			wordsBeforeScene = getArguments().getLong("wordsBeforeScene");
+		}	
+		coloriser = new NovelColoriser(text, helper, wordsBeforeScene);	
+		coloriser.setCounterListener((NovelColoriser.CounterListener)getActivity());
+		
+		text.addTextChangedListener( new TextWatcher() {
+				public void onTextChanged(CharSequence one, int a, int b, int c) {
+                      coloriser.onTextChanged(one, a,b,c);
+                      //isChanged = true;
+				}
+					
+				// complete the interface
+				public void afterTextChanged(Editable s) { }
+				public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+		});	
 
+		List<StructureFileTemplate> templates = tfm.getStructureTemplates();
+		onTemplateChosen(templates.get(0));	
+		
 		String prompt = null;
 		if (getArguments().containsKey("prompt")) {
 			prompt = (String)getArguments().getSerializable(("prompt"));
@@ -84,4 +107,20 @@ public class PartDetailFragment extends SherlockFragment {
 		
 		return rootView;
 	}
+	
+	@Override
+	public void onTemplateChosen(StructureFileTemplate file){
+		String template = tfm.readAssetFile("templates"+File.separator+ file.getFile());
+		helper.setTemplate(template);
+		currentFileTemplate = file;
+		//if(templateName != null)
+		//{
+			//this widget doesn't exist in portrait mode
+		//    templateName.setText(file.getName());
+		//	updateTemplateSummary();
+		//}
+		text.getText().clearSpans();
+		text.setText(text.getText());
+	}
+	
 }

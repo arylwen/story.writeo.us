@@ -182,11 +182,12 @@ public class ExpandableNovelAdapter extends BaseExpandableListAdapter implements
 	   notifyDataSetChanged();
    }
    
-	public void resetModel(NovelPersistenceManager aNpm)
+	public Novel resetModel(NovelPersistenceManager aNpm)
 	{
 		novel = aNpm.getNovel();
 		npm = aNpm;
 		notifyDataSetChanged();
+		return novel;
 	}
 	
    

@@ -118,9 +118,9 @@ public class PartListFragment extends SherlockExpandableListFragment
 		
 	}
 	
-	public void resetModel(NovelPersistenceManager npm)
+	public Novel resetModel(NovelPersistenceManager npm)
 	{
-		((ExpandableNovelAdapter)getExpandableListAdapter()).resetModel(npm);
+		return ((ExpandableNovelAdapter)getExpandableListAdapter()).resetModel(npm);
 
 	}
 	

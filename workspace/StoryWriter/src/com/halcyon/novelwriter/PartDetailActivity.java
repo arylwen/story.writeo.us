@@ -71,7 +71,8 @@ public class PartDetailActivity extends SherlockFragmentActivity
 					.getSerializableExtra(PartDetailFragment.ARG_ITEM_ID));
 			arguments.putSerializable("text", getIntent().getSerializableExtra("text"));
 			arguments.putSerializable("prompt", getIntent().getSerializableExtra("prompt"));			
-			arguments.putLong("wordsBeforeScene", getIntent().getLongExtra("wordsBeforeScene", 0));			
+			arguments.putLong("wordsBeforeScene", getIntent().getLongExtra("wordsBeforeScene", 0));	
+			arguments.putSerializable("currentTemplate", getIntent().getSerializableExtra("currentTemplate"));	
 			
 			PartDetailFragment fragment = new PartDetailFragment();
 			fragment.setArguments(arguments);

@@ -3,6 +3,7 @@ package com.halcyon.novelwriter;
 import android.content.*;
 import android.net.*;
 import android.os.*;
+import android.support.v4.app.*;
 import android.util.*;
 import android.view.*;
 import android.widget.*;
@@ -12,7 +13,6 @@ import com.halcyon.novelwriter.model.*;
 import com.halcyon.storywriter.*;
 import java.io.*;
 import java.util.*;
-import java.util.zip.*;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
@@ -34,7 +34,8 @@ import com.actionbarsherlock.view.MenuItem;
  */
 public class PartListActivity extends SherlockFragmentActivity implements
 		PartListFragment.Callbacks, EditChapterDialogListener, 
-EditSceneDataDialogFragment.EditSceneDialogListener, NovelColoriser.CounterListener
+        EditSceneDataDialogFragment.EditSceneDialogListener, NovelColoriser.CounterListener, 
+		ChooseTemplateDialogFragment.TemplateDialogListener
 {
 
 	private final static int MENU_NEW_FILE = Menu.FIRST;
@@ -68,6 +69,10 @@ EditSceneDataDialogFragment.EditSceneDialogListener, NovelColoriser.CounterListe
 	private String currentPart = "";
 	
 	private Novel novel;
+	
+	private TemplateFileManager templateFileManager;
+	StructureFileTemplate currentTemplate;
+	PartDetailFragment fragment;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -104,7 +109,9 @@ EditSceneDataDialogFragment.EditSceneDialogListener, NovelColoriser.CounterListe
 		    partList.setActivateOnItemClick(true);
 		}
 
-
+		templateFileManager = new TemplateFileManager(this);
+		List<StructureFileTemplate> templates = templateFileManager.getStructureTemplates();
+		onTemplateChosen(templates.get(0));	
 
 		
 		// TODO: If exposing deep links into your app, handle intents here.
@@ -213,8 +220,9 @@ EditSceneDataDialogFragment.EditSceneDialogListener, NovelColoriser.CounterListe
 			arguments.putSerializable("text", text);
 			arguments.putSerializable("prompt", prompt);
 			arguments.putLong("wordsBeforeScene", wordsBeforeScene);
+			arguments.putSerializable("currentTemplate", currentTemplate);
 						
-			PartDetailFragment fragment = new PartDetailFragment();
+			fragment = new PartDetailFragment();
 			fragment.setArguments(arguments);
 			getSupportFragmentManager().beginTransaction()
 				.replace(R.id.part_detail_container, fragment).commit();
@@ -229,6 +237,7 @@ EditSceneDataDialogFragment.EditSceneDialogListener, NovelColoriser.CounterListe
 			detailIntent.putExtra("prompt", prompt);
 			detailIntent.putExtra("wordsBeforeScene", wordsBeforeScene);
 			detailIntent.putExtra("partialWordCount", partialWordCount);
+			detailIntent.putExtra("currentTemplate", currentTemplate);
 			
 			startActivity(detailIntent);
 		}
@@ -280,7 +289,7 @@ EditSceneDataDialogFragment.EditSceneDialogListener, NovelColoriser.CounterListe
 			break;
 			
 			case MENU_CHOOSE_STRUCT:
-				//showChooseTemplateDialog();
+				showChooseTemplateDialog();
 			break;
 		}
 		
@@ -367,6 +376,26 @@ EditSceneDataDialogFragment.EditSceneDialogListener, NovelColoriser.CounterListe
 		}
 	}
 	
+	@Override
+	public void onTemplateChosen(StructureFileTemplate file){
+		//String template = templateFileManager.readAssetFile("templates"+File.separator+ file.getFile());
+		//helper.setTemplate(template);
+		currentTemplate = file;
+		if(fragment != null)
+		{
+			//fragment showing, needs update
+			fragment.onTemplateChosen(currentTemplate);
+		}
+		//if(templateName != null)
+		//{
+		//this widget doesn't exist in portrait mode
+		//    templateName.setText(file.getName());
+		//	updateTemplateSummary();
+		//}
+		//text.getText().clearSpans();
+		//text.setText(text.getText());
+	}
+	
 	private void updateTitle(){
 		totalWordCount = currentSceneWordCount+partialWordCount;
 		title.setText(fileName+" "+currentSceneWordCount+":"+(totalWordCount)+":"+currentPart);		
@@ -398,16 +427,23 @@ EditSceneDataDialogFragment.EditSceneDialogListener, NovelColoriser.CounterListe
         partList.onSceneChanged(scene);
 	}
 	
+	@Override
 	public void onWordCountUpdate(long wordCount)
 	{
 		currentSceneWordCount = wordCount;
 		updateTitle();
 	}
 	
+	@Override
 	public void onPartUpdate(String aPart)
 	{
 	    currentPart = aPart;
 		updateTitle();
 	}
 	
+	private void showChooseTemplateDialog()
+	{
+		DialogFragment newFragment = new ChooseTemplateDialogFragment();
+		newFragment.show(getSupportFragmentManager(), "templates");
+	}
 }

@@ -92,8 +92,14 @@ public class PartDetailFragment extends SherlockFragment {
 				public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 		});	
 
-		List<StructureFileTemplate> templates = tfm.getStructureTemplates();
-		onTemplateChosen(templates.get(0));	
+		if (getArguments().containsKey("currentTemplate")) {
+			currentFileTemplate = (StructureFileTemplate)getArguments().getSerializable("currentTemplate");
+		}
+		if(currentFileTemplate == null){
+		    List<StructureFileTemplate> templates = tfm.getStructureTemplates();
+			currentFileTemplate = templates.get(0);
+		}
+		onTemplateChosen(currentFileTemplate);	
 		
 		String prompt = null;
 		if (getArguments().containsKey("prompt")) {

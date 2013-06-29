@@ -1,6 +1,9 @@
 package com.halcyon.storywriter;
 
-public class StructureFileTemplate {
+import java.io.*;
+
+public class StructureFileTemplate implements Serializable
+{
 	private String name;
 	private String file;
 

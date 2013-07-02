@@ -248,7 +248,7 @@ public class NovelZipManager implements NovelPersistenceManager
 			while (entry != null) { 
 				String name = entry.getName(); 
 
-				if (!name.equals(entryName)) {
+				if (!name.contains(entryName)) {
 					// Add ZIP entry to output stream. 
 					out.putNextEntry(new ZipEntry(name)); 
 

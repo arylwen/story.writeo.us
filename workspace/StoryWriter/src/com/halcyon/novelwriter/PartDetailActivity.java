@@ -1,16 +1,6 @@
 package com.halcyon.novelwriter;
 
-import android.content.*;
-import android.os.*;
-import android.support.v4.app.*;
-import android.view.*;
-import android.widget.*;
-import com.actionbarsherlock.app.*;
-import com.actionbarsherlock.view.*;
-import com.halcyon.novelwriter.model.*;
-import com.halcyon.storywriter.*;
 
-import com.actionbarsherlock.view.MenuItem;
 
 /**
  * An activity representing a single Part detail screen. This activity is only
@@ -20,9 +10,23 @@ import com.actionbarsherlock.view.MenuItem;
  * This activity is mostly just a 'shell' activity containing nothing more than
  * a {@link PartDetailFragment}.
  */
-public class PartDetailActivity extends SherlockFragmentActivity 
-       implements NovelColoriser.CounterListener{
+import android.content.*;
+import android.os.*;
+import android.support.v4.app.*;
+import android.support.v4.view.*;
+import android.view.*;
+import android.widget.*;
+import com.actionbarsherlock.app.*;
+import com.actionbarsherlock.view.*;
+import com.halcyon.novelwriter.*;
+import com.halcyon.novelwriter.model.*;
+import com.halcyon.storywriter.*;
 
+import com.actionbarsherlock.view.MenuItem;
+
+public class PartDetailActivity extends SherlockFragmentActivity 
+implements NovelColoriser.CounterListener, ViewPager.OnPageChangeListener
+{
     private TextView title;
 	private String fileName;
 	private Scene scene;
@@ -33,6 +37,8 @@ public class PartDetailActivity extends SherlockFragmentActivity
 	private String currentPart = "";	   
 	
 	private NovelPersistenceManager npm;
+		   
+    private int currentPage = 0;
 		   
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -92,17 +98,21 @@ public class PartDetailActivity extends SherlockFragmentActivity
 			//
 			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
 			//
-			
-			//update current scene
-			String newScene = ((EditText) findViewById(R.id.note)).getText().toString();
-			String newPrompt = ((EditText) findViewById(R.id.prompt)).getText().toString();
-			npm.updateScene(scene.getPath(), newScene, newPrompt);
-			
+			saveScene();
+
 			NavUtils.navigateUpTo(this,
 					new Intent(this, PartListActivity.class));
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	public void saveScene(){
+		//update current scene
+		String newScene = ((EditText) findViewById(R.id.note)).getText().toString();
+		String newPrompt = ((EditText) findViewById(R.id.prompt)).getText().toString();
+		npm.updateScene(scene.getPath(), newScene, newPrompt);
+		
 	}
 	
 	public void onWordCountUpdate(long wordCount)
@@ -139,4 +149,26 @@ public class PartDetailActivity extends SherlockFragmentActivity
 			}
 		}
 	}
+	
+	public void onPageScrolled(int p1, float p2, int p3)
+	{
+		// TODO: Implement this method
+	}
+
+	public void onPageSelected(int p1)
+	{
+		
+		if(currentPage == 0) {
+			//moving from prompt to something else
+			saveScene();
+		}
+		
+		currentPage = p1;
+	}
+
+	public void onPageScrollStateChanged(int p1)
+	{
+		// TODO: Implement this method
+	}
+	
 }

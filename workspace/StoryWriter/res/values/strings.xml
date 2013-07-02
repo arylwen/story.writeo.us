@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+	<string name="application_name">The Writeo.US</string>
+	
     <string name="story_app_name">The Writeo.US - Story Edition</string>
 	
 	<string name="novel_app_name">The writeo.US - Novel Edition</string>

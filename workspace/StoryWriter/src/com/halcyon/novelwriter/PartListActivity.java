@@ -16,6 +16,7 @@ import java.util.*;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.halcyon.novelgenerator.*;
 
 /**
  * An activity representing a list of Parts. This activity has different
@@ -39,10 +40,10 @@ public class PartListActivity extends SherlockFragmentActivity implements
 {
 
 	private final static int MENU_NEW_FILE = Menu.FIRST;
-	private final static int MENU_SAVE_FILE = Menu.FIRST + 1;
 	private final static int MENU_OPEN_FILE = Menu.FIRST + 2;
 	private final static int MENU_SAVE_FILE_AS = Menu.FIRST + 3;
 	private final static int MENU_CHOOSE_STRUCT = Menu.FIRST + 4;
+	private final static int MENU_GENERATE_NOVEL = Menu.FIRST + 1;
 				
 	/**
 	 * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -196,7 +197,8 @@ public class PartListActivity extends SherlockFragmentActivity implements
 		if(currentScene != null){
 			//find the edit text
 			String newScene = ((EditText) findViewById(R.id.note)).getText().toString();
-			String newPrompt = ((EditText) findViewById(R.id.prompt)).getText().toString();
+			//String newPrompt = ((EditText) findViewById(R.id.prompt)).getText().toString();
+			String newPrompt = fragment.getPrompt();
 			npm.updateScene(currentScene.getPath(), newScene, newPrompt);
 		}
 		currentScene = scene;
@@ -223,6 +225,7 @@ public class PartListActivity extends SherlockFragmentActivity implements
 			arguments.putSerializable("currentTemplate", currentTemplate);
 						
 			fragment = new PartDetailFragment();
+			Log.e(TAG, "created new fragment");
 			fragment.setArguments(arguments);
 			getSupportFragmentManager().beginTransaction()
 				.replace(R.id.part_detail_container, fragment).commit();
@@ -251,9 +254,9 @@ public class PartListActivity extends SherlockFragmentActivity implements
 
 		menu.add(0, MENU_NEW_FILE, 0, "New Novel").setShortcut('0', 'n').setIcon(R.drawable.ic_new);		
 		menu.add(0, MENU_OPEN_FILE, 0, "Open Novel").setShortcut('0', 'o').setIcon(R.drawable.ic_open);
-		//menu.add(0, MENU_SAVE_FILE, 0, "Save").setShortcut('0', 's').setIcon(R.drawable.ic_save);
 		//menu.add(0, MENU_SAVE_FILE_AS, 0, "Save As...").setShortcut('0', 'a').setIcon(R.drawable.ic_save);
 		menu.add(0, MENU_CHOOSE_STRUCT, 0, "Choose Structure...").setShortcut('0', 'a').setIcon(R.drawable.ic_open);
+		menu.add(0, MENU_GENERATE_NOVEL, 0, "Generate Novel").setShortcut('0', 'g').setIcon(R.drawable.ic_save);
 		
 		return true;
 	} // end onCreateOptionsMenu()
@@ -271,17 +274,18 @@ public class PartListActivity extends SherlockFragmentActivity implements
 			    fpk.pickFileForOpen();
 				break;
 				
-			case MENU_SAVE_FILE:	
+			case MENU_GENERATE_NOVEL:	
 		
-				if (isUntitled) {
-					//browse for a file
-					fpk.pickFileForSave();
-				} else
-				    //see if in text or meta
-					//fm.saveText(fileName, text.getText().toString(), this);
-					//updateText(text.getText().toString(), fileName);
-				    //save prompt 
-				    //fm.saveText(getPromptFileName(fileName), prompt.getText().toString(), this);
+			    NovelGenerator ng = new ZipNovelGenerator(this);
+				fileName = ng.generate();
+				
+				totalWordCount = countWordsForNovel(fileName);
+				partialWordCount = totalWordCount; //no scene selected yet
+				updateTitle();
+				npm = new NovelZipManager(fileName, null, getCacheDir());
+				novel = partList.resetModel(npm);
+				isUntitled = false;
+				
 				break;
 				
 			case MENU_SAVE_FILE_AS:

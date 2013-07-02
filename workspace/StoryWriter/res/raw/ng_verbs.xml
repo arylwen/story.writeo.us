@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+<verbs>
+	<verb>rescued</verb>
+	<verb>failed</verb>
+	<verb>raised</verb>
+	<verb>protected</verb>
+	<verb>lied</verb>
+	<verb>kissed</verb>
+	<verb>searched</verb>
+	<verb>promoted</verb>
+	<verb>questioned</verb>
+	<verb>killed</verb>
+	<verb>motivated</verb>
+	<verb>provided</verb>
+	<verb>argued</verb>
+	<verb>hid</verb>
+	<verb>rode</verb>
+	<verb>awarded</verb>
+	<verb>fought</verb>
+	<verb>succeeded</verb>
+	<verb>betrayed</verb>
+	<verb>trained</verb>
+	<verb>spied</verb>
+</verbs>
+</root>

@@ -1223,7 +1223,6 @@ containing a value of this type.
          */
         public static final int abs__shareactionprovider_share_with_application=0x7f0b0007;
         public static final int action_settings=0x7f0b000e;
-        public static final int application_name=0x7f0b000d;
         public static final int application_not_available=0x7f0b0071;
         public static final int bookmark_added=0x7f0b009b;
         public static final int bookmark_already_exists=0x7f0b009c;
@@ -1278,6 +1277,7 @@ containing a value of this type.
         public static final int file_exists=0x7f0b00b0;
         public static final int filename_hint=0x7f0b00b3;
         public static final int folder_name=0x7f0b0057;
+        public static final int fp_application_name=0x7f0b000d;
         public static final int hello_world=0x7f0b000f;
         /**  icon content description 
          */

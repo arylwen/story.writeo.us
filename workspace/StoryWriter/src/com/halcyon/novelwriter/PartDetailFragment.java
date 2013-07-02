@@ -1,7 +1,9 @@
 package com.halcyon.novelwriter;
 
 import android.os.*;
+import android.support.v4.view.*;
 import android.text.*;
+import android.util.*;
 import android.view.*;
 import android.widget.*;
 import com.actionbarsherlock.app.*;
@@ -22,6 +24,7 @@ public class PartDetailFragment extends SherlockFragment {
 	 * represents.
 	 */
 	public static final String ARG_ITEM_ID = "item_id";
+	public static final String TAG = "NW PartDetailFragment";
 
 	/**
 	 * The content this fragment is presenting.
@@ -32,6 +35,9 @@ public class PartDetailFragment extends SherlockFragment {
 	private NovelColoriser coloriser;
 	private TemplateFileManager tfm;
 	private StructureFileTemplate currentFileTemplate;
+	
+	private InfoPagerAdapter mInfoPagerAdapter;
+	private ViewPager mViewPager;
 
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
@@ -78,6 +84,18 @@ public class PartDetailFragment extends SherlockFragment {
 		if (getArguments().containsKey("wordsBeforeScene")) {
 			wordsBeforeScene = getArguments().getLong("wordsBeforeScene");
 		}	
+				
+		if (getArguments().containsKey("currentTemplate")) {
+			currentFileTemplate = (StructureFileTemplate)getArguments().getSerializable("currentTemplate");
+		}		
+				
+		if(currentFileTemplate == null){
+		    List<StructureFileTemplate> templates = tfm.getStructureTemplates();
+			currentFileTemplate = templates.get(0);
+		}
+		
+		setUpTemplate(currentFileTemplate);
+		
 		coloriser = new NovelColoriser(text, helper, wordsBeforeScene);	
 		coloriser.setCounterListener((NovelColoriser.CounterListener)getActivity());
 		
@@ -91,42 +109,53 @@ public class PartDetailFragment extends SherlockFragment {
 				public void afterTextChanged(Editable s) { }
 				public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 		});	
-
-		if (getArguments().containsKey("currentTemplate")) {
-			currentFileTemplate = (StructureFileTemplate)getArguments().getSerializable("currentTemplate");
-		}
-		if(currentFileTemplate == null){
-		    List<StructureFileTemplate> templates = tfm.getStructureTemplates();
-			currentFileTemplate = templates.get(0);
-		}
-		onTemplateChosen(currentFileTemplate);	
 		
 		String prompt = null;
 		if (getArguments().containsKey("prompt")) {
 			prompt = (String)getArguments().getSerializable(("prompt"));
 		}
+				
+		//SpannableString spannablecontent = coloriser.getColorisedTemplateInfo();
+		mInfoPagerAdapter = new InfoPagerAdapter(getActivity().getSupportFragmentManager(), 
+		                     prompt);
+		Log.e(TAG, "Created pager adapter");
+							 //, currentFileTemplate.getFile(), spannablecontent);
+
+        // Set up the ViewPager, attaching the adapter.
+        mViewPager = (ViewPager) rootView.findViewById(R.id.pager);
+        mViewPager.setAdapter(mInfoPagerAdapter);
 		
-		if (prompt != null) {
-			((EditText) rootView.findViewById(R.id.prompt))
-					.setText(prompt);
-		}
+		//onTemplateChosen(currentFileTemplate);	
+		
+		SpannableString spannablecontent = coloriser.getColorisedTemplateInfo();
+		mInfoPagerAdapter.setTemplate(currentFileTemplate.getName(), spannablecontent);
+		mInfoPagerAdapter.notifyDataSetChanged();
+		text.getText().clearSpans();
+		text.setText(text.getText());
 		
 		return rootView;
 	}
 	
 	@Override
 	public void onTemplateChosen(StructureFileTemplate file){
-		String template = tfm.readAssetFile("templates"+File.separator+ file.getFile());
-		helper.setTemplate(template);
-		currentFileTemplate = file;
-		//if(templateName != null)
-		//{
-			//this widget doesn't exist in portrait mode
-		//    templateName.setText(file.getName());
-		//	updateTemplateSummary();
-		//}
+		
+		setUpTemplate(file);
+		
+		SpannableString spannablecontent = coloriser.getColorisedTemplateInfo();
+		mInfoPagerAdapter.setTemplate(file.getName(), spannablecontent);
 		text.getText().clearSpans();
 		text.setText(text.getText());
 	}
+
+	private void setUpTemplate(StructureFileTemplate file)
+	{
+		String template = tfm.readAssetFile("templates" + File.separator + file.getFile());
+		helper.setTemplate(template);
+		currentFileTemplate = file;
+	}
+		
+   public String getPrompt(){
+	   return mInfoPagerAdapter.getPrompt();
+   }
 	
 }

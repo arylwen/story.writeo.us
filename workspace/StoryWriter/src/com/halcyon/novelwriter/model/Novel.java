@@ -11,6 +11,12 @@ public class Novel
 	  @ElementList(name="chapters")
 	  protected List<Chapter> chapters = new ArrayList<Chapter>();
 	  
+	  @ElementList(name="counters", required=false)
+	  protected List<Counter> counters = new ArrayList<Counter>();
+	  
+	  @ElementList(name="characters", required=false)
+	  protected List<NCharacter> characters = new ArrayList<NCharacter>();
+	  
 	  public void setName(String aName)
 	  {
 		  name = aName;

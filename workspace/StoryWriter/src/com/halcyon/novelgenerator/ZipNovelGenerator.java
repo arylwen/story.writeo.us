@@ -6,6 +6,7 @@ import com.halcyon.novelgenerator.model.*;
 import com.halcyon.novelwriter.model.*;
 import com.halcyon.storywriter.*;
 import java.io.*;
+import java.text.*;
 import java.util.*;
 
 public class ZipNovelGenerator implements NovelGenerator
@@ -95,38 +96,44 @@ public class ZipNovelGenerator implements NovelGenerator
 			sceneInfoList.add(sceneInfo);
 		}
 		
-		for(int i=0; i<sceneInfoList.size(); i++){
-			
-			SceneInfo sceneInfo = sceneInfoList.get(i);
-		    sceneInfo.getCharacter1().incrementCounter();
-			sceneInfo.getCharacter2().incrementCounter();
-		}
-		
-		Collections.sort(characters.getCharacters(), new CharacterComparator());
-		
+		classifyByScene(sceneInfoList, characters);
 		for(NCharacter character:characters.getCharacters()){
 			Log.e(TAG, character.getName()+"-"+character.getCounter());
+		}
+				
+		//affinity
+		ArrayList<CharacterPair> lpairs = classifyByAffinity(sceneInfoList);
+		
+		List<NCharacter> selected = new ArrayList<NCharacter>();
+		for(CharacterPair pair:lpairs){
+			if(!selected.contains(pair.character1)) selected.add(pair.character1);
+			if(!selected.contains(pair.character2)) selected.add(pair.character2);
+			if(selected.size() > 6) break;
 		}
 		
 		//select main characters
 		ArrayList<NCharacter> mainCharacters = new ArrayList<NCharacter>();
-		mainCharacters.add(characters.getCharacters().get(0));
-		mainCharacters.add(characters.getCharacters().get(1));
-		//mainCharacters.add(characters.getCharacters().get(2));
-		//mainCharacters.add(characters.getCharacters().get(3));
+		mainCharacters.add(selected.get(0));
+		mainCharacters.add(selected.get(1));
 		
 		for(NCharacter character:mainCharacters){
 			Log.e(TAG, "main "+character.getName()+"-"+character.getCounter());
 		}
 		
-
-		//select main characters
+		//select secondary characters
 		ArrayList<NCharacter> secondaryCharacters = new ArrayList<NCharacter>();
-		secondaryCharacters.add(characters.getCharacters().get(2));
-		secondaryCharacters.add(characters.getCharacters().get(3));
-		//mainCharacters.add(characters.getCharacters().get(2));
-		//mainCharacters.add(characters.getCharacters().get(3));
+		secondaryCharacters.add(selected.get(2));
+		secondaryCharacters.add(selected.get(3));
+		
+		for(NCharacter character:secondaryCharacters){
+			Log.e(TAG, "secondary "+character.getName()+"-"+character.getCounter());
+		}		
 
+		//select supporting characters
+		ArrayList<NCharacter> supportingCharacters = new ArrayList<NCharacter>();
+		supportingCharacters.add(selected.get(4));
+		supportingCharacters.add(selected.get(5));
+		
 		for(NCharacter character:secondaryCharacters){
 			Log.e(TAG, "secondary "+character.getName()+"-"+character.getCounter());
 		}
@@ -139,7 +146,10 @@ public class ZipNovelGenerator implements NovelGenerator
 			if((mainCharacters.contains(sceneInfo.getCharacter1()) && mainCharacters.contains(sceneInfo.getCharacter2())) ||
 			   (mainCharacters.contains(sceneInfo.getCharacter1()) && secondaryCharacters.contains(sceneInfo.getCharacter2())) ||
 			   (secondaryCharacters.contains(sceneInfo.getCharacter1()) && mainCharacters.contains(sceneInfo.getCharacter2())) ||
-			   (secondaryCharacters.contains(sceneInfo.getCharacter1()) && secondaryCharacters.contains(sceneInfo.getCharacter2()))  ){
+			   (secondaryCharacters.contains(sceneInfo.getCharacter1()) && secondaryCharacters.contains(sceneInfo.getCharacter2())) || 
+			   (supportingCharacters.contains(sceneInfo.getCharacter1()) && mainCharacters.contains(sceneInfo.getCharacter2())) ||
+			   (mainCharacters.contains(sceneInfo.getCharacter1()) && supportingCharacters.contains(sceneInfo.getCharacter2()))
+			){
 				novelSceneInfoList.add(sceneInfo);
 			}
 		}
@@ -162,27 +172,133 @@ public class ZipNovelGenerator implements NovelGenerator
 			Log.e(TAG, i+". "+sceneInfo.toString());
 		}
 		
+		StringBuffer cinfo = new StringBuffer();
+		cinfo.append("main characters\n");
+		cinfo.append(mainCharacters.get(0).getName() + "\n");
+		cinfo.append(mainCharacters.get(1).getName() + "\n");
+		
+		cinfo.append("\nsecondary characters\n");
+		cinfo.append(secondaryCharacters.get(0).getName() + "\n");
+		cinfo.append(secondaryCharacters.get(1).getName() + "\n");
+		
+		cinfo.append("\nsuporting characters\n");
+		cinfo.append(supportingCharacters.get(0).getName() + "\n");
+		cinfo.append(supportingCharacters.get(1).getName() + "\n");
+		
+		DecimalFormat df = new DecimalFormat(); 
+		df.setMaximumFractionDigits(2);
+		
 		//build novel
 		novel.getChapters().clear();
+		Chapter toc = new Chapter();
+		toc.setName("Novel Info");
+		novel.getChapters().add(toc);
+		Scene chars = new Scene();
+		toc.getScenes().add(chars);
+		chars.setName("Table of Contents");
+		StringBuffer tocinfo = new StringBuffer();		
+		tocinfo.append("\n\n Table of contents");
 		int cindex = 1;
 		Set<String> chapters = topics.keySet();
 		for(String chapterName:chapters){
 			Chapter chapter = new Chapter();
 			chapter.setName("Chapter "+cindex);
 			novel.getChapters().add(chapter);
+
 			int sindex = 1;
+			String cname = "";
 			for(SceneInfo sceneInfo:topics.get(chapterName)){
 				Scene scene = new Scene();
 				scene.setName("Scene "+sindex);
 				chapter.getScenes().add(scene);
 				npm.updateScene(scene.getPath(), sceneInfo.getSecret(), sceneInfo.toString());
+				cname = sceneInfo.getSecret();
 				sindex++;
 			}
+			double percent =   (((double)chapter.getScenes().size())/((double)novelSceneInfoList.size()))*100.0;
+			tocinfo.append("\n        "+cindex+". "+cname+"..... "+ df.format(percent) +"%");
 			cindex++;
 		}
+		npm.updateScene(chars.getPath(), tocinfo.toString(), cinfo.toString());
+		//npm.updateNovel();
+		
+
+		
+		Scene affinity = new Scene();
+		affinity.setName("Affinity");
+		toc.addScene(affinity);
+		
+		StringBuffer aff = new StringBuffer();
+		for(CharacterPair pp:lpairs){
+		   aff.append(pp.character1.getName()+" and "+pp.character2.getName()+" - "+pp.counter+"\n");
+		}
+		
+		npm.updateScene(affinity.getPath(), aff.toString(), "");
 		npm.updateNovel();
 		
 		return novelName;
+	}
+
+	private ArrayList<CharacterPair> classifyByAffinity(ArrayList<SceneInfo> sceneInfoList)
+	{
+		Map<Integer, CharacterPair> pairs = new HashMap<Integer, CharacterPair>();
+		for (int i=0; i < sceneInfoList.size(); i++)
+		{
+			SceneInfo sceneInfo = sceneInfoList.get(i);
+		    CharacterPair cp = new CharacterPair();
+			cp.character1 = sceneInfo.getCharacter1();
+			cp.character2 = sceneInfo.getCharacter2();
+			if (!pairs.containsKey(cp.getKey()))
+			{
+				pairs.put(cp.getKey(), cp);
+			}
+			cp = pairs.get(cp.getKey());
+			cp.counter++;
+		}
+
+		ArrayList<CharacterPair> lpairs = new ArrayList<CharacterPair>(pairs.values());
+		Collections.sort(lpairs, new CharacterPairComparator());
+		return lpairs;
+	}
+
+	private void classifyByScene(ArrayList<SceneInfo> sceneInfoList, Characters characters)
+	{
+		for (int i=0; i < sceneInfoList.size(); i++)
+		{
+
+			SceneInfo sceneInfo = sceneInfoList.get(i);
+		    sceneInfo.getCharacter1().incrementCounter();
+			sceneInfo.getCharacter2().incrementCounter();
+		}
+
+		Collections.sort(characters.getCharacters(), new CharacterComparator());
+	}
+	
+	private class CharacterPair{
+		public NCharacter character1;
+		public NCharacter character2;
+		public int counter;
+		
+		public boolean equals(Object obj) { 
+		   if (obj == null) return false; 
+		   if (obj == this) return true; 
+		   if (!(obj instanceof CharacterPair)) return false; 
+		   CharacterPair rhs = (CharacterPair) obj; 
+		   return ( (( character1.getName().equals(rhs.character1.getName())) &&
+					 ( character2.getName().equals(rhs.character2.getName()))) ||
+					
+				    (( character1.getName().equals(rhs.character2.getName())) &&
+				     ( character2.getName().equals(rhs.character1.getName())))
+				  );
+		}
+		
+		public int hashCode(){
+			return character1.getName().hashCode()+character2.getName().hashCode();
+		}
+		
+		public Integer getKey(){
+			return new Integer(hashCode());
+		}
 	}
 	
 	private Secrets readSecrets() 
@@ -472,8 +588,19 @@ public class ZipNovelGenerator implements NovelGenerator
 		
 		    return -(new Integer(char1.getCounter())).compareTo(new Integer(char2.getCounter()));
 			
-		}
+		}		
+	}
+	
+	class CharacterPairComparator implements Comparator
+	{
 
-		
+		public int compare(Object p1, Object p2)
+		{
+			CharacterPair char1 = (CharacterPair)p1;
+			CharacterPair char2 = (CharacterPair)p2;
+
+		    return -(new Integer(char1.counter)).compareTo(new Integer(char2.counter));
+
+		}		
 	}
 }

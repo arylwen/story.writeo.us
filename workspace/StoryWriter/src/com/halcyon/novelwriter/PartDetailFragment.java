@@ -7,6 +7,7 @@ import android.util.*;
 import android.view.*;
 import android.widget.*;
 import com.actionbarsherlock.app.*;
+import com.halcyon.common.*;
 import com.halcyon.novelwriter.model.*;
 import com.halcyon.storywriter.*;
 import com.halcyon.storywriter.template.*;
@@ -23,22 +24,26 @@ public class PartDetailFragment extends SherlockFragment {
 	 * The fragment argument representing the item ID that this fragment
 	 * represents.
 	 */
-	public static final String ARG_ITEM_ID = "item_id";
+	public static final String ARG_SCENE = "scene";
+	public static final String ARG_FILE_NAME = "fileName";
 	public static final String TAG = "NW PartDetailFragment";
 
 	/**
 	 * The content this fragment is presenting.
 	 */
-	private Scene mItem;
+	private Scene scene;
 	private StoryTemplateHelper helper;
 	private EditText text;
 	private NovelColoriser coloriser;
+	private TextViewUndoRedo undoRedo;
 	private TemplateFileManager tfm;
 	private StructureFileTemplate currentFileTemplate;
 	
 	private InfoPagerAdapter mInfoPagerAdapter;
 	private ViewPager mViewPager;
 
+	private NovelPersistenceManager npm;
+	private String fileName;
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
 	 * fragment (e.g. upon screen orientation changes).
@@ -50,11 +55,18 @@ public class PartDetailFragment extends SherlockFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		Log.e(TAG, "onCreate");
+		
 		helper = new StoryTemplateHelper();		
 		tfm = new TemplateFileManager(getActivity());
 		
-		if (getArguments().containsKey("scene")) {
-			mItem = (Scene)getArguments().getSerializable(("scene"));
+		if (getArguments().containsKey(ARG_FILE_NAME)) {
+			fileName = (String)getArguments().getSerializable((ARG_FILE_NAME));
+		}
+		npm = new NovelZipManager(fileName, null, getActivity().getCacheDir());
+		
+		if (getArguments().containsKey(ARG_SCENE)) {
+			scene = (Scene)getArguments().getSerializable((ARG_SCENE));
 		}
 	}
 
@@ -72,10 +84,14 @@ public class PartDetailFragment extends SherlockFragment {
 			scroll.setHorizontalScrollBarEnabled(false);
 		}		
 			
-		String textStr = null;
+		String textStr = npm.getScene(scene.getPath());
+		String prompt = npm.getScene(scene.getPath()+".1");
+			
+		/*String textStr = null;
 		if (getArguments().containsKey("text")) {
 			textStr = (String)getArguments().getSerializable(("text"));
-		}						
+		}	*/	
+		
 		text = 	((EditText) rootView.findViewById(R.id.note));			
 		if (textStr != null) {		
 					text.setText(textStr);
@@ -110,10 +126,13 @@ public class PartDetailFragment extends SherlockFragment {
 				public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 		});	
 		
-		String prompt = null;
+		//attach undo/redo behavior to text
+		//undoRedo = new TextViewUndoRedo(text);
+		
+		/*String prompt = null;
 		if (getArguments().containsKey("prompt")) {
 			prompt = (String)getArguments().getSerializable(("prompt"));
-		}
+		}*/
 				
 		//SpannableString spannablecontent = coloriser.getColorisedTemplateInfo();
 		mInfoPagerAdapter = new InfoPagerAdapter(getActivity().getSupportFragmentManager(), 
@@ -133,7 +152,28 @@ public class PartDetailFragment extends SherlockFragment {
 		text.getText().clearSpans();
 		text.setText(text.getText());
 		
+		//attach undo/redo behavior to text _after_ cleaning up 
+		//so it doesn't register a undo operarion
+		undoRedo = new TextViewUndoRedo(text);
+		
 		return rootView;
+	}
+	
+	//undo/redo related functions
+	public boolean canUndo(){
+		return undoRedo.getCanUndo();
+	}
+	
+	public boolean canRedo(){
+		return undoRedo.getCanRedo();
+	}
+	
+	public void undo(){
+		undoRedo.undo();
+	}
+	
+	public void redo(){
+		undoRedo.redo();
 	}
 	
 	@Override
@@ -158,4 +198,20 @@ public class PartDetailFragment extends SherlockFragment {
 	   return mInfoPagerAdapter.getPrompt();
    }
 	
+   public void save(){
+	   
+	   if(canUndo()){
+		   //only of the fragment is modified - what do we do about prompt?				
+		   //find the edit text
+		   String newScene = text.getText().toString();
+		   String newPrompt = getPrompt();
+		   
+		   npm.updateScene(scene.getPath(), newScene, newPrompt);
+		   Log.e(TAG, "modified");
+	   }
+   }
+   
+   public long getWordCount(){
+	   return NovelColoriser.wordCount(text.getText().toString());
+   }
 }

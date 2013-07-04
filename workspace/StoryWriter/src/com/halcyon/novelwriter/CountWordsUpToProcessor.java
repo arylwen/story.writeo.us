@@ -17,7 +17,7 @@ public class CountWordsUpToProcessor implements SceneProcessor
 	public void process(Scene currentScene, Object extra)
 	{
 		boolean isBefore = isBefore(currentScene);
-		Log.e(TAG, "isBefore "+isBefore);
+		//Log.e(TAG, "isBefore "+isBefore);
 		if(isBefore){
 		    long localwc = NovelColoriser.wordCount((String)extra);
 		    wordCount = wordCount + localwc;

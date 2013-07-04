@@ -44,6 +44,8 @@ public class PartListActivity extends SherlockFragmentActivity implements
 	private final static int MENU_SAVE_FILE_AS = Menu.FIRST + 3;
 	private final static int MENU_CHOOSE_STRUCT = Menu.FIRST + 4;
 	private final static int MENU_GENERATE_NOVEL = Menu.FIRST + 1;
+	private final static int MENU_UNDO = Menu.FIRST + 5;
+	private final static int MENU_REDO = Menu.FIRST + 6;
 				
 	/**
 	 * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -68,6 +70,7 @@ public class PartListActivity extends SherlockFragmentActivity implements
 	private long currentSceneWordCount = 0;
 	private long partialWordCount = 0;
 	private String currentPart = "";
+	private boolean first = false;
 	
 	private Novel novel;
 	
@@ -96,6 +99,8 @@ public class PartListActivity extends SherlockFragmentActivity implements
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true); 
 		getSupportActionBar().setDisplayShowHomeEnabled(true); 
 
+		
+		
 		fileName = getResources().getString( R.string.newFileName);
 
 		if (findViewById(R.id.part_detail_container) != null) {
@@ -194,21 +199,26 @@ public class PartListActivity extends SherlockFragmentActivity implements
 	
 	public void onSceneSelected(Scene scene)
 	{
-		if(currentScene != null){
-			//find the edit text
-			String newScene = ((EditText) findViewById(R.id.note)).getText().toString();
-			//String newPrompt = ((EditText) findViewById(R.id.prompt)).getText().toString();
-			String newPrompt = fragment.getPrompt();
-			npm.updateScene(currentScene.getPath(), newScene, newPrompt);
-		}
+		/*if(currentScene != null){
+			if(fragment.canUndo()){
+		        //only of the fragment is modified - what do we do about prompt?				
+			    //find the edit text
+			    String newScene = ((EditText) findViewById(R.id.note)).getText().toString();
+			    
+			    String newPrompt = fragment.getPrompt();
+			    npm.updateScene(currentScene.getPath(), newScene, newPrompt);
+				Log.e(TAG, "modified");
+			}
+		}*/
+		
 		currentScene = scene;
-		String text = npm.getScene(scene.getPath());
-		String prompt = npm.getScene(scene.getPath()+".1");
+		//String text = npm.getScene(scene.getPath());
+		//String prompt = npm.getScene(scene.getPath()+".1");
 		//partialWordCount doesn't change, only the current scene does
-		if(text != null)
-		    partialWordCount = totalWordCount - NovelColoriser.wordCount(text);
-		else
-		    partialWordCount = totalWordCount;
+		//if(text != null)
+	    //	    partialWordCount = totalWordCount - NovelColoriser.wordCount(text);
+		//else
+		//    partialWordCount = totalWordCount;
 			
 		long wordsBeforeScene = countWordsBeforeScene(fileName, scene);
 		Log.e(TAG, "wordsBeforeScene "+wordsBeforeScene);
@@ -218,9 +228,10 @@ public class PartListActivity extends SherlockFragmentActivity implements
 			// adding or replacing the detail fragment using a
 			// fragment transaction.
 			Bundle arguments = new Bundle();
-			arguments.putSerializable("scene", scene);
-			arguments.putSerializable("text", text);
-			arguments.putSerializable("prompt", prompt);
+			arguments.putSerializable(PartDetailFragment.ARG_SCENE, scene);
+			arguments.putSerializable(PartDetailFragment.ARG_FILE_NAME, fileName);
+			//arguments.putSerializable("text", text);
+			//arguments.putSerializable("prompt", prompt);
 			arguments.putLong("wordsBeforeScene", wordsBeforeScene);
 			arguments.putSerializable("currentTemplate", currentTemplate);
 						
@@ -229,17 +240,19 @@ public class PartListActivity extends SherlockFragmentActivity implements
 			fragment.setArguments(arguments);
 			getSupportFragmentManager().beginTransaction()
 				.replace(R.id.part_detail_container, fragment).commit();
+			first = true;
+			//partialWordCount = totalWordCount - fragment.getWordCount();
 
 		} else {
 			// In single-pane mode, simply start the detail activity
 			// for the selected item ID.
 			Intent detailIntent = new Intent(this, PartDetailActivity.class);
-			detailIntent.putExtra(PartDetailFragment.ARG_ITEM_ID, scene);
+			detailIntent.putExtra(PartDetailFragment.ARG_SCENE, scene);
 			detailIntent.putExtra("fileName", fileName);
-			detailIntent.putExtra("text", text);
-			detailIntent.putExtra("prompt", prompt);
+			//detailIntent.putExtra("text", text);
+			//detailIntent.putExtra("prompt", prompt);
 			detailIntent.putExtra("wordsBeforeScene", wordsBeforeScene);
-			detailIntent.putExtra("partialWordCount", partialWordCount);
+			detailIntent.putExtra("totalWordCount", totalWordCount);
 			detailIntent.putExtra("currentTemplate", currentTemplate);
 			
 			startActivity(detailIntent);
@@ -258,6 +271,10 @@ public class PartListActivity extends SherlockFragmentActivity implements
 		menu.add(0, MENU_CHOOSE_STRUCT, 0, "Choose Structure...").setShortcut('0', 'a').setIcon(R.drawable.ic_open);
 		menu.add(0, MENU_GENERATE_NOVEL, 0, "Generate Novel").setShortcut('0', 'g').setIcon(R.drawable.ic_save);
 		
+		menu.add(0, MENU_UNDO, 0, "Undo") .setIcon(R.drawable.undo) .
+		           setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+		menu.add(0, MENU_REDO, 0, "Redo") .setIcon(R.drawable.redo) .
+		           setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);		
 		return true;
 	} // end onCreateOptionsMenu()
 	
@@ -294,6 +311,18 @@ public class PartListActivity extends SherlockFragmentActivity implements
 			
 			case MENU_CHOOSE_STRUCT:
 				showChooseTemplateDialog();
+			break;
+			
+			case MENU_UNDO:
+			    if(fragment != null){
+					fragment.undo();
+				}
+			break;
+			
+			case MENU_REDO:
+			    if(fragment != null){
+					fragment.redo();
+				}
 			break;
 		}
 		
@@ -434,6 +463,10 @@ public class PartListActivity extends SherlockFragmentActivity implements
 	@Override
 	public void onWordCountUpdate(long wordCount)
 	{
+		if(first){
+		    partialWordCount = totalWordCount - wordCount;
+			first = false;
+		}
 		currentSceneWordCount = wordCount;
 		updateTitle();
 	}

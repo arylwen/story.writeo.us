@@ -25,7 +25,8 @@ import com.halcyon.storywriter.*;
 import com.actionbarsherlock.view.MenuItem;
 
 public class PartDetailActivity extends SherlockFragmentActivity 
-implements NovelColoriser.CounterListener, ViewPager.OnPageChangeListener
+implements NovelColoriser.CounterListener
+ //, ViewPager.OnPageChangeListener
 {
     private TextView title;
 	private String fileName;
@@ -35,10 +36,12 @@ implements NovelColoriser.CounterListener, ViewPager.OnPageChangeListener
 	private long currentSceneWordCount = 0;
 	private long partialWordCount = 0;
 	private String currentPart = "";	   
+	private boolean first;
 	
 	private NovelPersistenceManager npm;
+	private PartDetailFragment detailFragment;
 		   
-    private int currentPage = 0;
+    //private int currentPage = 0;
 		   
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +60,7 @@ implements NovelColoriser.CounterListener, ViewPager.OnPageChangeListener
 		getSupportActionBar().setDisplayShowHomeEnabled(true);
 		
         fileName = getIntent().getStringExtra("fileName");
-		scene = (Scene)getIntent().getSerializableExtra(PartDetailFragment.ARG_ITEM_ID);
+		scene = (Scene)getIntent().getSerializableExtra(PartDetailFragment.ARG_SCENE);
 		npm = new NovelZipManager(fileName, null, getCacheDir());
 		
 		// savedInstanceState is non-null when there is fragment state
@@ -73,17 +76,19 @@ implements NovelColoriser.CounterListener, ViewPager.OnPageChangeListener
 			// Create the detail fragment and add it to the activity
 			// using a fragment transaction.
 			Bundle arguments = new Bundle();
-			arguments.putSerializable(PartDetailFragment.ARG_ITEM_ID, getIntent()
-					.getSerializableExtra(PartDetailFragment.ARG_ITEM_ID));
-			arguments.putSerializable("text", getIntent().getSerializableExtra("text"));
-			arguments.putSerializable("prompt", getIntent().getSerializableExtra("prompt"));			
+			arguments.putSerializable(PartDetailFragment.ARG_SCENE, getIntent()
+					.getSerializableExtra(PartDetailFragment.ARG_SCENE));
+			//arguments.putSerializable("text", getIntent().getSerializableExtra("text"));
+			//arguments.putSerializable("prompt", getIntent().getSerializableExtra("prompt"));			
 			arguments.putLong("wordsBeforeScene", getIntent().getLongExtra("wordsBeforeScene", 0));	
 			arguments.putSerializable("currentTemplate", getIntent().getSerializableExtra("currentTemplate"));	
 			
-			PartDetailFragment fragment = new PartDetailFragment();
-			fragment.setArguments(arguments);
+			detailFragment = new PartDetailFragment();
+			detailFragment.setArguments(arguments);
 			getSupportFragmentManager().beginTransaction()
-					.add(R.id.part_detail_container, fragment).commit();
+					.add(R.id.part_detail_container, detailFragment).commit();
+			first = true;		
+			//partialWordCount = totalWordCount - detailFragment.getWordCount();
 		}
 	}
 
@@ -91,14 +96,8 @@ implements NovelColoriser.CounterListener, ViewPager.OnPageChangeListener
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
-			// This ID represents the Home or Up button. In the case of this
-			// activity, the Up button is shown. Use NavUtils to allow users
-			// to navigate up one level in the application structure. For
-			// more details, see the Navigation pattern on Android Design:
-			//
-			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
-			//
-			saveScene();
+
+			detailFragment.save();
 
 			NavUtils.navigateUpTo(this,
 					new Intent(this, PartListActivity.class));
@@ -107,16 +106,21 @@ implements NovelColoriser.CounterListener, ViewPager.OnPageChangeListener
 		return super.onOptionsItemSelected(item);
 	}
 	
-	public void saveScene(){
+	/*public void saveScene(){
 		//update current scene
 		String newScene = ((EditText) findViewById(R.id.note)).getText().toString();
 		String newPrompt = ((EditText) findViewById(R.id.prompt)).getText().toString();
 		npm.updateScene(scene.getPath(), newScene, newPrompt);
 		
-	}
+	}*/
 	
 	public void onWordCountUpdate(long wordCount)
 	{
+		if(first){
+		    partialWordCount = totalWordCount - wordCount;
+			first = false;
+		}
+		
 		currentSceneWordCount = wordCount;
 		updateTitle();
 	}
@@ -150,7 +154,7 @@ implements NovelColoriser.CounterListener, ViewPager.OnPageChangeListener
 		}
 	}
 	
-	public void onPageScrolled(int p1, float p2, int p3)
+	/*public void onPageScrolled(int p1, float p2, int p3)
 	{
 		// TODO: Implement this method
 	}
@@ -169,6 +173,6 @@ implements NovelColoriser.CounterListener, ViewPager.OnPageChangeListener
 	public void onPageScrollStateChanged(int p1)
 	{
 		// TODO: Implement this method
-	}
+	}*/
 	
 }

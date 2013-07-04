@@ -19,23 +19,33 @@ public class NovelZipManager implements NovelPersistenceManager
 	   novel = aNovel;
 	   cacheDir = aCacheDir;
 	   
-	   if(novel == null){
-		   String novelXml = getScene("novel.xml");
-		   novel = NovelHelper.readNovel(novelXml);
-	   }
+	   //if(novel == null){
+	   //	   String novelXml = getScene("novel.xml");
+	   //   novel = NovelHelper.readNovel(novelXml);
+	   //}
    }
-   
-   
-   
+    
+  /**
+   * Lazy instantiation, to optimize when only scene 
+   * operations are required
+   **/
   public Novel getNovel()
   {
+	  if(novel == null){
+		  String novelXml = getScene("novel.xml");
+		  novel = NovelHelper.readNovel(novelXml);
+	  }
 	  return novel;
   }
    
    public void updateNovel(){
-	   String filename = "novel.xml";
-	   String novelXml = NovelHelper.novelToString(novel);
-	   updateEntry(filename, novelXml);
+	   if(novel != null){
+	       String filename = "novel.xml";
+	       String novelXml = NovelHelper.novelToString(novel);
+	       updateEntry(filename, novelXml);
+	   } else {
+		   Log.e(TAG, "You must call getNovel at least once before attempting to save it.");
+	   }
    }
    
    public void createNovel(){
@@ -77,7 +87,7 @@ public class NovelZipManager implements NovelPersistenceManager
 		updateEntry(path, texts);
 	}
    
-   public void updateScene1(String path, String text){
+   /*public void updateSceneText(String path, String text){
 	   OutputStream os = null;
 	   ZipOutputStream zos = null;
 	   try{
@@ -105,7 +115,7 @@ public class NovelZipManager implements NovelPersistenceManager
 				   Log.e(TAG, e.getMessage());
 			}		   
 	   }
-   }
+   }*/
    
    public String getScene(String entryName)
    {
@@ -134,16 +144,21 @@ public class NovelZipManager implements NovelPersistenceManager
 	   }catch(IOException e) {
 	       Log.e(TAG, e.getMessage());
        }  finally {
-		   try{
-			   if(zis != null) {			    
+		  
+			if(zis != null) {	
+               try{		    
 			        zis.close();
-			   }
-			   if(is != null) {
-				   is.close();
-			   }
-			} catch(IOException e) {
+			   } catch(IOException e) {
 			       Log.e(TAG, e.getMessage());
-		    } 			
+			   } 		
+			}
+		    if(is != null) {
+			    try{
+				   is.close();				   
+			   } catch(IOException e) {
+			       Log.e(TAG, e.getMessage());
+			   } 	
+		   }		
 		}
 		
 		return ret;
@@ -308,4 +323,64 @@ public class NovelZipManager implements NovelPersistenceManager
 		in.close(); 
 		out.close(); 
 	}
+	
+	public void deleteEntry(String entryName)  { 
+
+	    ZipInputStream zin = null;
+		ZipOutputStream out = null;
+		File tempFile = null;
+
+	    try{
+			// get a tempfile
+			tempFile = File.createTempFile(UUID.randomUUID().toString(), null, cacheDir); 
+			// delete it, otherwise you cannot rename your existing zip to it. 
+			tempFile.delete(); 
+
+			File zipFile = new File(zipFileName);
+			copy(zipFile, tempFile);
+
+			byte[] buf = new byte[1024]; 
+			zin = new ZipInputStream(new FileInputStream(tempFile)); 
+			out = new ZipOutputStream(new FileOutputStream(zipFile)); 
+			ZipEntry entry = zin.getNextEntry(); 
+
+			while (entry != null) { 
+				String name = entry.getName(); 
+
+				if (!name.contains(entryName)) {
+					// Add ZIP entry to output stream. 
+					out.putNextEntry(new ZipEntry(name)); 
+
+					// Transfer bytes from the ZIP file to the output file 
+					int len; 
+					while ((len = zin.read(buf)) > 0) { 
+						out.write(buf, 0, len); 
+					} 
+				} 
+
+				entry = zin.getNextEntry(); 
+			} 	
+		} catch (IOException e){
+			Log.e(TAG, e.getMessage());
+		} finally {
+			if(zin != null){
+				try{
+		            zin.close();
+				} catch (IOException e){
+					Log.e(TAG, e.getMessage());
+				}
+			}
+			if(out != null){
+				try{		 
+					out.close(); 
+				} catch (IOException e){
+					Log.e(TAG, e.getMessage());
+				}  
+			}	  
+			if(tempFile != null){
+				tempFile.delete(); 
+			}
+		}
+	}
+	
 }

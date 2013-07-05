@@ -3,9 +3,9 @@
 
 	<string name="application_name">The Writeo.US</string>
 	
-    <string name="story_app_name">The Writeo.US - Story Edition</string>
+    <string name="story_app_name">Writeo.US-Story Edition</string>
 	
-	<string name="novel_app_name">The writeo.US - Novel Edition</string>
+	<string name="novel_app_name">Writeo.US-Novel Edition</string>
     <string name="title_part_detail">Part Detail</string>
 	
 	<string name="newFileName">Untitled</string>

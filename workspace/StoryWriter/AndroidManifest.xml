@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.halcyon.storywriter"
     android:versionCode="1"
-    android:versionName="0.2 alpha" >
+    android:versionName="0.3 alpha" >
 
     <uses-sdk 
         android:minSdkVersion="7" 
@@ -17,7 +17,7 @@
 		
         <activity
             android:label="@string/story_app_name"
-            android:name=".StoryWriterActivity" >
+            android:name="com.halcyon.storywriter.StoryWriterActivity" >
             <intent-filter >
                 <action android:name="android.intent.action.MAIN" />
 

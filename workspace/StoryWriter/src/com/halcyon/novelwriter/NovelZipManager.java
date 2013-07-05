@@ -383,4 +383,75 @@ public class NovelZipManager implements NovelPersistenceManager
 		}
 	}
 	
+	public void deleteEntries(List<String> entryNames)  { 
+
+	    ZipInputStream zin = null;
+		ZipOutputStream out = null;
+		File tempFile = null;
+
+	    try{
+			// get a tempfile
+			tempFile = File.createTempFile(UUID.randomUUID().toString(), null, cacheDir); 
+			// delete it, otherwise you cannot rename your existing zip to it. 
+			tempFile.delete(); 
+
+			File zipFile = new File(zipFileName);
+			copy(zipFile, tempFile);
+
+			byte[] buf = new byte[1024]; 
+			zin = new ZipInputStream(new FileInputStream(tempFile)); 
+			out = new ZipOutputStream(new FileOutputStream(zipFile)); 
+			ZipEntry entry = zin.getNextEntry(); 
+
+			while (entry != null) { 
+				String name = entry.getName(); 
+
+				if (!isToBeRemoved(name, entryNames)) {
+					// Add ZIP entry to output stream. 
+					out.putNextEntry(new ZipEntry(name)); 
+
+					// Transfer bytes from the ZIP file to the output file 
+					int len; 
+					while ((len = zin.read(buf)) > 0) { 
+						out.write(buf, 0, len); 
+					} 
+				} 
+
+				entry = zin.getNextEntry(); 
+			} 	
+		} catch (IOException e){
+			Log.e(TAG, e.getMessage());
+		} finally {
+			if(zin != null){
+				try{
+		            zin.close();
+				} catch (IOException e){
+					Log.e(TAG, e.getMessage());
+				}
+			}
+			if(out != null){
+				try{		 
+					out.close(); 
+				} catch (IOException e){
+					Log.e(TAG, e.getMessage());
+				}  
+			}	  
+			if(tempFile != null){
+				tempFile.delete(); 
+			}
+		}
+	}
+	
+	private boolean isToBeRemoved(String entry, List<String> removedEntries){
+		boolean ret = false;
+		
+		for(String removedEntry:removedEntries){
+			if(entry.contains(removedEntry)){
+				ret = true;
+				break;
+			}
+		}
+		
+		return ret;
+	}
 }

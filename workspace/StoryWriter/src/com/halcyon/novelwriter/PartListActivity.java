@@ -142,6 +142,10 @@ public class PartListActivity extends SherlockFragmentActivity implements
 	{
 		super.onPause();
 		Toast.makeText(this, "on pause called", Toast.LENGTH_SHORT).show();
+		if(fragment != null) {
+			fragment.save();
+			Log.e(TAG, "fragment saved");
+		}
 		saveState();
 	}
 	
@@ -149,6 +153,12 @@ public class PartListActivity extends SherlockFragmentActivity implements
 		SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
 
 		if (editor != null) {
+			if(partList != null){
+				long selectedItemPosition = partList.getExpandableListView().getSelectedPosition();
+				editor.putLong("selectedPosition", selectedItemPosition);
+				Log.e(TAG, "save selectedPosition "+ selectedItemPosition);
+			}
+			
 			if(!isUntitled){
 			   editor.putString("fileName", fileName);
 			   Toast.makeText(this, "saved "+fileName, Toast.LENGTH_SHORT).show();			   
@@ -166,10 +176,10 @@ public class PartListActivity extends SherlockFragmentActivity implements
 		SharedPreferences prefs = getPreferences(MODE_PRIVATE);
 		
 		String restoredFileName = prefs.getString("fileName", null);
-		Toast.makeText(this, "restoredFileName "+restoredFileName, Toast.LENGTH_SHORT).show();
+		//Toast.makeText(this, "restoredFileName "+restoredFileName, Toast.LENGTH_SHORT).show();
 		if((restoredFileName != null)) {		
 			fileName = restoredFileName;
-			Toast.makeText(this, "restored 1 "+fileName, Toast.LENGTH_SHORT).show();
+			//Toast.makeText(this, "restored 1 "+fileName, Toast.LENGTH_SHORT).show();
 			//File f = getFileStreamPath(fileName);
 			File f = new File(fileName);
 			if(!f.exists()){
@@ -180,7 +190,7 @@ public class PartListActivity extends SherlockFragmentActivity implements
 			}
 		}
 		
-		Toast.makeText(this, "restored 2 "+fileName, Toast.LENGTH_SHORT).show();
+		//Toast.makeText(this, "restored 2 "+fileName, Toast.LENGTH_SHORT).show();
 		
 		if( ( fileName != null ) && !isUntitled ){
 			totalWordCount = countWordsForNovel(fileName);
@@ -188,6 +198,26 @@ public class PartListActivity extends SherlockFragmentActivity implements
 			updateTitle();
 			npm = new NovelZipManager(fileName, null, getCacheDir());
 			novel = partList.resetModel(npm);
+			
+			//restore position
+			//long packed = prefs.getLong("selectedPosition ", ExpandableListView.PACKED_POSITION_VALUE_NULL);
+			long packed = partList.getActivatedPosition();
+			Log.e(TAG, "restore selectedPosition " + packed);
+			if(partList.getExpandableListView().getPackedPositionType(packed) 
+			   != ExpandableListView.PACKED_POSITION_TYPE_NULL){
+                Log.e(TAG, "not null");
+				if(partList.getExpandableListView().getPackedPositionType(packed) 
+				   == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
+
+					int chapterIndex = partList.getExpandableListView().getPackedPositionGroup(packed);
+					int sceneIndex = partList.getExpandableListView().getPackedPositionChild(packed);
+					partList.getExpandableListView().setSelectedChild(chapterIndex, sceneIndex, true);
+					//the third parameter in the call above does not work.
+					partList.getExpandableListView().expandGroup(chapterIndex);
+					Scene scene = (Scene)partList.getExpandableListAdapter().getChild(chapterIndex, sceneIndex);
+					onSceneSelected(scene);
+				}
+			}
 		}
 	}
 		
@@ -225,13 +255,13 @@ public class PartListActivity extends SherlockFragmentActivity implements
 		
 		if (mTwoPane) {			
 			// In two-pane mode, show the detail view in this activity by
-			// adding or replacing the detail fragment using a
-			// fragment transaction.
+			// adding or replacing the detail fragment using a fragment transaction.
+			//save the data of the  fragment we are about to replace
+			if(fragment != null) fragment.save();
+			
 			Bundle arguments = new Bundle();
 			arguments.putSerializable(PartDetailFragment.ARG_SCENE, scene);
 			arguments.putSerializable(PartDetailFragment.ARG_FILE_NAME, fileName);
-			//arguments.putSerializable("text", text);
-			//arguments.putSerializable("prompt", prompt);
 			arguments.putLong("wordsBeforeScene", wordsBeforeScene);
 			arguments.putSerializable("currentTemplate", currentTemplate);
 						
@@ -248,7 +278,8 @@ public class PartListActivity extends SherlockFragmentActivity implements
 			// for the selected item ID.
 			Intent detailIntent = new Intent(this, PartDetailActivity.class);
 			detailIntent.putExtra(PartDetailFragment.ARG_SCENE, scene);
-			detailIntent.putExtra("fileName", fileName);
+			detailIntent.putExtra(PartDetailFragment.ARG_FILE_NAME, fileName);
+			
 			//detailIntent.putExtra("text", text);
 			//detailIntent.putExtra("prompt", prompt);
 			detailIntent.putExtra("wordsBeforeScene", wordsBeforeScene);
@@ -267,7 +298,6 @@ public class PartListActivity extends SherlockFragmentActivity implements
 
 		menu.add(0, MENU_NEW_FILE, 0, "New Novel").setShortcut('0', 'n').setIcon(R.drawable.ic_new);		
 		menu.add(0, MENU_OPEN_FILE, 0, "Open Novel").setShortcut('0', 'o').setIcon(R.drawable.ic_open);
-		//menu.add(0, MENU_SAVE_FILE_AS, 0, "Save As...").setShortcut('0', 'a').setIcon(R.drawable.ic_save);
 		menu.add(0, MENU_CHOOSE_STRUCT, 0, "Choose Structure...").setShortcut('0', 'a').setIcon(R.drawable.ic_open);
 		menu.add(0, MENU_GENERATE_NOVEL, 0, "Generate Novel").setShortcut('0', 'g').setIcon(R.drawable.ic_save);
 		
@@ -276,14 +306,14 @@ public class PartListActivity extends SherlockFragmentActivity implements
 		menu.add(0, MENU_REDO, 0, "Redo") .setIcon(R.drawable.redo) .
 		           setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);		
 		return true;
-	} // end onCreateOptionsMenu()
+	} 
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
 		switch (item.getItemId()) {
 			case MENU_NEW_FILE:
-			    //TO DO check if dirty			
+			    if( mTwoPane && ( fragment != null ) ) fragment.save();		
 			    fpk.pickFileForNew();			
 			    break;
 				
@@ -360,7 +390,8 @@ public class PartListActivity extends SherlockFragmentActivity implements
 						updateTitle();
 						npm = new NovelZipManager(fileName, novel, getCacheDir());
 						npm.createNovel();
-						partList.resetModel(npm);
+						//partList.resetModel(npm);
+						saveState();
 						isUntitled = false;
 					}catch(IOException e) {
 						Log.e(TAG, e.getMessage());

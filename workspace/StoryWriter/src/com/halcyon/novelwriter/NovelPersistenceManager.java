@@ -1,6 +1,7 @@
 package com.halcyon.novelwriter;
 
 import com.halcyon.novelwriter.model.*;
+import java.util.*;
 
 public interface NovelPersistenceManager
 {
@@ -16,5 +17,10 @@ public interface NovelPersistenceManager
 	
 	public void updateScene(String path, String text, String prompt);
 	
-	public String getScene(String pathSSS);
+	public String getScene(String path);
+	
+	public void deleteEntry(String entryName);
+	
+	public void deleteEntries(List<String> entryNames);
+	
 }

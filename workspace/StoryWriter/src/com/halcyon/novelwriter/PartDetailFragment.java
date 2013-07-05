@@ -73,6 +73,7 @@ public class PartDetailFragment extends SherlockFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		
 		View rootView = inflater.inflate(R.layout.fragment_part_detail,
 				container, false);
 				
@@ -160,20 +161,31 @@ public class PartDetailFragment extends SherlockFragment {
 	}
 	
 	//undo/redo related functions
+	/*
+	 * must ask both the text and the pager
+	 */
 	public boolean canUndo(){
-		return undoRedo.getCanUndo();
+		return (undoRedo.getCanUndo() || mInfoPagerAdapter.canUndo());
 	}
 	
 	public boolean canRedo(){
-		return undoRedo.getCanRedo();
+		return (undoRedo.getCanRedo() || mInfoPagerAdapter.canRedo());
 	}
 	
 	public void undo(){
-		undoRedo.undo();
+		if(text.hasFocus()){
+		    undoRedo.undo();
+		} else {
+			mInfoPagerAdapter.undo();
+		}
 	}
 	
 	public void redo(){
-		undoRedo.redo();
+		if(text.hasFocus()){
+		    undoRedo.redo();
+		} else {
+			mInfoPagerAdapter.redo();
+		}
 	}
 	
 	@Override

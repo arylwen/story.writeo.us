@@ -4,6 +4,7 @@ import android.os.*;
 import android.view.*;
 import android.widget.*;
 import com.actionbarsherlock.app.*;
+import com.halcyon.common.*;
 import com.halcyon.storywriter.*;
 
 public class PromptFragment extends SherlockFragment
@@ -12,6 +13,7 @@ public class PromptFragment extends SherlockFragment
         public static final String ARG_PROMPT = "prompt";
 		
 		private EditText prompt;
+		private TextViewUndoRedo undoRedo;
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -28,6 +30,11 @@ public class PromptFragment extends SherlockFragment
             Bundle args = getArguments();
 			prompt =   ((EditText) rootView.findViewById(R.id.prompt));
             prompt.setText(args.getString((ARG_PROMPT)));
+			
+			//attach undo/redo behavior to text _after_ cleaning up 
+			//so it doesn't register a undo operarion
+			undoRedo = new TextViewUndoRedo(prompt);
+						
             return rootView;
         }
 		
@@ -38,4 +45,21 @@ public class PromptFragment extends SherlockFragment
 			}
 			return ret;
 		}
-    }
+		
+	//undo/redo related functions
+	public boolean canUndo(){
+		return undoRedo.getCanUndo();
+	}
+
+	public boolean canRedo(){
+		return undoRedo.getCanRedo();
+	}
+
+	public void undo(){
+		undoRedo.undo();
+	}
+
+	public void redo(){
+		undoRedo.redo();
+	}
+}

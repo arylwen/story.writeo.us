@@ -39,7 +39,7 @@ public class SWFilePicker implements FilePicker
 		intent2Browse.putExtra(FileManagerIntents.EXTRA_TITLE, activity.getString(R.string.save_title));
 		intent2Browse.putExtra(FileManagerIntents.EXTRA_BUTTON_TEXT, activity.getString(R.string.save_button));
 
-		activity.startActivityForResult(intent2Browse, NEW_FILE_REQUEST_CODE);
+		activity.startActivityForResult(intent2Browse, SAVE_FILE_REQUEST_CODE);
 	}
 
 	public void pickFileForOpen()

@@ -13,21 +13,22 @@ package com.halcyon.novelwriter;
 import android.content.*;
 import android.os.*;
 import android.support.v4.app.*;
-import android.support.v4.view.*;
+import android.util.*;
 import android.view.*;
 import android.widget.*;
 import com.actionbarsherlock.app.*;
 import com.actionbarsherlock.view.*;
-import com.halcyon.novelwriter.*;
 import com.halcyon.novelwriter.model.*;
 import com.halcyon.storywriter.*;
 
 import com.actionbarsherlock.view.MenuItem;
 
 public class PartDetailActivity extends SherlockFragmentActivity 
-implements NovelColoriser.CounterListener
- //, ViewPager.OnPageChangeListener
+                                implements NovelColoriser.CounterListener
 {
+    private static final String TAG = "NW PartDetailActivity";
+	public static final String FRAGMENT_TAG = "PartDetailFragmentTag";
+ 
     private TextView title;
 	private String fileName;
 	private Scene scene;
@@ -38,7 +39,7 @@ implements NovelColoriser.CounterListener
 	private String currentPart = "";	   
 	private boolean first;
 	
-	private NovelPersistenceManager npm;
+	//private NovelPersistenceManager npm;
 	private PartDetailFragment detailFragment;
 		   
     //private int currentPage = 0;
@@ -59,9 +60,9 @@ implements NovelColoriser.CounterListener
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true); 
 		getSupportActionBar().setDisplayShowHomeEnabled(true);
 		
-        fileName = getIntent().getStringExtra("fileName");
+        fileName = getIntent().getStringExtra(PartDetailFragment.ARG_FILE_NAME);
 		scene = (Scene)getIntent().getSerializableExtra(PartDetailFragment.ARG_SCENE);
-		npm = new NovelZipManager(fileName, null, getCacheDir());
+		//npm = new NovelZipManager(fileName, null, getCacheDir());
 		
 		// savedInstanceState is non-null when there is fragment state
 		// saved from previous configurations of this activity
@@ -72,12 +73,15 @@ implements NovelColoriser.CounterListener
 		//
 		// http://developer.android.com/guide/components/fragments.html
 		//
+		Log.e(TAG, "savedInstanceState "+ savedInstanceState);
 		if (savedInstanceState == null) {
 			// Create the detail fragment and add it to the activity
 			// using a fragment transaction.
 			Bundle arguments = new Bundle();
 			arguments.putSerializable(PartDetailFragment.ARG_SCENE, getIntent()
 					.getSerializableExtra(PartDetailFragment.ARG_SCENE));
+			arguments.putSerializable(PartDetailFragment.ARG_FILE_NAME, getIntent()
+									  .getSerializableExtra(PartDetailFragment.ARG_FILE_NAME));
 			//arguments.putSerializable("text", getIntent().getSerializableExtra("text"));
 			//arguments.putSerializable("prompt", getIntent().getSerializableExtra("prompt"));			
 			arguments.putLong("wordsBeforeScene", getIntent().getLongExtra("wordsBeforeScene", 0));	
@@ -86,9 +90,10 @@ implements NovelColoriser.CounterListener
 			detailFragment = new PartDetailFragment();
 			detailFragment.setArguments(arguments);
 			getSupportFragmentManager().beginTransaction()
-					.add(R.id.part_detail_container, detailFragment).commit();
+					.add(R.id.part_detail_container, detailFragment, FRAGMENT_TAG).commit();
 			first = true;		
-			//partialWordCount = totalWordCount - detailFragment.getWordCount();
+		} else {
+			detailFragment = (PartDetailFragment) getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG); 
 		}
 	}
 

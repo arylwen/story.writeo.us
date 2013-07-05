@@ -25,6 +25,8 @@ public class StoryWriterActivity extends SherlockFragmentActivity
     implements ChooseTemplateDialogFragment.TemplateDialogListener, Coloriser.CounterListener
 {
 
+	private static final String TAG = "SW StoryWriterActivity";
+	
 	private final static int MENU_NEW_FILE = Menu.FIRST;
 	private final static int MENU_SAVE_FILE = Menu.FIRST + 1;
 	private final static int MENU_OPEN_FILE = Menu.FIRST + 2;
@@ -33,6 +35,7 @@ public class StoryWriterActivity extends SherlockFragmentActivity
 	
     private EditText text;
 	private EditText prompt;
+	private String promptStr; //when not visible we still need to keep it
 	private TextView title = null;
 	private TextView templateName;
 	private TextView templateSummary;
@@ -130,6 +133,7 @@ public class StoryWriterActivity extends SherlockFragmentActivity
 	protected void onPause()
 	{
 		super.onPause();
+		Log.e(TAG, "onPause called");
 
 		Toast.makeText(this, "on pause called", Toast.LENGTH_SHORT).show();
 		
@@ -171,6 +175,7 @@ public class StoryWriterActivity extends SherlockFragmentActivity
 	{
 		super.onResume();	
 		
+		Log.e(TAG, "onResume");
 		Toast.makeText(this, "on resume called", Toast.LENGTH_SHORT).show();
 
 		SharedPreferences prefs = getPreferences(MODE_PRIVATE);
@@ -195,6 +200,11 @@ public class StoryWriterActivity extends SherlockFragmentActivity
 			prompt.setText(restoredPrompt);
 		}
 
+		if (restoredPrompt != null)
+		{
+			promptStr = restoredPrompt;
+		}
+		
 		isChanged = prefs.getBoolean("isChanged", false);
 		isUntitled = prefs.getBoolean("isUntitled", true);
 		
@@ -255,7 +265,11 @@ public class StoryWriterActivity extends SherlockFragmentActivity
 					fm.saveText(fileName, text.getText().toString(), this);
 					updateText(text.getText().toString(), fileName);
 				    //save prompt 
-				    fm.saveText(getPromptFileName(fileName), prompt.getText().toString(), this);
+					String pmt;
+				    if((prompt != null) || (promptStr != null)){
+					    if(prompt != null) pmt = prompt.getText().toString(); else pmt = promptStr;
+				        fm.saveText(getPromptFileName(fileName), pmt, this);
+					}
 				break;
 				
 			case MENU_SAVE_FILE_AS:
@@ -290,7 +304,11 @@ public class StoryWriterActivity extends SherlockFragmentActivity
 					updateText(text.getText().toString(), fName);
 					
 					//save prompt 
-					fm.saveText(getPromptFileName(fName), prompt.getText().toString(), this);
+					String pmt;
+					if((prompt != null) || (promptStr != null)){
+						if(prompt != null) pmt = prompt.getText().toString(); else pmt = promptStr;
+					    fm.saveText(getPromptFileName(fName), pmt, this);
+					}
 				}
 			break;
 			

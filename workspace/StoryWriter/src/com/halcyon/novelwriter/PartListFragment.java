@@ -50,7 +50,7 @@ public class PartListFragment extends SherlockExpandableListFragment
 	/**
 	 * The current activated item position. Only used on tablets.
 	 */
-	private int mActivatedPosition = ListView.INVALID_POSITION;
+	private long mActivatedPosition = ExpandableListView.PACKED_POSITION_VALUE_NULL;
 	
 	private View mCurrentView = null;
 
@@ -106,53 +106,26 @@ public class PartListFragment extends SherlockExpandableListFragment
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-	    adapter = new ExpandableNovelAdapter(getActivity(), getNovel());	
+	    adapter = new ExpandableNovelAdapter(getActivity(), getEmptyNovel());	
 		setListAdapter(adapter);
-
-
 	}
 	
 	public void resetModel(Novel model)
 	{
-		((ExpandableNovelAdapter)getExpandableListAdapter()).resetModel(model);
-		
+		((ExpandableNovelAdapter)getExpandableListAdapter()).resetModel(model);		
 	}
 	
 	public Novel resetModel(NovelPersistenceManager npm)
 	{
 		return ((ExpandableNovelAdapter)getExpandableListAdapter()).resetModel(npm);
-
 	}
 	
-	private Novel getNovel()
+	private Novel getEmptyNovel()
 	{
-		Novel novel = new Novel();
-		
-		/*Chapter c ;
-		Scene s;
-		
-		c = new Chapter();
-		s = new Scene();
-		
-		c.setName("Chapter 1");
-		s.setName("Scene 1");
-		
-		c.addScene(s);
-		novel.addChapter(c);
-		
-		c = new Chapter();
-		s = new Scene();
-
-		c.setName("Chapter 2");
-		s.setName("Scene 2");
-
-		c.addScene(s);
-		novel.addChapter(c);*/
-		
+		Novel novel = new Novel();		
 		return novel;
 	}
 	
-
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
@@ -166,7 +139,8 @@ public class PartListFragment extends SherlockExpandableListFragment
 		if (savedInstanceState != null
 				&& savedInstanceState.containsKey(STATE_ACTIVATED_POSITION)) {
 			setActivatedPosition(savedInstanceState
-					.getInt(STATE_ACTIVATED_POSITION));
+					.getLong(STATE_ACTIVATED_POSITION));
+			Log.e(TAG, "restored instance state" );
 		}
 	}
 
@@ -191,7 +165,7 @@ public class PartListFragment extends SherlockExpandableListFragment
 		mCallbacks = sDummyCallbacks;
 	}
 
-	@Override
+	/*@Override
 	public void onListItemClick(ListView listView, View view, int position,
 			long id) {
 		super.onListItemClick(listView, view, position, id);
@@ -202,18 +176,16 @@ public class PartListFragment extends SherlockExpandableListFragment
 		// Notify the active callbacks interface (the activity, if the
 		// fragment is attached to one) that an item has been selected.
 		//mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
-	}
+	}*/
 
 	@Override
 	public boolean onChildClick( ExpandableListView parent, View v, 
 	                              int groupPosition, int childPosition, long id) {
 		
-		  //Toast.makeText(getActivity(), "partlistfragment:onchildclick", Toast.LENGTH_LONG);
 		  Log.e(TAG, "onChildClick");
 		
-		  //int index = parent.getFlatListPosition(
-		  //       ExpandableListView.getPackedPositionForChild(groupPosition, childPosition)); 
 		  setActivatedView(v);
+		  mActivatedPosition = getExpandableListView().getPackedPositionForChild(groupPosition, childPosition);
 		
 		  Scene child = (Scene)getExpandableListAdapter().getChild(groupPosition, childPosition);						
 		  mCallbacks.onSceneSelected(child);
@@ -236,9 +208,10 @@ public class PartListFragment extends SherlockExpandableListFragment
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-		if (mActivatedPosition != ListView.INVALID_POSITION) {
+		Log.e(TAG, "onSaveInstanceState");
+		if (mActivatedPosition != ExpandableListView.PACKED_POSITION_VALUE_NULL) {
 			// Serialize and persist the activated item position.
-			outState.putInt(STATE_ACTIVATED_POSITION, mActivatedPosition);
+			outState.putLong(STATE_ACTIVATED_POSITION, mActivatedPosition);
 		}
 	}
 
@@ -254,14 +227,26 @@ public class PartListFragment extends SherlockExpandableListFragment
 	    					: ListView.CHOICE_MODE_NONE);
 	}
 
-	private void setActivatedPosition(int position) {
-		if (position == ListView.INVALID_POSITION) {
-			getListView().setItemChecked(mActivatedPosition, false);
-		} else {
-			getListView().setItemChecked(position, true);
-		}
+	private void setActivatedPosition(long packed) {
+	/*	if(getExpandableListView().getPackedPositionType(packed) 
+		   != ExpandableListView.PACKED_POSITION_TYPE_NULL){
+			Log.e(TAG, "not null");
+			if(getExpandableListView().getPackedPositionType(packed) 
+			   == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
 
-		mActivatedPosition = position;
+				int chapterIndex = getExpandableListView().getPackedPositionGroup(packed);
+				int sceneIndex = getExpandableListView().getPackedPositionChild(packed);
+				getExpandableListView().setSelectedChild(chapterIndex, sceneIndex, true);
+				//the third parameter in the call above does not work.
+				getExpandableListView().expandGroup(chapterIndex);
+			}
+		}*/
+
+		mActivatedPosition = packed;
+	}
+	
+	public long getActivatedPosition(){
+		return mActivatedPosition;
 	}
 	
 	private void setActivatedView(View currentView) {
@@ -278,7 +263,7 @@ public class PartListFragment extends SherlockExpandableListFragment
 		mCurrentView = currentView;
 	}
 	
-	// here you create de conext menu 
+	// create the conext menu 
 	@Override 
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) { 
 	   
@@ -408,7 +393,6 @@ public class PartListFragment extends SherlockExpandableListFragment
 
 						int chapterIndex = getExpandableListView().getPackedPositionGroup(packed);
 						int sceneIndex = getExpandableListView().getPackedPositionChild(packed);
-						//((ExpandableNovelAdapter)getExpandableListAdapter()).insertScene(chapterIndex, sceneIndex);
 
 						Scene scene = (Scene)((ExpandableNovelAdapter)getExpandableListAdapter()).
 							getChild(chapterIndex, sceneIndex);

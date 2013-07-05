@@ -221,16 +221,24 @@ public class ExpandableNovelAdapter extends BaseExpandableListAdapter implements
    
    public void removeChapter(int position)
    {
+	   Chapter chapter = novel.getChapters().get(position);
+	   List<String> scenesToRemove = new ArrayList<String>();
+	   for(Scene scene:chapter.getScenes()){
+		   scenesToRemove.add(scene.getPath());
+	   }
 	   novel.removeChapter(position);
 	   npm.updateNovel();
+	   npm.deleteEntries(scenesToRemove);
 	   notifyDataSetChanged();
    }
    
    public void removeScene(int chapterPos, int scenePos)
    {
-	   Chapter c = novel.getChapters().get(chapterPos);
-	   c.removeScene(scenePos);
+	   Chapter chapter = novel.getChapters().get(chapterPos);
+	   Scene scene = chapter.getScenes().get(scenePos);
+	   chapter.removeScene(scenePos);
 	   npm.updateNovel();
+	   npm.deleteEntry(scene.getPath());
 	   notifyDataSetChanged();
    }
    
@@ -239,7 +247,6 @@ public class ExpandableNovelAdapter extends BaseExpandableListAdapter implements
 	   notifyDataSetChanged();
    }
       
-   // Intentionally put on comment, if you need on click deactivate it
    @Override public void onClick(View view) {
 	   Log.e(TAG, "onClick called");
 	   
@@ -250,11 +257,11 @@ public class ExpandableNovelAdapter extends BaseExpandableListAdapter implements
                     // up pressed
 			        if(holder.childPosition == -1){
 				        //chapter button presses
-			            swapChapters(novel.getChapters(), holder.groupPosition, holder.groupPosition-1);
+			            swap(novel.getChapters(), holder.groupPosition, holder.groupPosition-1);
 						npm.updateNovel();
 			            notifyDataSetChanged();
 			        } else {
-			           swapScenes(novel.getChapters().get(holder.groupPosition).getScenes(), 
+			           swap(novel.getChapters().get(holder.groupPosition).getScenes(), 
 			                holder.childPosition, holder.childPosition-1);
 						npm.updateNovel();
 				        notifyDataSetChanged();
@@ -267,10 +274,10 @@ public class ExpandableNovelAdapter extends BaseExpandableListAdapter implements
 				   // down pressed
 				   if(holder.childPosition == -1){
 					   //chapter button presses
-					   swapChapters(novel.getChapters(), holder.groupPosition, holder.groupPosition+1);
+					   swap(novel.getChapters(), holder.groupPosition, holder.groupPosition+1);
 					   notifyDataSetChanged();
 				   } else {
-			           swapScenes(novel.getChapters().get(holder.groupPosition).getScenes(), 
+			           swap(novel.getChapters().get(holder.groupPosition).getScenes(), 
 								  holder.childPosition, holder.childPosition+1);
 					   notifyDataSetChanged();
 				   }				
@@ -289,9 +296,12 @@ public class ExpandableNovelAdapter extends BaseExpandableListAdapter implements
 	/*ArrayList<T> syntax doesn't work */
 	
 	
+	public <E> void swap(List<E> list, int firstInd, int secondInd){
+		E temp =  list.set( firstInd, list.get( secondInd ) ) ; 
+	    list.set( secondInd, temp ) ; 
+	}
 	
-	
-	public void swapChapters( List<Chapter> list, int firstInd, int secondInd ) { 
+	/*public void swapChapters( List<Chapter> list, int firstInd, int secondInd ) { 
 	    Chapter temp =  list.set( firstInd, list.get( secondInd ) ) ; 
 	    list.set( secondInd, temp ) ; 
 	}
@@ -299,5 +309,5 @@ public class ExpandableNovelAdapter extends BaseExpandableListAdapter implements
 	public void swapScenes( List<Scene> list, int firstInd, int secondInd ) { 
 	    Scene temp =  list.set( firstInd, list.get( secondInd ) ) ; 
 	    list.set( secondInd, temp ) ; 
-	}
+	}*/
 }

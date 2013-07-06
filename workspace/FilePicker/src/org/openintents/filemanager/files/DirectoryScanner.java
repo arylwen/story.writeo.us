@@ -4,13 +4,10 @@ import android.content.*;
 import android.graphics.drawable.*;
 import android.os.*;
 import android.util.*;
-import com.halcyon.filepicker.*;
 import java.io.*;
 import java.util.*;
 import org.openintents.filemanager.*;
 import org.openintents.filemanager.util.*;
-
-import com.halcyon.filepicker.R;
 
 public class DirectoryScanner extends Thread {
 	/** List of contents is ready. */

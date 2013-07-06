@@ -8,7 +8,7 @@ import android.util.*;
 import android.view.*;
 import android.view.inputmethod.*;
 import android.widget.*;
-import com.halcyon.filepicker.*;
+import org.openintents.filemanager.*;
 
 public class PickBar extends LinearLayout {
 	private EditText mEditText;

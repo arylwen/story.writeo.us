@@ -1,28 +1,17 @@
 package org.openintents.filemanager.view;
 
-import java.io.File;
-
-import android.content.Context;
-import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
-import android.os.Environment;
-import android.text.InputType;
-import android.util.AttributeSet;
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-import android.widget.HorizontalScrollView;
-import android.widget.ImageButton;
-import android.widget.ImageView.ScaleType;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.ViewFlipper;
-
-import com.halcyon.filepicker.R;
+import android.content.*;
+import android.content.res.*;
+import android.graphics.drawable.*;
+import android.os.*;
+import android.text.*;
+import android.util.*;
+import android.view.*;
+import android.view.inputmethod.*;
+import android.widget.*;
+import android.widget.ImageView.*;
+import java.io.*;
+import org.openintents.filemanager.*;
 
 /**
  * Provides a self contained way to represent the current path and provides a handy way of navigating. </br></br>

@@ -1,41 +1,22 @@
 package org.openintents.filemanager;
 
-import java.io.File;
-import java.lang.ref.SoftReference;
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
-import org.openintents.filemanager.files.FileHolder;
-import org.openintents.filemanager.util.FileUtils;
-import org.openintents.filemanager.util.ImageUtils;
-import org.openintents.filemanager.util.MimeTypes;
-
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.content.res.Resources.NotFoundException;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Handler;
-import android.util.Log;
-import android.util.TypedValue;
-import android.widget.ImageView;
-
-import com.halcyon.filepicker.R;
+import android.app.*;
+import android.content.*;
+import android.content.pm.*;
+import android.content.pm.PackageManager.*;
+import android.content.res.Resources.*;
+import android.graphics.*;
+import android.graphics.drawable.*;
+import android.net.*;
+import android.os.*;
+import android.util.*;
+import android.widget.*;
+import java.io.*;
+import java.lang.ref.*;
+import java.util.*;
+import java.util.concurrent.*;
+import org.openintents.filemanager.files.*;
+import org.openintents.filemanager.util.*;
 
 public class ThumbnailLoader {
 	private static final String MIME_APK = "application/vnd.android.package-archive";

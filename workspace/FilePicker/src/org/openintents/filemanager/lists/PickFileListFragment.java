@@ -13,8 +13,6 @@ import org.openintents.filemanager.view.*;
 import org.openintents.filemanager.view.PickBar.*;
 import org.openintents.intents.*;
 
-import com.halcyon.filepicker.R;
-
 public class PickFileListFragment extends SimpleFileListFragment{
 	private PickBar mPickBar;
 	

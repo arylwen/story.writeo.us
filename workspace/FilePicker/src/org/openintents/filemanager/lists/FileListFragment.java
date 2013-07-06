@@ -8,15 +8,12 @@ import android.support.v4.app.*;
 import android.view.*;
 import android.widget.*;
 import android.widget.AbsListView.*;
-import com.halcyon.filepicker.*;
 import java.io.*;
 import java.util.*;
 import org.openintents.filemanager.*;
 import org.openintents.filemanager.files.*;
 import org.openintents.filemanager.util.*;
 import org.openintents.intents.*;
-
-import com.halcyon.filepicker.R;
 
 /**
  * A {@link ListFragment} that displays the contents of a directory.

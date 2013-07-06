@@ -7,7 +7,7 @@ import android.os.*;
 import android.view.*;
 import android.widget.*;
 import android.widget.AdapterView.*;
-import com.halcyon.filepicker.*;
+import org.openintents.filemanager.*;
 import org.openintents.util.*;
 
 public class InfoActivity extends DistributionLibraryListActivity implements OnItemClickListener {

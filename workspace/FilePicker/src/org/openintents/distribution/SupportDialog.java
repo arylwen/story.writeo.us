@@ -18,7 +18,7 @@ package org.openintents.distribution;
 
 import android.app.*;
 import android.content.*;
-import com.halcyon.filepicker.*;
+import org.openintents.filemanager.*;
 import org.openintents.intents.*;
 import org.openintents.util.*;
 

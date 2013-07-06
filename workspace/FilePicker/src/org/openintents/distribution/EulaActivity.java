@@ -24,8 +24,8 @@ import android.os.*;
 import android.text.*;
 import android.view.*;
 import android.widget.*;
-import com.halcyon.filepicker.*;
 import java.io.*;
+import org.openintents.filemanager.*;
 import org.openintents.util.*;
 
 /**

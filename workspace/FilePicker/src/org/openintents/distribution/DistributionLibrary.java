@@ -2,7 +2,8 @@ package org.openintents.distribution;
 
 import android.app.*;
 import android.view.*;
-import com.halcyon.filepicker.*;
+import org.openintents.filemanager.*;
+//import com.halcyon.filepicker.*;
 
 public class DistributionLibrary {
 

@@ -20,9 +20,9 @@ import android.content.*;
 import android.content.pm.PackageManager.*;
 import android.content.res.*;
 import android.webkit.*;
-import com.halcyon.filepicker.*;
 import java.io.*;
 import java.util.*;
+import org.openintents.filemanager.*;
 import org.xmlpull.v1.*;
 
 public class MimeTypes {

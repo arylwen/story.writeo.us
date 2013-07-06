@@ -1,7 +1,7 @@
 package org.openintents.distribution;
 
 import android.content.*;
-import com.halcyon.filepicker.*;
+import org.openintents.filemanager.*;
 
 public class DownloadOIAppDialog extends DownloadAppDialog {
 

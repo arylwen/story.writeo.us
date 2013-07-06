@@ -20,7 +20,7 @@ import android.content.*;
 import android.content.pm.*;
 import android.content.pm.PackageManager.*;
 import android.net.*;
-import com.halcyon.filepicker.*;
+import org.openintents.filemanager.*;
 import org.openintents.util.*;
 
 /**

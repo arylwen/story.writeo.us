@@ -7,18 +7,13 @@ import android.view.*;
 import android.view.ContextMenu.*;
 import android.widget.*;
 import android.widget.AdapterView.*;
-import com.halcyon.filepicker.*;
 import java.io.*;
 import org.openintents.filemanager.*;
 import org.openintents.filemanager.compatibility.*;
-import org.openintents.filemanager.dialogs.*;
 import org.openintents.filemanager.files.*;
 import org.openintents.filemanager.util.*;
 import org.openintents.filemanager.view.*;
 import org.openintents.filemanager.view.PathBar.*;
-import org.openintents.intents.*;
-
-import com.halcyon.filepicker.R;
 
 /**
  * A file list fragment that supports context menu and CAB selection. 

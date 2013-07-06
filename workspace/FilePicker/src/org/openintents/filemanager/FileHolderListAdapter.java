@@ -7,8 +7,6 @@ import java.util.*;
 import org.openintents.filemanager.files.*;
 import org.openintents.filemanager.view.*;
 
-import com.halcyon.filepicker.R;
-
 public class FileHolderListAdapter extends BaseAdapter {
 	private List<FileHolder> mItems;
 	private LayoutInflater mInflater;

@@ -1674,9 +1674,9 @@ string name="app_name">OI File Manager</string
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #MenuAttributes_android_icon com.halcyon.filepicker:android_icon}</code></td><td></td></tr>
-           <tr><td><code>{@link #MenuAttributes_android_id com.halcyon.filepicker:android_id}</code></td><td></td></tr>
-           <tr><td><code>{@link #MenuAttributes_android_title com.halcyon.filepicker:android_title}</code></td><td></td></tr>
+           <tr><td><code>{@link #MenuAttributes_android_icon org.openintents.filemanager:android_icon}</code></td><td></td></tr>
+           <tr><td><code>{@link #MenuAttributes_android_id org.openintents.filemanager:android_id}</code></td><td></td></tr>
+           <tr><td><code>{@link #MenuAttributes_android_title org.openintents.filemanager:android_title}</code></td><td></td></tr>
            </table>
            @see #MenuAttributes_android_icon
            @see #MenuAttributes_android_id
@@ -1686,19 +1686,19 @@ string name="app_name">OI File Manager</string
             0x01010002, 0x010100d0, 0x010101e1
         };
         /**
-          <p>This symbol is the offset where the {@link com.halcyon.filepicker.R.attr#android_icon}
+          <p>This symbol is the offset where the {@link org.openintents.filemanager.R.attr#android_icon}
           attribute's value can be found in the {@link #MenuAttributes} array.
           @attr name android:android_icon
         */
         public static final int MenuAttributes_android_icon = 0;
         /**
-          <p>This symbol is the offset where the {@link com.halcyon.filepicker.R.attr#android_id}
+          <p>This symbol is the offset where the {@link org.openintents.filemanager.R.attr#android_id}
           attribute's value can be found in the {@link #MenuAttributes} array.
           @attr name android:android_id
         */
         public static final int MenuAttributes_android_id = 1;
         /**
-          <p>This symbol is the offset where the {@link com.halcyon.filepicker.R.attr#android_title}
+          <p>This symbol is the offset where the {@link org.openintents.filemanager.R.attr#android_title}
           attribute's value can be found in the {@link #MenuAttributes} array.
           @attr name android:android_title
         */
@@ -1709,26 +1709,26 @@ string name="app_name">OI File Manager</string
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #SherlockActionBar_background com.halcyon.filepicker:background}</code></td><td> Specifies a background drawable for the action bar.</td></tr>
-           <tr><td><code>{@link #SherlockActionBar_backgroundSplit com.halcyon.filepicker:backgroundSplit}</code></td><td> Specifies a background drawable for the bottom component of a split action bar.</td></tr>
-           <tr><td><code>{@link #SherlockActionBar_backgroundStacked com.halcyon.filepicker:backgroundStacked}</code></td><td> Specifies a background drawable for a second stacked row of the action bar.</td></tr>
-           <tr><td><code>{@link #SherlockActionBar_customNavigationLayout com.halcyon.filepicker:customNavigationLayout}</code></td><td> Specifies a layout for custom navigation.</td></tr>
-           <tr><td><code>{@link #SherlockActionBar_displayOptions com.halcyon.filepicker:displayOptions}</code></td><td> Options affecting how the action bar is displayed.</td></tr>
-           <tr><td><code>{@link #SherlockActionBar_divider com.halcyon.filepicker:divider}</code></td><td> Specifies the drawable used for item dividers.</td></tr>
-           <tr><td><code>{@link #SherlockActionBar_height com.halcyon.filepicker:height}</code></td><td> Specifies a fixed height.</td></tr>
-           <tr><td><code>{@link #SherlockActionBar_homeLayout com.halcyon.filepicker:homeLayout}</code></td><td> Specifies a layout to use for the "home" section of the action bar.</td></tr>
-           <tr><td><code>{@link #SherlockActionBar_icon com.halcyon.filepicker:icon}</code></td><td> Specifies the drawable used for the application icon.</td></tr>
-           <tr><td><code>{@link #SherlockActionBar_indeterminateProgressStyle com.halcyon.filepicker:indeterminateProgressStyle}</code></td><td> Specifies a style resource to use for an indeterminate progress spinner.</td></tr>
-           <tr><td><code>{@link #SherlockActionBar_itemPadding com.halcyon.filepicker:itemPadding}</code></td><td> Specifies padding that should be applied to the left and right sides of
+           <tr><td><code>{@link #SherlockActionBar_background org.openintents.filemanager:background}</code></td><td> Specifies a background drawable for the action bar.</td></tr>
+           <tr><td><code>{@link #SherlockActionBar_backgroundSplit org.openintents.filemanager:backgroundSplit}</code></td><td> Specifies a background drawable for the bottom component of a split action bar.</td></tr>
+           <tr><td><code>{@link #SherlockActionBar_backgroundStacked org.openintents.filemanager:backgroundStacked}</code></td><td> Specifies a background drawable for a second stacked row of the action bar.</td></tr>
+           <tr><td><code>{@link #SherlockActionBar_customNavigationLayout org.openintents.filemanager:customNavigationLayout}</code></td><td> Specifies a layout for custom navigation.</td></tr>
+           <tr><td><code>{@link #SherlockActionBar_displayOptions org.openintents.filemanager:displayOptions}</code></td><td> Options affecting how the action bar is displayed.</td></tr>
+           <tr><td><code>{@link #SherlockActionBar_divider org.openintents.filemanager:divider}</code></td><td> Specifies the drawable used for item dividers.</td></tr>
+           <tr><td><code>{@link #SherlockActionBar_height org.openintents.filemanager:height}</code></td><td> Specifies a fixed height.</td></tr>
+           <tr><td><code>{@link #SherlockActionBar_homeLayout org.openintents.filemanager:homeLayout}</code></td><td> Specifies a layout to use for the "home" section of the action bar.</td></tr>
+           <tr><td><code>{@link #SherlockActionBar_icon org.openintents.filemanager:icon}</code></td><td> Specifies the drawable used for the application icon.</td></tr>
+           <tr><td><code>{@link #SherlockActionBar_indeterminateProgressStyle org.openintents.filemanager:indeterminateProgressStyle}</code></td><td> Specifies a style resource to use for an indeterminate progress spinner.</td></tr>
+           <tr><td><code>{@link #SherlockActionBar_itemPadding org.openintents.filemanager:itemPadding}</code></td><td> Specifies padding that should be applied to the left and right sides of
              system-provided items in the bar.</td></tr>
-           <tr><td><code>{@link #SherlockActionBar_logo com.halcyon.filepicker:logo}</code></td><td> Specifies the drawable used for the application logo.</td></tr>
-           <tr><td><code>{@link #SherlockActionBar_navigationMode com.halcyon.filepicker:navigationMode}</code></td><td> The type of navigation to use.</td></tr>
-           <tr><td><code>{@link #SherlockActionBar_progressBarPadding com.halcyon.filepicker:progressBarPadding}</code></td><td> Specifies the horizontal padding on either end for an embedded progress bar.</td></tr>
-           <tr><td><code>{@link #SherlockActionBar_progressBarStyle com.halcyon.filepicker:progressBarStyle}</code></td><td> Specifies a style resource to use for an embedded progress bar.</td></tr>
-           <tr><td><code>{@link #SherlockActionBar_subtitle com.halcyon.filepicker:subtitle}</code></td><td> Specifies subtitle text used for navigationMode="normal" </td></tr>
-           <tr><td><code>{@link #SherlockActionBar_subtitleTextStyle com.halcyon.filepicker:subtitleTextStyle}</code></td><td> Specifies a style to use for subtitle text.</td></tr>
-           <tr><td><code>{@link #SherlockActionBar_title com.halcyon.filepicker:title}</code></td><td> Specifies title text used for navigationMode="normal" </td></tr>
-           <tr><td><code>{@link #SherlockActionBar_titleTextStyle com.halcyon.filepicker:titleTextStyle}</code></td><td> Specifies a style to use for title text.</td></tr>
+           <tr><td><code>{@link #SherlockActionBar_logo org.openintents.filemanager:logo}</code></td><td> Specifies the drawable used for the application logo.</td></tr>
+           <tr><td><code>{@link #SherlockActionBar_navigationMode org.openintents.filemanager:navigationMode}</code></td><td> The type of navigation to use.</td></tr>
+           <tr><td><code>{@link #SherlockActionBar_progressBarPadding org.openintents.filemanager:progressBarPadding}</code></td><td> Specifies the horizontal padding on either end for an embedded progress bar.</td></tr>
+           <tr><td><code>{@link #SherlockActionBar_progressBarStyle org.openintents.filemanager:progressBarStyle}</code></td><td> Specifies a style resource to use for an embedded progress bar.</td></tr>
+           <tr><td><code>{@link #SherlockActionBar_subtitle org.openintents.filemanager:subtitle}</code></td><td> Specifies subtitle text used for navigationMode="normal" </td></tr>
+           <tr><td><code>{@link #SherlockActionBar_subtitleTextStyle org.openintents.filemanager:subtitleTextStyle}</code></td><td> Specifies a style to use for subtitle text.</td></tr>
+           <tr><td><code>{@link #SherlockActionBar_title org.openintents.filemanager:title}</code></td><td> Specifies title text used for navigationMode="normal" </td></tr>
+           <tr><td><code>{@link #SherlockActionBar_titleTextStyle org.openintents.filemanager:titleTextStyle}</code></td><td> Specifies a style to use for title text.</td></tr>
            </table>
            @see #SherlockActionBar_background
            @see #SherlockActionBar_backgroundSplit
@@ -2043,7 +2043,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #SherlockActionMenuItemView_android_minWidth com.halcyon.filepicker:android_minWidth}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockActionMenuItemView_android_minWidth org.openintents.filemanager:android_minWidth}</code></td><td></td></tr>
            </table>
            @see #SherlockActionMenuItemView_android_minWidth
          */
@@ -2051,7 +2051,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
             0x0101013f
         };
         /**
-          <p>This symbol is the offset where the {@link com.halcyon.filepicker.R.attr#android_minWidth}
+          <p>This symbol is the offset where the {@link org.openintents.filemanager.R.attr#android_minWidth}
           attribute's value can be found in the {@link #SherlockActionMenuItemView} array.
           @attr name android:android_minWidth
         */
@@ -2062,11 +2062,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #SherlockActionMode_background com.halcyon.filepicker:background}</code></td><td> Specifies a background for the action mode bar.</td></tr>
-           <tr><td><code>{@link #SherlockActionMode_backgroundSplit com.halcyon.filepicker:backgroundSplit}</code></td><td> Specifies a background for the split action mode bar.</td></tr>
-           <tr><td><code>{@link #SherlockActionMode_height com.halcyon.filepicker:height}</code></td><td> Specifies a fixed height for the action mode bar.</td></tr>
-           <tr><td><code>{@link #SherlockActionMode_subtitleTextStyle com.halcyon.filepicker:subtitleTextStyle}</code></td><td> Specifies a style to use for subtitle text.</td></tr>
-           <tr><td><code>{@link #SherlockActionMode_titleTextStyle com.halcyon.filepicker:titleTextStyle}</code></td><td> Specifies a style to use for title text.</td></tr>
+           <tr><td><code>{@link #SherlockActionMode_background org.openintents.filemanager:background}</code></td><td> Specifies a background for the action mode bar.</td></tr>
+           <tr><td><code>{@link #SherlockActionMode_backgroundSplit org.openintents.filemanager:backgroundSplit}</code></td><td> Specifies a background for the split action mode bar.</td></tr>
+           <tr><td><code>{@link #SherlockActionMode_height org.openintents.filemanager:height}</code></td><td> Specifies a fixed height for the action mode bar.</td></tr>
+           <tr><td><code>{@link #SherlockActionMode_subtitleTextStyle org.openintents.filemanager:subtitleTextStyle}</code></td><td> Specifies a style to use for subtitle text.</td></tr>
+           <tr><td><code>{@link #SherlockActionMode_titleTextStyle org.openintents.filemanager:titleTextStyle}</code></td><td> Specifies a style to use for title text.</td></tr>
            </table>
            @see #SherlockActionMode_background
            @see #SherlockActionMode_backgroundSplit
@@ -2154,9 +2154,9 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #SherlockActivityChooserView_android_background com.halcyon.filepicker:android_background}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockActivityChooserView_expandActivityOverflowButtonDrawable com.halcyon.filepicker:expandActivityOverflowButtonDrawable}</code></td><td> The drawable to show in the button for expanding the activities overflow popup.</td></tr>
-           <tr><td><code>{@link #SherlockActivityChooserView_initialActivityCount com.halcyon.filepicker:initialActivityCount}</code></td><td> The maximal number of items initially shown in the activity list.</td></tr>
+           <tr><td><code>{@link #SherlockActivityChooserView_android_background org.openintents.filemanager:android_background}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockActivityChooserView_expandActivityOverflowButtonDrawable org.openintents.filemanager:expandActivityOverflowButtonDrawable}</code></td><td> The drawable to show in the button for expanding the activities overflow popup.</td></tr>
+           <tr><td><code>{@link #SherlockActivityChooserView_initialActivityCount org.openintents.filemanager:initialActivityCount}</code></td><td> The maximal number of items initially shown in the activity list.</td></tr>
            </table>
            @see #SherlockActivityChooserView_android_background
            @see #SherlockActivityChooserView_expandActivityOverflowButtonDrawable
@@ -2166,7 +2166,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
             0x010100d4, 0x7f01005e, 0x7f01005f
         };
         /**
-          <p>This symbol is the offset where the {@link com.halcyon.filepicker.R.attr#android_background}
+          <p>This symbol is the offset where the {@link org.openintents.filemanager.R.attr#android_background}
           attribute's value can be found in the {@link #SherlockActivityChooserView} array.
           @attr name android:android_background
         */
@@ -2210,12 +2210,12 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #SherlockMenuGroup_android_checkableBehavior com.halcyon.filepicker:android_checkableBehavior}</code></td><td> Whether the items are capable of displaying a check mark.</td></tr>
-           <tr><td><code>{@link #SherlockMenuGroup_android_enabled com.halcyon.filepicker:android_enabled}</code></td><td> Whether the items are enabled.</td></tr>
-           <tr><td><code>{@link #SherlockMenuGroup_android_id com.halcyon.filepicker:android_id}</code></td><td> The ID of the group.</td></tr>
-           <tr><td><code>{@link #SherlockMenuGroup_android_menuCategory com.halcyon.filepicker:android_menuCategory}</code></td><td> The category applied to all items within this group.</td></tr>
-           <tr><td><code>{@link #SherlockMenuGroup_android_orderInCategory com.halcyon.filepicker:android_orderInCategory}</code></td><td> The order within the category applied to all items within this group.</td></tr>
-           <tr><td><code>{@link #SherlockMenuGroup_android_visible com.halcyon.filepicker:android_visible}</code></td><td> Whether the items are shown/visible.</td></tr>
+           <tr><td><code>{@link #SherlockMenuGroup_android_checkableBehavior org.openintents.filemanager:android_checkableBehavior}</code></td><td> Whether the items are capable of displaying a check mark.</td></tr>
+           <tr><td><code>{@link #SherlockMenuGroup_android_enabled org.openintents.filemanager:android_enabled}</code></td><td> Whether the items are enabled.</td></tr>
+           <tr><td><code>{@link #SherlockMenuGroup_android_id org.openintents.filemanager:android_id}</code></td><td> The ID of the group.</td></tr>
+           <tr><td><code>{@link #SherlockMenuGroup_android_menuCategory org.openintents.filemanager:android_menuCategory}</code></td><td> The category applied to all items within this group.</td></tr>
+           <tr><td><code>{@link #SherlockMenuGroup_android_orderInCategory org.openintents.filemanager:android_orderInCategory}</code></td><td> The order within the category applied to all items within this group.</td></tr>
+           <tr><td><code>{@link #SherlockMenuGroup_android_visible org.openintents.filemanager:android_visible}</code></td><td> Whether the items are shown/visible.</td></tr>
            </table>
            @see #SherlockMenuGroup_android_checkableBehavior
            @see #SherlockMenuGroup_android_enabled
@@ -2232,7 +2232,7 @@ containing a value of this type.
           <p>
           @attr description
            Whether the items are capable of displaying a check mark. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.halcyon.filepicker.R.attr#android_checkableBehavior}.
+          <p>This corresponds to the global attribute          resource symbol {@link org.openintents.filemanager.R.attr#android_checkableBehavior}.
           @attr name android:android_checkableBehavior
         */
         public static final int SherlockMenuGroup_android_checkableBehavior = 5;
@@ -2240,7 +2240,7 @@ containing a value of this type.
           <p>
           @attr description
            Whether the items are enabled. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.halcyon.filepicker.R.attr#android_enabled}.
+          <p>This corresponds to the global attribute          resource symbol {@link org.openintents.filemanager.R.attr#android_enabled}.
           @attr name android:android_enabled
         */
         public static final int SherlockMenuGroup_android_enabled = 0;
@@ -2248,7 +2248,7 @@ containing a value of this type.
           <p>
           @attr description
            The ID of the group. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.halcyon.filepicker.R.attr#android_id}.
+          <p>This corresponds to the global attribute          resource symbol {@link org.openintents.filemanager.R.attr#android_id}.
           @attr name android:android_id
         */
         public static final int SherlockMenuGroup_android_id = 1;
@@ -2257,7 +2257,7 @@ containing a value of this type.
           @attr description
            The category applied to all items within this group.
              (This will be or'ed with the orderInCategory attribute.) 
-          <p>This corresponds to the global attribute          resource symbol {@link com.halcyon.filepicker.R.attr#android_menuCategory}.
+          <p>This corresponds to the global attribute          resource symbol {@link org.openintents.filemanager.R.attr#android_menuCategory}.
           @attr name android:android_menuCategory
         */
         public static final int SherlockMenuGroup_android_menuCategory = 3;
@@ -2266,7 +2266,7 @@ containing a value of this type.
           @attr description
            The order within the category applied to all items within this group.
              (This will be or'ed with the category attribute.) 
-          <p>This corresponds to the global attribute          resource symbol {@link com.halcyon.filepicker.R.attr#android_orderInCategory}.
+          <p>This corresponds to the global attribute          resource symbol {@link org.openintents.filemanager.R.attr#android_orderInCategory}.
           @attr name android:android_orderInCategory
         */
         public static final int SherlockMenuGroup_android_orderInCategory = 4;
@@ -2274,7 +2274,7 @@ containing a value of this type.
           <p>
           @attr description
            Whether the items are shown/visible. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.halcyon.filepicker.R.attr#android_visible}.
+          <p>This corresponds to the global attribute          resource symbol {@link org.openintents.filemanager.R.attr#android_visible}.
           @attr name android:android_visible
         */
         public static final int SherlockMenuGroup_android_visible = 2;
@@ -2284,26 +2284,26 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #SherlockMenuItem_android_actionLayout com.halcyon.filepicker:android_actionLayout}</code></td><td> An optional layout to be used as an action view.</td></tr>
-           <tr><td><code>{@link #SherlockMenuItem_android_actionProviderClass com.halcyon.filepicker:android_actionProviderClass}</code></td><td> The name of an optional ActionProvider class to instantiate an action view
+           <tr><td><code>{@link #SherlockMenuItem_android_actionLayout org.openintents.filemanager:android_actionLayout}</code></td><td> An optional layout to be used as an action view.</td></tr>
+           <tr><td><code>{@link #SherlockMenuItem_android_actionProviderClass org.openintents.filemanager:android_actionProviderClass}</code></td><td> The name of an optional ActionProvider class to instantiate an action view
              and perform operations such as default action for that menu item.</td></tr>
-           <tr><td><code>{@link #SherlockMenuItem_android_actionViewClass com.halcyon.filepicker:android_actionViewClass}</code></td><td> The name of an optional View class to instantiate and use as an
+           <tr><td><code>{@link #SherlockMenuItem_android_actionViewClass org.openintents.filemanager:android_actionViewClass}</code></td><td> The name of an optional View class to instantiate and use as an
              action view.</td></tr>
-           <tr><td><code>{@link #SherlockMenuItem_android_alphabeticShortcut com.halcyon.filepicker:android_alphabeticShortcut}</code></td><td> The alphabetic shortcut key.</td></tr>
-           <tr><td><code>{@link #SherlockMenuItem_android_checkable com.halcyon.filepicker:android_checkable}</code></td><td> Whether the item is capable of displaying a check mark.</td></tr>
-           <tr><td><code>{@link #SherlockMenuItem_android_checked com.halcyon.filepicker:android_checked}</code></td><td> Whether the item is checked.</td></tr>
-           <tr><td><code>{@link #SherlockMenuItem_android_enabled com.halcyon.filepicker:android_enabled}</code></td><td> Whether the item is enabled.</td></tr>
-           <tr><td><code>{@link #SherlockMenuItem_android_icon com.halcyon.filepicker:android_icon}</code></td><td> The icon associated with this item.</td></tr>
-           <tr><td><code>{@link #SherlockMenuItem_android_id com.halcyon.filepicker:android_id}</code></td><td> The ID of the item.</td></tr>
-           <tr><td><code>{@link #SherlockMenuItem_android_menuCategory com.halcyon.filepicker:android_menuCategory}</code></td><td> The category applied to the item.</td></tr>
-           <tr><td><code>{@link #SherlockMenuItem_android_numericShortcut com.halcyon.filepicker:android_numericShortcut}</code></td><td> The numeric shortcut key.</td></tr>
-           <tr><td><code>{@link #SherlockMenuItem_android_onClick com.halcyon.filepicker:android_onClick}</code></td><td> Name of a method on the Context used to inflate the menu that will be
+           <tr><td><code>{@link #SherlockMenuItem_android_alphabeticShortcut org.openintents.filemanager:android_alphabeticShortcut}</code></td><td> The alphabetic shortcut key.</td></tr>
+           <tr><td><code>{@link #SherlockMenuItem_android_checkable org.openintents.filemanager:android_checkable}</code></td><td> Whether the item is capable of displaying a check mark.</td></tr>
+           <tr><td><code>{@link #SherlockMenuItem_android_checked org.openintents.filemanager:android_checked}</code></td><td> Whether the item is checked.</td></tr>
+           <tr><td><code>{@link #SherlockMenuItem_android_enabled org.openintents.filemanager:android_enabled}</code></td><td> Whether the item is enabled.</td></tr>
+           <tr><td><code>{@link #SherlockMenuItem_android_icon org.openintents.filemanager:android_icon}</code></td><td> The icon associated with this item.</td></tr>
+           <tr><td><code>{@link #SherlockMenuItem_android_id org.openintents.filemanager:android_id}</code></td><td> The ID of the item.</td></tr>
+           <tr><td><code>{@link #SherlockMenuItem_android_menuCategory org.openintents.filemanager:android_menuCategory}</code></td><td> The category applied to the item.</td></tr>
+           <tr><td><code>{@link #SherlockMenuItem_android_numericShortcut org.openintents.filemanager:android_numericShortcut}</code></td><td> The numeric shortcut key.</td></tr>
+           <tr><td><code>{@link #SherlockMenuItem_android_onClick org.openintents.filemanager:android_onClick}</code></td><td> Name of a method on the Context used to inflate the menu that will be
              called when the item is clicked.</td></tr>
-           <tr><td><code>{@link #SherlockMenuItem_android_orderInCategory com.halcyon.filepicker:android_orderInCategory}</code></td><td> The order within the category applied to the item.</td></tr>
-           <tr><td><code>{@link #SherlockMenuItem_android_showAsAction com.halcyon.filepicker:android_showAsAction}</code></td><td> How this item should display in the Action Bar, if present.</td></tr>
-           <tr><td><code>{@link #SherlockMenuItem_android_title com.halcyon.filepicker:android_title}</code></td><td> The title associated with the item.</td></tr>
-           <tr><td><code>{@link #SherlockMenuItem_android_titleCondensed com.halcyon.filepicker:android_titleCondensed}</code></td><td> The condensed title associated with the item.</td></tr>
-           <tr><td><code>{@link #SherlockMenuItem_android_visible com.halcyon.filepicker:android_visible}</code></td><td> Whether the item is shown/visible.</td></tr>
+           <tr><td><code>{@link #SherlockMenuItem_android_orderInCategory org.openintents.filemanager:android_orderInCategory}</code></td><td> The order within the category applied to the item.</td></tr>
+           <tr><td><code>{@link #SherlockMenuItem_android_showAsAction org.openintents.filemanager:android_showAsAction}</code></td><td> How this item should display in the Action Bar, if present.</td></tr>
+           <tr><td><code>{@link #SherlockMenuItem_android_title org.openintents.filemanager:android_title}</code></td><td> The title associated with the item.</td></tr>
+           <tr><td><code>{@link #SherlockMenuItem_android_titleCondensed org.openintents.filemanager:android_titleCondensed}</code></td><td> The condensed title associated with the item.</td></tr>
+           <tr><td><code>{@link #SherlockMenuItem_android_visible org.openintents.filemanager:android_visible}</code></td><td> Whether the item is shown/visible.</td></tr>
            </table>
            @see #SherlockMenuItem_android_actionLayout
            @see #SherlockMenuItem_android_actionProviderClass
@@ -2336,7 +2336,7 @@ containing a value of this type.
            An optional layout to be used as an action view.
              See {@link android.view.MenuItem#setActionView(android.view.View)}
              for more info. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.halcyon.filepicker.R.attr#android_actionLayout}.
+          <p>This corresponds to the global attribute          resource symbol {@link org.openintents.filemanager.R.attr#android_actionLayout}.
           @attr name android:android_actionLayout
         */
         public static final int SherlockMenuItem_android_actionLayout = 14;
@@ -2347,7 +2347,7 @@ containing a value of this type.
              and perform operations such as default action for that menu item.
              See {@link android.view.MenuItem#setActionProvider(android.view.ActionProvider)}
              for more info. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.halcyon.filepicker.R.attr#android_actionProviderClass}.
+          <p>This corresponds to the global attribute          resource symbol {@link org.openintents.filemanager.R.attr#android_actionProviderClass}.
           @attr name android:android_actionProviderClass
         */
         public static final int SherlockMenuItem_android_actionProviderClass = 16;
@@ -2357,7 +2357,7 @@ containing a value of this type.
            The name of an optional View class to instantiate and use as an
              action view. See {@link android.view.MenuItem#setActionView(android.view.View)}
              for more info. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.halcyon.filepicker.R.attr#android_actionViewClass}.
+          <p>This corresponds to the global attribute          resource symbol {@link org.openintents.filemanager.R.attr#android_actionViewClass}.
           @attr name android:android_actionViewClass
         */
         public static final int SherlockMenuItem_android_actionViewClass = 15;
@@ -2366,7 +2366,7 @@ containing a value of this type.
           @attr description
            The alphabetic shortcut key.  This is the shortcut when using a keyboard
              with alphabetic keys. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.halcyon.filepicker.R.attr#android_alphabeticShortcut}.
+          <p>This corresponds to the global attribute          resource symbol {@link org.openintents.filemanager.R.attr#android_alphabeticShortcut}.
           @attr name android:android_alphabeticShortcut
         */
         public static final int SherlockMenuItem_android_alphabeticShortcut = 9;
@@ -2374,7 +2374,7 @@ containing a value of this type.
           <p>
           @attr description
            Whether the item is capable of displaying a check mark. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.halcyon.filepicker.R.attr#android_checkable}.
+          <p>This corresponds to the global attribute          resource symbol {@link org.openintents.filemanager.R.attr#android_checkable}.
           @attr name android:android_checkable
         */
         public static final int SherlockMenuItem_android_checkable = 11;
@@ -2383,7 +2383,7 @@ containing a value of this type.
           @attr description
            Whether the item is checked.  Note that you must first have enabled checking with
              the checkable attribute or else the check mark will not appear. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.halcyon.filepicker.R.attr#android_checked}.
+          <p>This corresponds to the global attribute          resource symbol {@link org.openintents.filemanager.R.attr#android_checked}.
           @attr name android:android_checked
         */
         public static final int SherlockMenuItem_android_checked = 3;
@@ -2391,7 +2391,7 @@ containing a value of this type.
           <p>
           @attr description
            Whether the item is enabled. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.halcyon.filepicker.R.attr#android_enabled}.
+          <p>This corresponds to the global attribute          resource symbol {@link org.openintents.filemanager.R.attr#android_enabled}.
           @attr name android:android_enabled
         */
         public static final int SherlockMenuItem_android_enabled = 1;
@@ -2400,7 +2400,7 @@ containing a value of this type.
           @attr description
            The icon associated with this item.  This icon will not always be shown, so
              the title should be sufficient in describing this item. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.halcyon.filepicker.R.attr#android_icon}.
+          <p>This corresponds to the global attribute          resource symbol {@link org.openintents.filemanager.R.attr#android_icon}.
           @attr name android:android_icon
         */
         public static final int SherlockMenuItem_android_icon = 0;
@@ -2408,7 +2408,7 @@ containing a value of this type.
           <p>
           @attr description
            The ID of the item. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.halcyon.filepicker.R.attr#android_id}.
+          <p>This corresponds to the global attribute          resource symbol {@link org.openintents.filemanager.R.attr#android_id}.
           @attr name android:android_id
         */
         public static final int SherlockMenuItem_android_id = 2;
@@ -2417,7 +2417,7 @@ containing a value of this type.
           @attr description
            The category applied to the item.
              (This will be or'ed with the orderInCategory attribute.) 
-          <p>This corresponds to the global attribute          resource symbol {@link com.halcyon.filepicker.R.attr#android_menuCategory}.
+          <p>This corresponds to the global attribute          resource symbol {@link org.openintents.filemanager.R.attr#android_menuCategory}.
           @attr name android:android_menuCategory
         */
         public static final int SherlockMenuItem_android_menuCategory = 5;
@@ -2426,7 +2426,7 @@ containing a value of this type.
           @attr description
            The numeric shortcut key.  This is the shortcut when using a numeric (e.g., 12-key)
              keyboard. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.halcyon.filepicker.R.attr#android_numericShortcut}.
+          <p>This corresponds to the global attribute          resource symbol {@link org.openintents.filemanager.R.attr#android_numericShortcut}.
           @attr name android:android_numericShortcut
         */
         public static final int SherlockMenuItem_android_numericShortcut = 10;
@@ -2435,7 +2435,7 @@ containing a value of this type.
           @attr description
            Name of a method on the Context used to inflate the menu that will be
              called when the item is clicked. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.halcyon.filepicker.R.attr#android_onClick}.
+          <p>This corresponds to the global attribute          resource symbol {@link org.openintents.filemanager.R.attr#android_onClick}.
           @attr name android:android_onClick
         */
         public static final int SherlockMenuItem_android_onClick = 12;
@@ -2444,7 +2444,7 @@ containing a value of this type.
           @attr description
            The order within the category applied to the item.
              (This will be or'ed with the category attribute.) 
-          <p>This corresponds to the global attribute          resource symbol {@link com.halcyon.filepicker.R.attr#android_orderInCategory}.
+          <p>This corresponds to the global attribute          resource symbol {@link org.openintents.filemanager.R.attr#android_orderInCategory}.
           @attr name android:android_orderInCategory
         */
         public static final int SherlockMenuItem_android_orderInCategory = 6;
@@ -2452,7 +2452,7 @@ containing a value of this type.
           <p>
           @attr description
            How this item should display in the Action Bar, if present. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.halcyon.filepicker.R.attr#android_showAsAction}.
+          <p>This corresponds to the global attribute          resource symbol {@link org.openintents.filemanager.R.attr#android_showAsAction}.
           @attr name android:android_showAsAction
         */
         public static final int SherlockMenuItem_android_showAsAction = 13;
@@ -2460,7 +2460,7 @@ containing a value of this type.
           <p>
           @attr description
            The title associated with the item. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.halcyon.filepicker.R.attr#android_title}.
+          <p>This corresponds to the global attribute          resource symbol {@link org.openintents.filemanager.R.attr#android_title}.
           @attr name android:android_title
         */
         public static final int SherlockMenuItem_android_title = 7;
@@ -2469,7 +2469,7 @@ containing a value of this type.
           @attr description
            The condensed title associated with the item.  This is used in situations where the
              normal title may be too long to be displayed. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.halcyon.filepicker.R.attr#android_titleCondensed}.
+          <p>This corresponds to the global attribute          resource symbol {@link org.openintents.filemanager.R.attr#android_titleCondensed}.
           @attr name android:android_titleCondensed
         */
         public static final int SherlockMenuItem_android_titleCondensed = 8;
@@ -2477,7 +2477,7 @@ containing a value of this type.
           <p>
           @attr description
            Whether the item is shown/visible. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.halcyon.filepicker.R.attr#android_visible}.
+          <p>This corresponds to the global attribute          resource symbol {@link org.openintents.filemanager.R.attr#android_visible}.
           @attr name android:android_visible
         */
         public static final int SherlockMenuItem_android_visible = 4;
@@ -2487,14 +2487,14 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #SherlockMenuView_headerBackground com.halcyon.filepicker:headerBackground}</code></td><td> Default background for the menu header.</td></tr>
-           <tr><td><code>{@link #SherlockMenuView_horizontalDivider com.halcyon.filepicker:horizontalDivider}</code></td><td> Default horizontal divider between rows of menu items.</td></tr>
-           <tr><td><code>{@link #SherlockMenuView_itemBackground com.halcyon.filepicker:itemBackground}</code></td><td> Default background for each menu item.</td></tr>
-           <tr><td><code>{@link #SherlockMenuView_itemIconDisabledAlpha com.halcyon.filepicker:itemIconDisabledAlpha}</code></td><td> Default disabled icon alpha for each menu item that shows an icon.</td></tr>
-           <tr><td><code>{@link #SherlockMenuView_itemTextAppearance com.halcyon.filepicker:itemTextAppearance}</code></td><td> Default appearance of menu item text.</td></tr>
-           <tr><td><code>{@link #SherlockMenuView_preserveIconSpacing com.halcyon.filepicker:preserveIconSpacing}</code></td><td> Whether space should be reserved in layout when an icon is missing.</td></tr>
-           <tr><td><code>{@link #SherlockMenuView_verticalDivider com.halcyon.filepicker:verticalDivider}</code></td><td> Default vertical divider between menu items.</td></tr>
-           <tr><td><code>{@link #SherlockMenuView_windowAnimationStyle com.halcyon.filepicker:windowAnimationStyle}</code></td><td> Default animations for the menu.</td></tr>
+           <tr><td><code>{@link #SherlockMenuView_headerBackground org.openintents.filemanager:headerBackground}</code></td><td> Default background for the menu header.</td></tr>
+           <tr><td><code>{@link #SherlockMenuView_horizontalDivider org.openintents.filemanager:horizontalDivider}</code></td><td> Default horizontal divider between rows of menu items.</td></tr>
+           <tr><td><code>{@link #SherlockMenuView_itemBackground org.openintents.filemanager:itemBackground}</code></td><td> Default background for each menu item.</td></tr>
+           <tr><td><code>{@link #SherlockMenuView_itemIconDisabledAlpha org.openintents.filemanager:itemIconDisabledAlpha}</code></td><td> Default disabled icon alpha for each menu item that shows an icon.</td></tr>
+           <tr><td><code>{@link #SherlockMenuView_itemTextAppearance org.openintents.filemanager:itemTextAppearance}</code></td><td> Default appearance of menu item text.</td></tr>
+           <tr><td><code>{@link #SherlockMenuView_preserveIconSpacing org.openintents.filemanager:preserveIconSpacing}</code></td><td> Whether space should be reserved in layout when an icon is missing.</td></tr>
+           <tr><td><code>{@link #SherlockMenuView_verticalDivider org.openintents.filemanager:verticalDivider}</code></td><td> Default vertical divider between menu items.</td></tr>
+           <tr><td><code>{@link #SherlockMenuView_windowAnimationStyle org.openintents.filemanager:windowAnimationStyle}</code></td><td> Default animations for the menu.</td></tr>
            </table>
            @see #SherlockMenuView_headerBackground
            @see #SherlockMenuView_horizontalDivider
@@ -2623,11 +2623,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #SherlockSearchView_android_imeOptions com.halcyon.filepicker:android_imeOptions}</code></td><td> The IME options to set on the query text field.</td></tr>
-           <tr><td><code>{@link #SherlockSearchView_android_inputType com.halcyon.filepicker:android_inputType}</code></td><td> The input type to set on the query text field.</td></tr>
-           <tr><td><code>{@link #SherlockSearchView_android_maxWidth com.halcyon.filepicker:android_maxWidth}</code></td><td> An optional maximum width of the SearchView.</td></tr>
-           <tr><td><code>{@link #SherlockSearchView_iconifiedByDefault com.halcyon.filepicker:iconifiedByDefault}</code></td><td> The default state of the SearchView.</td></tr>
-           <tr><td><code>{@link #SherlockSearchView_queryHint com.halcyon.filepicker:queryHint}</code></td><td> An optional query hint string to be displayed in the empty query field.</td></tr>
+           <tr><td><code>{@link #SherlockSearchView_android_imeOptions org.openintents.filemanager:android_imeOptions}</code></td><td> The IME options to set on the query text field.</td></tr>
+           <tr><td><code>{@link #SherlockSearchView_android_inputType org.openintents.filemanager:android_inputType}</code></td><td> The input type to set on the query text field.</td></tr>
+           <tr><td><code>{@link #SherlockSearchView_android_maxWidth org.openintents.filemanager:android_maxWidth}</code></td><td> An optional maximum width of the SearchView.</td></tr>
+           <tr><td><code>{@link #SherlockSearchView_iconifiedByDefault org.openintents.filemanager:iconifiedByDefault}</code></td><td> The default state of the SearchView.</td></tr>
+           <tr><td><code>{@link #SherlockSearchView_queryHint org.openintents.filemanager:queryHint}</code></td><td> An optional query hint string to be displayed in the empty query field.</td></tr>
            </table>
            @see #SherlockSearchView_android_imeOptions
            @see #SherlockSearchView_android_inputType
@@ -2643,7 +2643,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>
           @attr description
            The IME options to set on the query text field. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.halcyon.filepicker.R.attr#android_imeOptions}.
+          <p>This corresponds to the global attribute          resource symbol {@link org.openintents.filemanager.R.attr#android_imeOptions}.
           @attr name android:android_imeOptions
         */
         public static final int SherlockSearchView_android_imeOptions = 2;
@@ -2651,7 +2651,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>
           @attr description
            The input type to set on the query text field. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.halcyon.filepicker.R.attr#android_inputType}.
+          <p>This corresponds to the global attribute          resource symbol {@link org.openintents.filemanager.R.attr#android_inputType}.
           @attr name android:android_inputType
         */
         public static final int SherlockSearchView_android_inputType = 1;
@@ -2659,7 +2659,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>
           @attr description
            An optional maximum width of the SearchView. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.halcyon.filepicker.R.attr#android_maxWidth}.
+          <p>This corresponds to the global attribute          resource symbol {@link org.openintents.filemanager.R.attr#android_maxWidth}.
           @attr name android:android_maxWidth
         */
         public static final int SherlockSearchView_android_maxWidth = 0;
@@ -2702,17 +2702,17 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #SherlockSpinner_android_dropDownHorizontalOffset com.halcyon.filepicker:android_dropDownHorizontalOffset}</code></td><td> Horizontal offset from the spinner widget for positioning the dropdown
+           <tr><td><code>{@link #SherlockSpinner_android_dropDownHorizontalOffset org.openintents.filemanager:android_dropDownHorizontalOffset}</code></td><td> Horizontal offset from the spinner widget for positioning the dropdown
              in spinnerMode="dropdown".</td></tr>
-           <tr><td><code>{@link #SherlockSpinner_android_dropDownSelector com.halcyon.filepicker:android_dropDownSelector}</code></td><td> List selector to use for spinnerMode="dropdown" display.</td></tr>
-           <tr><td><code>{@link #SherlockSpinner_android_dropDownVerticalOffset com.halcyon.filepicker:android_dropDownVerticalOffset}</code></td><td> Vertical offset from the spinner widget for positioning the dropdown in
+           <tr><td><code>{@link #SherlockSpinner_android_dropDownSelector org.openintents.filemanager:android_dropDownSelector}</code></td><td> List selector to use for spinnerMode="dropdown" display.</td></tr>
+           <tr><td><code>{@link #SherlockSpinner_android_dropDownVerticalOffset org.openintents.filemanager:android_dropDownVerticalOffset}</code></td><td> Vertical offset from the spinner widget for positioning the dropdown in
              spinnerMode="dropdown".</td></tr>
-           <tr><td><code>{@link #SherlockSpinner_android_dropDownWidth com.halcyon.filepicker:android_dropDownWidth}</code></td><td> Width of the dropdown in spinnerMode="dropdown".</td></tr>
-           <tr><td><code>{@link #SherlockSpinner_android_gravity com.halcyon.filepicker:android_gravity}</code></td><td> Gravity setting for positioning the currently selected item.</td></tr>
-           <tr><td><code>{@link #SherlockSpinner_android_popupBackground com.halcyon.filepicker:android_popupBackground}</code></td><td> Background drawable to use for the dropdown in spinnerMode="dropdown".</td></tr>
-           <tr><td><code>{@link #SherlockSpinner_android_popupPromptView com.halcyon.filepicker:android_popupPromptView}</code></td><td> Reference to a layout to use for displaying a prompt in the dropdown for
+           <tr><td><code>{@link #SherlockSpinner_android_dropDownWidth org.openintents.filemanager:android_dropDownWidth}</code></td><td> Width of the dropdown in spinnerMode="dropdown".</td></tr>
+           <tr><td><code>{@link #SherlockSpinner_android_gravity org.openintents.filemanager:android_gravity}</code></td><td> Gravity setting for positioning the currently selected item.</td></tr>
+           <tr><td><code>{@link #SherlockSpinner_android_popupBackground org.openintents.filemanager:android_popupBackground}</code></td><td> Background drawable to use for the dropdown in spinnerMode="dropdown".</td></tr>
+           <tr><td><code>{@link #SherlockSpinner_android_popupPromptView org.openintents.filemanager:android_popupPromptView}</code></td><td> Reference to a layout to use for displaying a prompt in the dropdown for
              spinnerMode="dropdown".</td></tr>
-           <tr><td><code>{@link #SherlockSpinner_android_prompt com.halcyon.filepicker:android_prompt}</code></td><td> The prompt to display when the spinner's dialog is shown.</td></tr>
+           <tr><td><code>{@link #SherlockSpinner_android_prompt org.openintents.filemanager:android_prompt}</code></td><td> The prompt to display when the spinner's dialog is shown.</td></tr>
            </table>
            @see #SherlockSpinner_android_dropDownHorizontalOffset
            @see #SherlockSpinner_android_dropDownSelector
@@ -2732,7 +2732,7 @@ containing a value of this type.
           @attr description
            Horizontal offset from the spinner widget for positioning the dropdown
              in spinnerMode="dropdown". 
-          <p>This corresponds to the global attribute          resource symbol {@link com.halcyon.filepicker.R.attr#android_dropDownHorizontalOffset}.
+          <p>This corresponds to the global attribute          resource symbol {@link org.openintents.filemanager.R.attr#android_dropDownHorizontalOffset}.
           @attr name android:android_dropDownHorizontalOffset
         */
         public static final int SherlockSpinner_android_dropDownHorizontalOffset = 5;
@@ -2740,7 +2740,7 @@ containing a value of this type.
           <p>
           @attr description
            List selector to use for spinnerMode="dropdown" display. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.halcyon.filepicker.R.attr#android_dropDownSelector}.
+          <p>This corresponds to the global attribute          resource symbol {@link org.openintents.filemanager.R.attr#android_dropDownSelector}.
           @attr name android:android_dropDownSelector
         */
         public static final int SherlockSpinner_android_dropDownSelector = 1;
@@ -2749,7 +2749,7 @@ containing a value of this type.
           @attr description
            Vertical offset from the spinner widget for positioning the dropdown in
              spinnerMode="dropdown". 
-          <p>This corresponds to the global attribute          resource symbol {@link com.halcyon.filepicker.R.attr#android_dropDownVerticalOffset}.
+          <p>This corresponds to the global attribute          resource symbol {@link org.openintents.filemanager.R.attr#android_dropDownVerticalOffset}.
           @attr name android:android_dropDownVerticalOffset
         */
         public static final int SherlockSpinner_android_dropDownVerticalOffset = 6;
@@ -2757,7 +2757,7 @@ containing a value of this type.
           <p>
           @attr description
            Width of the dropdown in spinnerMode="dropdown". 
-          <p>This corresponds to the global attribute          resource symbol {@link com.halcyon.filepicker.R.attr#android_dropDownWidth}.
+          <p>This corresponds to the global attribute          resource symbol {@link org.openintents.filemanager.R.attr#android_dropDownWidth}.
           @attr name android:android_dropDownWidth
         */
         public static final int SherlockSpinner_android_dropDownWidth = 4;
@@ -2765,7 +2765,7 @@ containing a value of this type.
           <p>
           @attr description
            Gravity setting for positioning the currently selected item. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.halcyon.filepicker.R.attr#android_gravity}.
+          <p>This corresponds to the global attribute          resource symbol {@link org.openintents.filemanager.R.attr#android_gravity}.
           @attr name android:android_gravity
         */
         public static final int SherlockSpinner_android_gravity = 0;
@@ -2773,7 +2773,7 @@ containing a value of this type.
           <p>
           @attr description
            Background drawable to use for the dropdown in spinnerMode="dropdown". 
-          <p>This corresponds to the global attribute          resource symbol {@link com.halcyon.filepicker.R.attr#android_popupBackground}.
+          <p>This corresponds to the global attribute          resource symbol {@link org.openintents.filemanager.R.attr#android_popupBackground}.
           @attr name android:android_popupBackground
         */
         public static final int SherlockSpinner_android_popupBackground = 2;
@@ -2791,7 +2791,7 @@ containing a value of this type.
           <p>
           @attr description
            The prompt to display when the spinner's dialog is shown. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.halcyon.filepicker.R.attr#android_prompt}.
+          <p>This corresponds to the global attribute          resource symbol {@link org.openintents.filemanager.R.attr#android_prompt}.
           @attr name android:android_prompt
         */
         public static final int SherlockSpinner_android_prompt = 3;
@@ -2801,77 +2801,77 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #SherlockTheme_actionBarDivider com.halcyon.filepicker:actionBarDivider}</code></td><td> Custom divider drawable to use for elements in the action bar.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionBarItemBackground com.halcyon.filepicker:actionBarItemBackground}</code></td><td> Custom item state list drawable background for action bar items.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionBarSize com.halcyon.filepicker:actionBarSize}</code></td><td> Size of the Action Bar, including the contextual
+           <tr><td><code>{@link #SherlockTheme_actionBarDivider org.openintents.filemanager:actionBarDivider}</code></td><td> Custom divider drawable to use for elements in the action bar.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_actionBarItemBackground org.openintents.filemanager:actionBarItemBackground}</code></td><td> Custom item state list drawable background for action bar items.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_actionBarSize org.openintents.filemanager:actionBarSize}</code></td><td> Size of the Action Bar, including the contextual
              bar used to present Action Modes.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionBarSplitStyle com.halcyon.filepicker:actionBarSplitStyle}</code></td><td> Reference to a style for the split Action Bar.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionBarStyle com.halcyon.filepicker:actionBarStyle}</code></td><td> Reference to a style for the Action Bar </td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionBarTabBarStyle com.halcyon.filepicker:actionBarTabBarStyle}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionBarTabStyle com.halcyon.filepicker:actionBarTabStyle}</code></td><td> Default style for tabs within an action bar </td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionBarTabTextStyle com.halcyon.filepicker:actionBarTabTextStyle}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionBarWidgetTheme com.halcyon.filepicker:actionBarWidgetTheme}</code></td><td> Reference to a theme that should be used to inflate widgets
+           <tr><td><code>{@link #SherlockTheme_actionBarSplitStyle org.openintents.filemanager:actionBarSplitStyle}</code></td><td> Reference to a style for the split Action Bar.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_actionBarStyle org.openintents.filemanager:actionBarStyle}</code></td><td> Reference to a style for the Action Bar </td></tr>
+           <tr><td><code>{@link #SherlockTheme_actionBarTabBarStyle org.openintents.filemanager:actionBarTabBarStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_actionBarTabStyle org.openintents.filemanager:actionBarTabStyle}</code></td><td> Default style for tabs within an action bar </td></tr>
+           <tr><td><code>{@link #SherlockTheme_actionBarTabTextStyle org.openintents.filemanager:actionBarTabTextStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_actionBarWidgetTheme org.openintents.filemanager:actionBarWidgetTheme}</code></td><td> Reference to a theme that should be used to inflate widgets
              and layouts destined for the action bar.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionButtonStyle com.halcyon.filepicker:actionButtonStyle}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionDropDownStyle com.halcyon.filepicker:actionDropDownStyle}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionMenuTextAppearance com.halcyon.filepicker:actionMenuTextAppearance}</code></td><td> TextAppearance style that will be applied to text that
+           <tr><td><code>{@link #SherlockTheme_actionButtonStyle org.openintents.filemanager:actionButtonStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_actionDropDownStyle org.openintents.filemanager:actionDropDownStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_actionMenuTextAppearance org.openintents.filemanager:actionMenuTextAppearance}</code></td><td> TextAppearance style that will be applied to text that
              appears within action menu items.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionMenuTextColor com.halcyon.filepicker:actionMenuTextColor}</code></td><td> Color for text that appears within action menu items.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionModeBackground com.halcyon.filepicker:actionModeBackground}</code></td><td> Background drawable to use for action mode UI </td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionModeCloseButtonStyle com.halcyon.filepicker:actionModeCloseButtonStyle}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionModeCloseDrawable com.halcyon.filepicker:actionModeCloseDrawable}</code></td><td> Drawable to use for the close action mode button </td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionModePopupWindowStyle com.halcyon.filepicker:actionModePopupWindowStyle}</code></td><td> PopupWindow style to use for action modes when showing as a window overlay.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionModeShareDrawable com.halcyon.filepicker:actionModeShareDrawable}</code></td><td> Drawable to use for the Share action button in WebView selection action modes </td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionModeSplitBackground com.halcyon.filepicker:actionModeSplitBackground}</code></td><td> Background drawable to use for action mode UI in the lower split bar </td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionModeStyle com.halcyon.filepicker:actionModeStyle}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionOverflowButtonStyle com.halcyon.filepicker:actionOverflowButtonStyle}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_actionSpinnerItemStyle com.halcyon.filepicker:actionSpinnerItemStyle}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_activatedBackgroundIndicator com.halcyon.filepicker:activatedBackgroundIndicator}</code></td><td> Drawable used as a background for activated items.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_activityChooserViewStyle com.halcyon.filepicker:activityChooserViewStyle}</code></td><td> Default ActivityChooserView style.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_buttonStyleSmall com.halcyon.filepicker:buttonStyleSmall}</code></td><td> Small Button style.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_dividerVertical com.halcyon.filepicker:dividerVertical}</code></td><td> Drawable to use for generic vertical dividers.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_dropDownHintAppearance com.halcyon.filepicker:dropDownHintAppearance}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_dropDownListViewStyle com.halcyon.filepicker:dropDownListViewStyle}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_dropdownListPreferredItemHeight com.halcyon.filepicker:dropdownListPreferredItemHeight}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_homeAsUpIndicator com.halcyon.filepicker:homeAsUpIndicator}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_listPopupWindowStyle com.halcyon.filepicker:listPopupWindowStyle}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_listPreferredItemHeightSmall com.halcyon.filepicker:listPreferredItemHeightSmall}</code></td><td> A smaller, sleeker list item height.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_listPreferredItemPaddingLeft com.halcyon.filepicker:listPreferredItemPaddingLeft}</code></td><td> The preferred padding along the left edge of list items.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_listPreferredItemPaddingRight com.halcyon.filepicker:listPreferredItemPaddingRight}</code></td><td> The preferred padding along the right edge of list items.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_popupMenuStyle com.halcyon.filepicker:popupMenuStyle}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_searchAutoCompleteTextView com.halcyon.filepicker:searchAutoCompleteTextView}</code></td><td> SearchView AutoCompleteTextView style </td></tr>
-           <tr><td><code>{@link #SherlockTheme_searchDropdownBackground com.halcyon.filepicker:searchDropdownBackground}</code></td><td> SearchView dropdown background </td></tr>
-           <tr><td><code>{@link #SherlockTheme_searchResultListItemHeight com.halcyon.filepicker:searchResultListItemHeight}</code></td><td> The list item height for search results.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_searchViewCloseIcon com.halcyon.filepicker:searchViewCloseIcon}</code></td><td> SearchView close button icon </td></tr>
-           <tr><td><code>{@link #SherlockTheme_searchViewEditQuery com.halcyon.filepicker:searchViewEditQuery}</code></td><td> SearchView query refinement icon </td></tr>
-           <tr><td><code>{@link #SherlockTheme_searchViewEditQueryBackground com.halcyon.filepicker:searchViewEditQueryBackground}</code></td><td> SearchView query refinement icon background </td></tr>
-           <tr><td><code>{@link #SherlockTheme_searchViewGoIcon com.halcyon.filepicker:searchViewGoIcon}</code></td><td> SearchView Go button icon </td></tr>
-           <tr><td><code>{@link #SherlockTheme_searchViewSearchIcon com.halcyon.filepicker:searchViewSearchIcon}</code></td><td> SearchView Search icon </td></tr>
-           <tr><td><code>{@link #SherlockTheme_searchViewTextField com.halcyon.filepicker:searchViewTextField}</code></td><td> SearchView text field background for the left section </td></tr>
-           <tr><td><code>{@link #SherlockTheme_searchViewTextFieldRight com.halcyon.filepicker:searchViewTextFieldRight}</code></td><td> SearchView text field background for the right section </td></tr>
-           <tr><td><code>{@link #SherlockTheme_searchViewVoiceIcon com.halcyon.filepicker:searchViewVoiceIcon}</code></td><td> SearchView Voice button icon </td></tr>
-           <tr><td><code>{@link #SherlockTheme_selectableItemBackground com.halcyon.filepicker:selectableItemBackground}</code></td><td> Background drawable for standalone items that need focus/pressed states.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_spinnerDropDownItemStyle com.halcyon.filepicker:spinnerDropDownItemStyle}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_spinnerItemStyle com.halcyon.filepicker:spinnerItemStyle}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_textAppearanceLargePopupMenu com.halcyon.filepicker:textAppearanceLargePopupMenu}</code></td><td> Text color, typeface, size, and style for the text inside of a popup menu.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_textAppearanceListItemSmall com.halcyon.filepicker:textAppearanceListItemSmall}</code></td><td> The preferred TextAppearance for the primary text of small list items.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_textAppearanceSearchResultSubtitle com.halcyon.filepicker:textAppearanceSearchResultSubtitle}</code></td><td> Text color, typeface, size, and style for system search result subtitle.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_textAppearanceSearchResultTitle com.halcyon.filepicker:textAppearanceSearchResultTitle}</code></td><td> Text color, typeface, size, and style for system search result title.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_textAppearanceSmall com.halcyon.filepicker:textAppearanceSmall}</code></td><td> Text color, typeface, size, and style for "small" text.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_textAppearanceSmallPopupMenu com.halcyon.filepicker:textAppearanceSmallPopupMenu}</code></td><td> Text color, typeface, size, and style for small text inside of a popup menu.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_textColorPrimary com.halcyon.filepicker:textColorPrimary}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_textColorPrimaryDisableOnly com.halcyon.filepicker:textColorPrimaryDisableOnly}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_textColorPrimaryInverse com.halcyon.filepicker:textColorPrimaryInverse}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_textColorSearchUrl com.halcyon.filepicker:textColorSearchUrl}</code></td><td> Text color for urls in search suggestions, used by things like global search and the browser.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_windowActionBar com.halcyon.filepicker:windowActionBar}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_windowActionBarOverlay com.halcyon.filepicker:windowActionBarOverlay}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_windowActionModeOverlay com.halcyon.filepicker:windowActionModeOverlay}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_windowContentOverlay com.halcyon.filepicker:windowContentOverlay}</code></td><td> This Drawable is overlaid over the foreground of the Window's content area, usually
+           <tr><td><code>{@link #SherlockTheme_actionMenuTextColor org.openintents.filemanager:actionMenuTextColor}</code></td><td> Color for text that appears within action menu items.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_actionModeBackground org.openintents.filemanager:actionModeBackground}</code></td><td> Background drawable to use for action mode UI </td></tr>
+           <tr><td><code>{@link #SherlockTheme_actionModeCloseButtonStyle org.openintents.filemanager:actionModeCloseButtonStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_actionModeCloseDrawable org.openintents.filemanager:actionModeCloseDrawable}</code></td><td> Drawable to use for the close action mode button </td></tr>
+           <tr><td><code>{@link #SherlockTheme_actionModePopupWindowStyle org.openintents.filemanager:actionModePopupWindowStyle}</code></td><td> PopupWindow style to use for action modes when showing as a window overlay.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_actionModeShareDrawable org.openintents.filemanager:actionModeShareDrawable}</code></td><td> Drawable to use for the Share action button in WebView selection action modes </td></tr>
+           <tr><td><code>{@link #SherlockTheme_actionModeSplitBackground org.openintents.filemanager:actionModeSplitBackground}</code></td><td> Background drawable to use for action mode UI in the lower split bar </td></tr>
+           <tr><td><code>{@link #SherlockTheme_actionModeStyle org.openintents.filemanager:actionModeStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_actionOverflowButtonStyle org.openintents.filemanager:actionOverflowButtonStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_actionSpinnerItemStyle org.openintents.filemanager:actionSpinnerItemStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_activatedBackgroundIndicator org.openintents.filemanager:activatedBackgroundIndicator}</code></td><td> Drawable used as a background for activated items.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_activityChooserViewStyle org.openintents.filemanager:activityChooserViewStyle}</code></td><td> Default ActivityChooserView style.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_buttonStyleSmall org.openintents.filemanager:buttonStyleSmall}</code></td><td> Small Button style.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_dividerVertical org.openintents.filemanager:dividerVertical}</code></td><td> Drawable to use for generic vertical dividers.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_dropDownHintAppearance org.openintents.filemanager:dropDownHintAppearance}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_dropDownListViewStyle org.openintents.filemanager:dropDownListViewStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_dropdownListPreferredItemHeight org.openintents.filemanager:dropdownListPreferredItemHeight}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_homeAsUpIndicator org.openintents.filemanager:homeAsUpIndicator}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_listPopupWindowStyle org.openintents.filemanager:listPopupWindowStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_listPreferredItemHeightSmall org.openintents.filemanager:listPreferredItemHeightSmall}</code></td><td> A smaller, sleeker list item height.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_listPreferredItemPaddingLeft org.openintents.filemanager:listPreferredItemPaddingLeft}</code></td><td> The preferred padding along the left edge of list items.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_listPreferredItemPaddingRight org.openintents.filemanager:listPreferredItemPaddingRight}</code></td><td> The preferred padding along the right edge of list items.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_popupMenuStyle org.openintents.filemanager:popupMenuStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_searchAutoCompleteTextView org.openintents.filemanager:searchAutoCompleteTextView}</code></td><td> SearchView AutoCompleteTextView style </td></tr>
+           <tr><td><code>{@link #SherlockTheme_searchDropdownBackground org.openintents.filemanager:searchDropdownBackground}</code></td><td> SearchView dropdown background </td></tr>
+           <tr><td><code>{@link #SherlockTheme_searchResultListItemHeight org.openintents.filemanager:searchResultListItemHeight}</code></td><td> The list item height for search results.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_searchViewCloseIcon org.openintents.filemanager:searchViewCloseIcon}</code></td><td> SearchView close button icon </td></tr>
+           <tr><td><code>{@link #SherlockTheme_searchViewEditQuery org.openintents.filemanager:searchViewEditQuery}</code></td><td> SearchView query refinement icon </td></tr>
+           <tr><td><code>{@link #SherlockTheme_searchViewEditQueryBackground org.openintents.filemanager:searchViewEditQueryBackground}</code></td><td> SearchView query refinement icon background </td></tr>
+           <tr><td><code>{@link #SherlockTheme_searchViewGoIcon org.openintents.filemanager:searchViewGoIcon}</code></td><td> SearchView Go button icon </td></tr>
+           <tr><td><code>{@link #SherlockTheme_searchViewSearchIcon org.openintents.filemanager:searchViewSearchIcon}</code></td><td> SearchView Search icon </td></tr>
+           <tr><td><code>{@link #SherlockTheme_searchViewTextField org.openintents.filemanager:searchViewTextField}</code></td><td> SearchView text field background for the left section </td></tr>
+           <tr><td><code>{@link #SherlockTheme_searchViewTextFieldRight org.openintents.filemanager:searchViewTextFieldRight}</code></td><td> SearchView text field background for the right section </td></tr>
+           <tr><td><code>{@link #SherlockTheme_searchViewVoiceIcon org.openintents.filemanager:searchViewVoiceIcon}</code></td><td> SearchView Voice button icon </td></tr>
+           <tr><td><code>{@link #SherlockTheme_selectableItemBackground org.openintents.filemanager:selectableItemBackground}</code></td><td> Background drawable for standalone items that need focus/pressed states.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_spinnerDropDownItemStyle org.openintents.filemanager:spinnerDropDownItemStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_spinnerItemStyle org.openintents.filemanager:spinnerItemStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_textAppearanceLargePopupMenu org.openintents.filemanager:textAppearanceLargePopupMenu}</code></td><td> Text color, typeface, size, and style for the text inside of a popup menu.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_textAppearanceListItemSmall org.openintents.filemanager:textAppearanceListItemSmall}</code></td><td> The preferred TextAppearance for the primary text of small list items.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_textAppearanceSearchResultSubtitle org.openintents.filemanager:textAppearanceSearchResultSubtitle}</code></td><td> Text color, typeface, size, and style for system search result subtitle.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_textAppearanceSearchResultTitle org.openintents.filemanager:textAppearanceSearchResultTitle}</code></td><td> Text color, typeface, size, and style for system search result title.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_textAppearanceSmall org.openintents.filemanager:textAppearanceSmall}</code></td><td> Text color, typeface, size, and style for "small" text.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_textAppearanceSmallPopupMenu org.openintents.filemanager:textAppearanceSmallPopupMenu}</code></td><td> Text color, typeface, size, and style for small text inside of a popup menu.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_textColorPrimary org.openintents.filemanager:textColorPrimary}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_textColorPrimaryDisableOnly org.openintents.filemanager:textColorPrimaryDisableOnly}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_textColorPrimaryInverse org.openintents.filemanager:textColorPrimaryInverse}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_textColorSearchUrl org.openintents.filemanager:textColorSearchUrl}</code></td><td> Text color for urls in search suggestions, used by things like global search and the browser.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_windowActionBar org.openintents.filemanager:windowActionBar}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_windowActionBarOverlay org.openintents.filemanager:windowActionBarOverlay}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_windowActionModeOverlay org.openintents.filemanager:windowActionModeOverlay}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_windowContentOverlay org.openintents.filemanager:windowContentOverlay}</code></td><td> This Drawable is overlaid over the foreground of the Window's content area, usually
              to place a shadow below the title.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_windowMinWidthMajor com.halcyon.filepicker:windowMinWidthMajor}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_windowMinWidthMinor com.halcyon.filepicker:windowMinWidthMinor}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_windowNoTitle com.halcyon.filepicker:windowNoTitle}</code></td><td></td></tr>
-           <tr><td><code>{@link #SherlockTheme_windowSplitActionBar com.halcyon.filepicker:windowSplitActionBar}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_windowMinWidthMajor org.openintents.filemanager:windowMinWidthMajor}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_windowMinWidthMinor org.openintents.filemanager:windowMinWidthMinor}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_windowNoTitle org.openintents.filemanager:windowNoTitle}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockTheme_windowSplitActionBar org.openintents.filemanager:windowSplitActionBar}</code></td><td></td></tr>
            </table>
            @see #SherlockTheme_actionBarDivider
            @see #SherlockTheme_actionBarItemBackground
@@ -3039,7 +3039,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int SherlockTheme_actionBarStyle = 4;
         /**
-          <p>This symbol is the offset where the {@link com.halcyon.filepicker.R.attr#actionBarTabBarStyle}
+          <p>This symbol is the offset where the {@link org.openintents.filemanager.R.attr#actionBarTabBarStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3061,7 +3061,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int SherlockTheme_actionBarTabStyle = 0;
         /**
-          <p>This symbol is the offset where the {@link com.halcyon.filepicker.R.attr#actionBarTabTextStyle}
+          <p>This symbol is the offset where the {@link org.openintents.filemanager.R.attr#actionBarTabTextStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3089,7 +3089,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int SherlockTheme_actionBarWidgetTheme = 6;
         /**
-          <p>This symbol is the offset where the {@link com.halcyon.filepicker.R.attr#actionButtonStyle}
+          <p>This symbol is the offset where the {@link org.openintents.filemanager.R.attr#actionButtonStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3099,7 +3099,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int SherlockTheme_actionButtonStyle = 52;
         /**
-          <p>This symbol is the offset where the {@link com.halcyon.filepicker.R.attr#actionDropDownStyle}
+          <p>This symbol is the offset where the {@link org.openintents.filemanager.R.attr#actionDropDownStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3148,7 +3148,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int SherlockTheme_actionModeBackground = 14;
         /**
-          <p>This symbol is the offset where the {@link com.halcyon.filepicker.R.attr#actionModeCloseButtonStyle}
+          <p>This symbol is the offset where the {@link org.openintents.filemanager.R.attr#actionModeCloseButtonStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3206,7 +3206,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int SherlockTheme_actionModeSplitBackground = 15;
         /**
-          <p>This symbol is the offset where the {@link com.halcyon.filepicker.R.attr#actionModeStyle}
+          <p>This symbol is the offset where the {@link org.openintents.filemanager.R.attr#actionModeStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3216,7 +3216,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int SherlockTheme_actionModeStyle = 12;
         /**
-          <p>This symbol is the offset where the {@link com.halcyon.filepicker.R.attr#actionOverflowButtonStyle}
+          <p>This symbol is the offset where the {@link org.openintents.filemanager.R.attr#actionOverflowButtonStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3226,7 +3226,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int SherlockTheme_actionOverflowButtonStyle = 3;
         /**
-          <p>This symbol is the offset where the {@link com.halcyon.filepicker.R.attr#actionSpinnerItemStyle}
+          <p>This symbol is the offset where the {@link org.openintents.filemanager.R.attr#actionSpinnerItemStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3284,7 +3284,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int SherlockTheme_dividerVertical = 50;
         /**
-          <p>This symbol is the offset where the {@link com.halcyon.filepicker.R.attr#dropDownHintAppearance}
+          <p>This symbol is the offset where the {@link org.openintents.filemanager.R.attr#dropDownHintAppearance}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3294,7 +3294,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int SherlockTheme_dropDownHintAppearance = 66;
         /**
-          <p>This symbol is the offset where the {@link com.halcyon.filepicker.R.attr#dropDownListViewStyle}
+          <p>This symbol is the offset where the {@link org.openintents.filemanager.R.attr#dropDownListViewStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3304,7 +3304,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int SherlockTheme_dropDownListViewStyle = 54;
         /**
-          <p>This symbol is the offset where the {@link com.halcyon.filepicker.R.attr#dropdownListPreferredItemHeight}
+          <p>This symbol is the offset where the {@link org.openintents.filemanager.R.attr#dropdownListPreferredItemHeight}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3320,7 +3320,7 @@ containing a value of this type.
         */
         public static final int SherlockTheme_dropdownListPreferredItemHeight = 56;
         /**
-          <p>This symbol is the offset where the {@link com.halcyon.filepicker.R.attr#homeAsUpIndicator}
+          <p>This symbol is the offset where the {@link org.openintents.filemanager.R.attr#homeAsUpIndicator}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3330,7 +3330,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int SherlockTheme_homeAsUpIndicator = 53;
         /**
-          <p>This symbol is the offset where the {@link com.halcyon.filepicker.R.attr#listPopupWindowStyle}
+          <p>This symbol is the offset where the {@link org.openintents.filemanager.R.attr#listPopupWindowStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3394,7 +3394,7 @@ containing a value of this type.
         */
         public static final int SherlockTheme_listPreferredItemPaddingRight = 46;
         /**
-          <p>This symbol is the offset where the {@link com.halcyon.filepicker.R.attr#popupMenuStyle}
+          <p>This symbol is the offset where the {@link org.openintents.filemanager.R.attr#popupMenuStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3554,7 +3554,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int SherlockTheme_selectableItemBackground = 20;
         /**
-          <p>This symbol is the offset where the {@link com.halcyon.filepicker.R.attr#spinnerDropDownItemStyle}
+          <p>This symbol is the offset where the {@link org.openintents.filemanager.R.attr#spinnerDropDownItemStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3564,7 +3564,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int SherlockTheme_spinnerDropDownItemStyle = 29;
         /**
-          <p>This symbol is the offset where the {@link com.halcyon.filepicker.R.attr#spinnerItemStyle}
+          <p>This symbol is the offset where the {@link org.openintents.filemanager.R.attr#spinnerItemStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3646,7 +3646,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int SherlockTheme_textAppearanceSmallPopupMenu = 23;
         /**
-          <p>This symbol is the offset where the {@link com.halcyon.filepicker.R.attr#textColorPrimary}
+          <p>This symbol is the offset where the {@link org.openintents.filemanager.R.attr#textColorPrimary}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3661,7 +3661,7 @@ containing a value of this type.
         */
         public static final int SherlockTheme_textColorPrimary = 25;
         /**
-          <p>This symbol is the offset where the {@link com.halcyon.filepicker.R.attr#textColorPrimaryDisableOnly}
+          <p>This symbol is the offset where the {@link org.openintents.filemanager.R.attr#textColorPrimaryDisableOnly}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3676,7 +3676,7 @@ containing a value of this type.
         */
         public static final int SherlockTheme_textColorPrimaryDisableOnly = 26;
         /**
-          <p>This symbol is the offset where the {@link com.halcyon.filepicker.R.attr#textColorPrimaryInverse}
+          <p>This symbol is the offset where the {@link org.openintents.filemanager.R.attr#textColorPrimaryInverse}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3705,7 +3705,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int SherlockTheme_textColorSearchUrl = 40;
         /**
-          <p>This symbol is the offset where the {@link com.halcyon.filepicker.R.attr#windowActionBar}
+          <p>This symbol is the offset where the {@link org.openintents.filemanager.R.attr#windowActionBar}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3719,7 +3719,7 @@ containing a value of this type.
         */
         public static final int SherlockTheme_windowActionBar = 59;
         /**
-          <p>This symbol is the offset where the {@link com.halcyon.filepicker.R.attr#windowActionBarOverlay}
+          <p>This symbol is the offset where the {@link org.openintents.filemanager.R.attr#windowActionBarOverlay}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3733,7 +3733,7 @@ containing a value of this type.
         */
         public static final int SherlockTheme_windowActionBarOverlay = 60;
         /**
-          <p>This symbol is the offset where the {@link com.halcyon.filepicker.R.attr#windowActionModeOverlay}
+          <p>This symbol is the offset where the {@link org.openintents.filemanager.R.attr#windowActionModeOverlay}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3760,7 +3760,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         */
         public static final int SherlockTheme_windowContentOverlay = 21;
         /**
-          <p>This symbol is the offset where the {@link com.halcyon.filepicker.R.attr#windowMinWidthMajor}
+          <p>This symbol is the offset where the {@link org.openintents.filemanager.R.attr#windowMinWidthMajor}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3776,7 +3776,7 @@ containing a value of this type.
         */
         public static final int SherlockTheme_windowMinWidthMajor = 48;
         /**
-          <p>This symbol is the offset where the {@link com.halcyon.filepicker.R.attr#windowMinWidthMinor}
+          <p>This symbol is the offset where the {@link org.openintents.filemanager.R.attr#windowMinWidthMinor}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3792,7 +3792,7 @@ containing a value of this type.
         */
         public static final int SherlockTheme_windowMinWidthMinor = 49;
         /**
-          <p>This symbol is the offset where the {@link com.halcyon.filepicker.R.attr#windowNoTitle}
+          <p>This symbol is the offset where the {@link org.openintents.filemanager.R.attr#windowNoTitle}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3806,7 +3806,7 @@ containing a value of this type.
         */
         public static final int SherlockTheme_windowNoTitle = 58;
         /**
-          <p>This symbol is the offset where the {@link com.halcyon.filepicker.R.attr#windowSplitActionBar}
+          <p>This symbol is the offset where the {@link org.openintents.filemanager.R.attr#windowSplitActionBar}
           attribute's value can be found in the {@link #SherlockTheme} array.
 
 
@@ -3825,7 +3825,7 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #SherlockView_android_focusable com.halcyon.filepicker:android_focusable}</code></td><td></td></tr>
+           <tr><td><code>{@link #SherlockView_android_focusable org.openintents.filemanager:android_focusable}</code></td><td></td></tr>
            </table>
            @see #SherlockView_android_focusable
          */
@@ -3833,7 +3833,7 @@ containing a value of this type.
             0x010100da
         };
         /**
-          <p>This symbol is the offset where the {@link com.halcyon.filepicker.R.attr#android_focusable}
+          <p>This symbol is the offset where the {@link org.openintents.filemanager.R.attr#android_focusable}
           attribute's value can be found in the {@link #SherlockView} array.
           @attr name android:android_focusable
         */

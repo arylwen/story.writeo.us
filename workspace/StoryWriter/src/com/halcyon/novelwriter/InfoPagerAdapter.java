@@ -11,17 +11,16 @@ public class InfoPagerAdapter extends FragmentStatePagerAdapter
 	    private static final String TAG = "NW InfoPagerAdapter";
 	    private String prompt;
 		private String templateName;
+		private String novelFileName;
 		private SpannableString templateSummary;
+		
 		private PromptFragment promptFragment;
 		private FragmentManager fragmentManager;
 
         public InfoPagerAdapter(FragmentManager fm, String aPrompt){
-		                //String aTemplateName, SpannableString aTemplateSummary) {
             super(fm);
 			prompt = aPrompt;
 			fragmentManager = fm;
-			//templateName = aTemplateName;
-			//templateSummary = aTemplateSummary;
         }
 
         @Override
@@ -37,7 +36,7 @@ public class InfoPagerAdapter extends FragmentStatePagerAdapter
 				   promptFragment = (PromptFragment)fragment;
 				   Log.e(TAG, "We have a prompt fragment");
                    args = new Bundle();
-                   args.putString(PromptFragment.ARG_PROMPT, prompt); // Our object is just an integer :-P
+                   args.putString(PromptFragment.ARG_PROMPT, prompt); 
                    fragment.setArguments(args);
 			    break;
 				
@@ -45,11 +44,20 @@ public class InfoPagerAdapter extends FragmentStatePagerAdapter
 					fragment = new TemplateInfoFragment();
 					args = new Bundle();
 					args.putString(TemplateInfoFragment.ARG_TEMPLATE_NAME, templateName); 
-					//args.putSerializable(TemplateInfoFragment.ARG_TEMPLATE_SUMMARY, templateSummary);
 					//spannable is not serializable so it cannot be sent as an argument
 					((TemplateInfoFragment)fragment).setTemplateSummary(templateName, templateSummary);
 					fragment.setArguments(args);
 					break;
+				
+				case 2:
+					fragment = new WordCountersFragment();
+					args = new Bundle();
+					args.putString(WordCountersFragment.ARG_TEMPLATE_NAME, templateName); 
+					//spannable is not serializable so it cannot be sent as an argument
+					((WordCountersFragment)fragment).setWordCounters(templateName, templateSummary);
+					fragment.setArguments(args);
+					break;
+				
 				
 				default:
 				
@@ -61,12 +69,12 @@ public class InfoPagerAdapter extends FragmentStatePagerAdapter
 
         @Override
         public int getCount() {
-            return 2;
+            return 3;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-			String[] titles = {"Prompt", "Template Summary"};
+			String[] titles = {"Prompt", "Template Summary, Word Counters"};
             return titles[position];
         }
 		
@@ -76,11 +84,6 @@ public class InfoPagerAdapter extends FragmentStatePagerAdapter
 		}
 		
 		public String getPrompt(){
-			//find prompt fragment
-			//if(promptFragment == null){
-			//     promptFragment = (PartDetailFragment) fragmentManager.findFragmentByTag(
-			//                       PartDetailActivity.);
-			//}
 			return promptFragment.getPrompt();
 		}
 		

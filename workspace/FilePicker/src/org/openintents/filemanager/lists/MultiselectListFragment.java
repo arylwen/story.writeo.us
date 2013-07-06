@@ -76,7 +76,7 @@ public class MultiselectListFragment extends FileListFragment {
 		ListView list = getListView();
 		
 		switch(item.getItemId()){
-		case R.id.check_all:
+		/*GC case R.id.check_all:
 			for(int i = 0; i < mAdapter.getCount(); i++){
 				list.setItemChecked(i, true);
 			}
@@ -85,7 +85,7 @@ public class MultiselectListFragment extends FileListFragment {
 			for(int i = 0; i < mAdapter.getCount(); i++){
 				list.setItemChecked(i, false);
 			}
-			return true;
+			return true;*/
 		default:
 			return false;
 		}

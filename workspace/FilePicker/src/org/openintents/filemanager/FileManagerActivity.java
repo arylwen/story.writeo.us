@@ -138,7 +138,7 @@ public class FileManagerActivity extends DistributionLibraryFragmentActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		
-		case R.id.menu_search:
+		/*case R.id.menu_search:
 			onSearchRequested();
 			return true;
 		
@@ -149,7 +149,7 @@ public class FileManagerActivity extends DistributionLibraryFragmentActivity {
 		
 		case R.id.menu_bookmarks:
 			startActivityForResult(new Intent(FileManagerActivity.this, BookmarkListActivity.class), REQUEST_CODE_BOOKMARKS);
-			return true;
+			return true;*/
 		
 		case android.R.id.home:
 			mFragment.browseToHome();

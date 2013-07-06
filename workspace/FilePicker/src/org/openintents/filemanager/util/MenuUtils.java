@@ -84,14 +84,14 @@ public abstract class MenuUtils {
 
 		// If selected item is a directory
 		if (file.isDirectory()) {
-			m.removeItem(R.id.menu_send);
+			//GC m.removeItem(R.id.menu_send);
 		}
 		
 		// If selected item is a zip archive
 		if (!FileUtils.checkIfZipArchive(file)) {
-			m.removeItem(R.id.menu_extract);
+			//GC m.removeItem(R.id.menu_extract);
 		} else {
-			m.removeItem(R.id.menu_compress);
+			//GC m.removeItem(R.id.menu_compress);
 		}
         
 		// Add CATEGORY_SELECTED_ALTERNATIVE intent options
@@ -118,7 +118,7 @@ public abstract class MenuUtils {
 		Bundle args;
 		
 		switch (mItem.getItemId()) {
-			case R.id.menu_send:
+			/* GC case R.id.menu_send:
 				Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
 				ArrayList<Uri> uris = new ArrayList<Uri>();
 				intent.setType("text/plain");
@@ -159,12 +159,12 @@ public abstract class MenuUtils {
 				args.putParcelableArrayList(FileManagerIntents.EXTRA_DIALOG_FILE_HOLDER, new ArrayList<Parcelable>(fItems));
 				dialog.setArguments(args);
 				dialog.show(navigator.getFragmentManager(), MultiCompressDialog.class.getName());
-				break;
+				break;*/
 			default:
 				return false;
 		}
 	
-		return true;
+		// GC return true;
 	}
 	
 	/**
@@ -177,7 +177,7 @@ public abstract class MenuUtils {
 		Bundle args;
 		
 		switch (mItem.getItemId()) {
-		case R.id.menu_open:
+		/* GC case R.id.menu_open:
 			navigator.openInformingPathBar(fItem);
 			return true;
 			
@@ -286,7 +286,7 @@ public abstract class MenuUtils {
 			}
 			showWarningDialog(fItem, context);
 
-			return true;
+			return true;*/
 		}
 
 		return false;

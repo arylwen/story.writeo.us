@@ -1,17 +1,17 @@
 package com.halcyon.novelwriter;
 
-	import android.os.*;
-	import android.view.*;
-	import android.widget.*;
-	import com.actionbarsherlock.app.*;
-	import com.halcyon.storywriter.*;
+import android.os.*;
+import android.view.*;
+import android.widget.*;
+import com.actionbarsherlock.app.*;
+import com.halcyon.storywriter.*;
 import android.text.*;
 
 	public class TemplateInfoFragment extends SherlockFragment
 	{
 
         public static final String ARG_TEMPLATE_NAME = "templateName";
-	    public static final String ARG_TEMPLATE_SUMMARY = "templateName";
+	    public static final String ARG_TEMPLATE_SUMMARY = "templateSummary";
 
 		private TextView templateName;
 		private TextView templateSummary;

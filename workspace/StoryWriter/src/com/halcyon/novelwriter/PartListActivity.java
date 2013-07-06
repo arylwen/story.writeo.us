@@ -105,22 +105,19 @@ public class PartListActivity extends SherlockFragmentActivity implements
 
 		if (findViewById(R.id.part_detail_container) != null) {
 			// The detail container view will be present only in the
-			// large-screen layouts (res/values-large and
-			// res/values-sw600dp). If this view is present, then the
+			// large-screen layouts (res/values-large-lanc and
+			// res/values-sw600dp-land). If this view is present, then the
 			// activity should be in two-pane mode.
 			mTwoPane = true;
 
 			// In two-pane mode, list items should be given the
 			// 'activated' state when touched.
-		    partList.setActivateOnItemClick(true);
+		    //partList.setActivateOnItemClick(true);
 		}
 
 		templateFileManager = new TemplateFileManager(this);
 		List<StructureFileTemplate> templates = templateFileManager.getStructureTemplates();
 		onTemplateChosen(templates.get(0));	
-
-		
-		// TODO: If exposing deep links into your app, handle intents here.
 	}
 	
 	@Override
@@ -141,7 +138,7 @@ public class PartListActivity extends SherlockFragmentActivity implements
 	protected void onPause()
 	{
 		super.onPause();
-		Toast.makeText(this, "on pause called", Toast.LENGTH_SHORT).show();
+		//Toast.makeText(this, "on pause called", Toast.LENGTH_SHORT).show();
 		if(fragment != null) {
 			fragment.save();
 			Log.e(TAG, "fragment saved");
@@ -154,14 +151,15 @@ public class PartListActivity extends SherlockFragmentActivity implements
 
 		if (editor != null) {
 			if(partList != null){
-				long selectedItemPosition = partList.getExpandableListView().getSelectedPosition();
+				//long selectedItemPosition = partList.getExpandableListView().getSelectedPosition();
+				long selectedItemPosition = partList.getActivatedPosition();
 				editor.putLong("selectedPosition", selectedItemPosition);
 				Log.e(TAG, "save selectedPosition "+ selectedItemPosition);
 			}
 			
 			if(!isUntitled){
 			   editor.putString("fileName", fileName);
-			   Toast.makeText(this, "saved "+fileName, Toast.LENGTH_SHORT).show();			   
+			   //Toast.makeText(this, "saved "+fileName, Toast.LENGTH_SHORT).show();			   
 			}
 			
 			editor.commit();
@@ -172,7 +170,7 @@ public class PartListActivity extends SherlockFragmentActivity implements
 	protected void onResume()
 	{
 		super.onResume();	
-		Toast.makeText(this, "on resume called", Toast.LENGTH_SHORT).show();
+		//Toast.makeText(this, "on resume called", Toast.LENGTH_SHORT).show();
 		SharedPreferences prefs = getPreferences(MODE_PRIVATE);
 		
 		String restoredFileName = prefs.getString("fileName", null);
@@ -180,7 +178,6 @@ public class PartListActivity extends SherlockFragmentActivity implements
 		if((restoredFileName != null)) {		
 			fileName = restoredFileName;
 			//Toast.makeText(this, "restored 1 "+fileName, Toast.LENGTH_SHORT).show();
-			//File f = getFileStreamPath(fileName);
 			File f = new File(fileName);
 			if(!f.exists()){
 				fileName = getResources().getString( R.string.newFileName);
@@ -200,8 +197,10 @@ public class PartListActivity extends SherlockFragmentActivity implements
 			novel = partList.resetModel(npm);
 			
 			//restore position
-			//long packed = prefs.getLong("selectedPosition ", ExpandableListView.PACKED_POSITION_VALUE_NULL);
-			long packed = partList.getActivatedPosition();
+			long packed;
+			packed = prefs.getLong("selectedPosition ", ExpandableListView.PACKED_POSITION_VALUE_NULL);
+			if(packed == ExpandableListView.PACKED_POSITION_VALUE_NULL)
+			   packed = partList.getActivatedPosition();
 			Log.e(TAG, "restore selectedPosition " + packed);
 			if(partList.getExpandableListView().getPackedPositionType(packed) 
 			   != ExpandableListView.PACKED_POSITION_TYPE_NULL){
@@ -228,28 +227,9 @@ public class PartListActivity extends SherlockFragmentActivity implements
 	}
 	
 	public void onSceneSelected(Scene scene)
-	{
-		/*if(currentScene != null){
-			if(fragment.canUndo()){
-		        //only of the fragment is modified - what do we do about prompt?				
-			    //find the edit text
-			    String newScene = ((EditText) findViewById(R.id.note)).getText().toString();
-			    
-			    String newPrompt = fragment.getPrompt();
-			    npm.updateScene(currentScene.getPath(), newScene, newPrompt);
-				Log.e(TAG, "modified");
-			}
-		}*/
-		
+	{		
 		currentScene = scene;
-		//String text = npm.getScene(scene.getPath());
-		//String prompt = npm.getScene(scene.getPath()+".1");
-		//partialWordCount doesn't change, only the current scene does
-		//if(text != null)
-	    //	    partialWordCount = totalWordCount - NovelColoriser.wordCount(text);
-		//else
-		//    partialWordCount = totalWordCount;
-			
+
 		long wordsBeforeScene = countWordsBeforeScene(fileName, scene);
 		Log.e(TAG, "wordsBeforeScene "+wordsBeforeScene);
 		
@@ -298,8 +278,10 @@ public class PartListActivity extends SherlockFragmentActivity implements
 
 		menu.add(0, MENU_NEW_FILE, 0, "New Novel").setShortcut('0', 'n').setIcon(R.drawable.ic_new);		
 		menu.add(0, MENU_OPEN_FILE, 0, "Open Novel").setShortcut('0', 'o').setIcon(R.drawable.ic_open);
-		menu.add(0, MENU_CHOOSE_STRUCT, 0, "Choose Structure...").setShortcut('0', 'a').setIcon(R.drawable.ic_open);
-		menu.add(0, MENU_GENERATE_NOVEL, 0, "Generate Novel").setShortcut('0', 'g').setIcon(R.drawable.ic_save);
+		menu.add(0, MENU_CHOOSE_STRUCT, 0, "Choose Structure...").
+		            setShortcut('0', 'a').setIcon(R.drawable.ic_open);
+		menu.add(0, MENU_GENERATE_NOVEL, 0, "Generate Novel").
+		            setShortcut('0', 'g').setIcon(R.drawable.ic_save);
 		
 		menu.add(0, MENU_UNDO, 0, "Undo") .setIcon(R.drawable.undo) .
 		           setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
@@ -433,7 +415,8 @@ public class PartListActivity extends SherlockFragmentActivity implements
 					partialWordCount = totalWordCount; //no scene selected yet
 					updateTitle();
 					npm = new NovelZipManager(fileName, null, getCacheDir());
-					novel = partList.resetModel(npm);
+					//novel = partList.resetModel(npm);
+					saveState();
 					isUntitled = false;
 				}
 			break;
@@ -450,14 +433,6 @@ public class PartListActivity extends SherlockFragmentActivity implements
 			//fragment showing, needs update
 			fragment.onTemplateChosen(currentTemplate);
 		}
-		//if(templateName != null)
-		//{
-		//this widget doesn't exist in portrait mode
-		//    templateName.setText(file.getName());
-		//	updateTemplateSummary();
-		//}
-		//text.getText().clearSpans();
-		//text.setText(text.getText());
 	}
 	
 	private void updateTitle(){

@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >	
+    android:orientation="vertical" -->	
 	
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="horizontal" >
+    android:orientation="horizontal" 
+	android:showDividers="middle"
+	android:divider="?android:attr/dividerVertical" 
+	android:dividerPadding="12dip" >
 	
 	<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
 		android:id="@+id/promptscroll"
 		android:orientation="vertical"
-		android:layout_width="240dp"
+		android:layout_width="0dp"
+		android:layout_weight="1"
 		android:layout_height="fill_parent"
 		android:fadingEdge="none">
 		<EditText xmlns:android="http://schemas.android.com/apk/res/android"
@@ -34,7 +38,8 @@
     <ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
 	    android:id="@+id/scroll"
 	    android:orientation="vertical"
-	    android:layout_width="800dp"
+	    android:layout_width="0dp"
+		android:layout_weight="3"
 	    android:layout_height="fill_parent"
 		android:background="@null"
 	    android:fadingEdge="none">
@@ -42,7 +47,7 @@
 		    android:id="@+id/note"
 		    android:layout_width="fill_parent"
 		    android:layout_height="fill_parent"
-		    android:background="@drawable/border"
+		    android:background="@null"
 		    android:padding="5dip"
 		    android:fadingEdge="none"
 		    android:scrollbars="vertical|horizontal"
@@ -56,7 +61,8 @@
     </ScrollView>
 	
 	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-		android:layout_width="fill_parent"
+		android:layout_width="0dp"
+		android:layout_weight="1"
 		android:layout_height="fill_parent"
 		android:orientation="vertical" >
 					
@@ -83,4 +89,4 @@
 	</LinearLayout>
 	
 </LinearLayout>
-</LinearLayout>
+<!--/LinearLayout-->

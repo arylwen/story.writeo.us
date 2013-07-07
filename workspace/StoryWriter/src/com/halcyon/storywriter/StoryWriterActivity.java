@@ -73,6 +73,17 @@ public class StoryWriterActivity extends SherlockFragmentActivity
 		}
 		
 		prompt = (EditText) findViewById(R.id.prompt);
+		if(prompt != null){
+		prompt.setText("add notes here");
+		
+		// setup the scroll view to fill the parent
+		ScrollView promptscroll = (ScrollView) findViewById(R.id.promptscroll);	
+		if (promptscroll != null)
+		{
+			promptscroll.setFillViewport(true);
+			promptscroll.setHorizontalScrollBarEnabled(false);
+		}
+		}
 		
 		View customNav = LayoutInflater.from(this).inflate(R.layout.custom_title_bar, null);		
 		title = (TextView) customNav.findViewById(R.id.notetitle);

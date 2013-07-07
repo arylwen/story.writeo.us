@@ -138,7 +138,6 @@ public class PartListActivity extends SherlockFragmentActivity implements
 	protected void onPause()
 	{
 		super.onPause();
-		//Toast.makeText(this, "on pause called", Toast.LENGTH_SHORT).show();
 		if(fragment != null) {
 			fragment.save();
 			Log.e(TAG, "fragment saved");
@@ -151,15 +150,13 @@ public class PartListActivity extends SherlockFragmentActivity implements
 
 		if (editor != null) {
 			if(partList != null){
-				//long selectedItemPosition = partList.getExpandableListView().getSelectedPosition();
 				long selectedItemPosition = partList.getActivatedPosition();
 				editor.putLong("selectedPosition", selectedItemPosition);
 				Log.e(TAG, "save selectedPosition "+ selectedItemPosition);
 			}
 			
 			if(!isUntitled){
-			   editor.putString("fileName", fileName);
-			   //Toast.makeText(this, "saved "+fileName, Toast.LENGTH_SHORT).show();			   
+			   editor.putString("fileName", fileName);			   
 			}
 			
 			editor.commit();
@@ -170,14 +167,12 @@ public class PartListActivity extends SherlockFragmentActivity implements
 	protected void onResume()
 	{
 		super.onResume();	
-		//Toast.makeText(this, "on resume called", Toast.LENGTH_SHORT).show();
-		SharedPreferences prefs = getPreferences(MODE_PRIVATE);
-		
+		SharedPreferences prefs = getPreferences(MODE_PRIVATE);		
 		String restoredFileName = prefs.getString("fileName", null);
-		//Toast.makeText(this, "restoredFileName "+restoredFileName, Toast.LENGTH_SHORT).show();
+		
 		if((restoredFileName != null)) {		
 			fileName = restoredFileName;
-			//Toast.makeText(this, "restored 1 "+fileName, Toast.LENGTH_SHORT).show();
+			
 			File f = new File(fileName);
 			if(!f.exists()){
 				fileName = getResources().getString( R.string.newFileName);
@@ -186,9 +181,7 @@ public class PartListActivity extends SherlockFragmentActivity implements
 				isUntitled = false;
 			}
 		}
-		
-		//Toast.makeText(this, "restored 2 "+fileName, Toast.LENGTH_SHORT).show();
-		
+				
 		if( ( fileName != null ) && !isUntitled ){
 			totalWordCount = countWordsForNovel(fileName);
 			partialWordCount = totalWordCount; //no scene selected yet
@@ -260,8 +253,7 @@ public class PartListActivity extends SherlockFragmentActivity implements
 			detailIntent.putExtra(PartDetailFragment.ARG_SCENE, scene);
 			detailIntent.putExtra(PartDetailFragment.ARG_FILE_NAME, fileName);
 			
-			//detailIntent.putExtra("text", text);
-			//detailIntent.putExtra("prompt", prompt);
+			totalWordCount = countWordsForNovel(fileName);
 			detailIntent.putExtra("wordsBeforeScene", wordsBeforeScene);
 			detailIntent.putExtra("totalWordCount", totalWordCount);
 			detailIntent.putExtra("currentTemplate", currentTemplate);
@@ -283,10 +275,13 @@ public class PartListActivity extends SherlockFragmentActivity implements
 		menu.add(0, MENU_GENERATE_NOVEL, 0, "Generate Novel").
 		            setShortcut('0', 'g').setIcon(R.drawable.ic_save);
 		
-		menu.add(0, MENU_UNDO, 0, "Undo") .setIcon(R.drawable.undo) .
+		if(mTwoPane){
+			//undo/redo make sense only if we have a text field displayed
+		    menu.add(0, MENU_UNDO, 0, "Undo") .setIcon(R.drawable.undo) .
 		           setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
-		menu.add(0, MENU_REDO, 0, "Redo") .setIcon(R.drawable.redo) .
-		           setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);		
+		    menu.add(0, MENU_REDO, 0, "Redo") .setIcon(R.drawable.redo) .
+		           setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);	
+	    }
 		return true;
 	} 
 	

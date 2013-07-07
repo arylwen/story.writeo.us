@@ -31,7 +31,7 @@
 	<!-- Name of application. Can be localized. OI = OpenIntents should stay unmodified. -->
     <!--string name="app_name">OI File Manager</string-->
 
-    <string name="menu_delete">Delete</string>
+    <!--  string name="menu_delete">Delete</string>
     <string name="menu_rename">Rename</string>
     <string name="menu_send">Send</string>
     <string name="menu_open">Open</string>
@@ -40,7 +40,7 @@
     <string name="menu_details">Details</string>
     <string name="menu_more">More</string>
     <string name="menu_compress">Compress (ZIP)</string>
-    <string name="menu_extract">Extract (ZIP)</string>
+    <string name="menu_extract">Extract (ZIP)</string-->
     <string name="menu_include_in_media_scan">Include in media scan</string>
     <string name="menu_exclude_from_media_scan">Exclude from media scan</string>
     <string name="menu_bookmark">Bookmark</string>
@@ -127,7 +127,7 @@
 	Strings for the 'Save as' feature
 	*************************** -->
     <string name="saveas_no_file_picked">You haven\'t picked any file.</string>
-    <string name="saveas_error">An error occured.</string>
+    <string name="saveas_error">An error occurred.</string>
     <string name="saveas_file_saved">File successfully saved!</string>
 
     <!-- ***************************

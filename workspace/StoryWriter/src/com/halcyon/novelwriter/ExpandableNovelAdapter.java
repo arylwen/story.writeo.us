@@ -93,19 +93,19 @@ public class ExpandableNovelAdapter extends BaseExpandableListAdapter implements
 
 	   if(groupPosition == 0)
 	   {
-		   up.setActivated(false);
+		   //up.setActivated(false);
 		   up.setVisibility(View.INVISIBLE);
 	   } else {
-		   up.setActivated(true);
+		   //up.setActivated(true);
 		   up.setVisibility(View.VISIBLE);
 	   }
 
 	   if(groupPosition == 
 		  novel.getChapters().size()-1){
-		   down.setActivated(false);
+		   //down.setActivated(false);
 		   down.setVisibility(View.INVISIBLE);
 	   } else {
-		   down.setActivated(true);
+		   //down.setActivated(true);
 		   down.setVisibility(View.VISIBLE);
 	   }
 	   
@@ -143,20 +143,20 @@ public class ExpandableNovelAdapter extends BaseExpandableListAdapter implements
 	   
 	   if(childPosition == 0)
 	   {
-		   up.setActivated(false);
+		   //up.setActivated(false);
 		   up.setVisibility(View.INVISIBLE);
 	   } else {
-		   up.setActivated(true);
+		   //up.setActivated(true);
 		   up.setVisibility(View.VISIBLE);
 	   }
 	   
 	   
 	   if(childPosition == 
 	           novel.getChapters().get(groupPosition).getScenes().size()-1){
-			down.setActivated(false);
+			//down.setActivated(false);
 			down.setVisibility(View.INVISIBLE);
 		} else {
-			down.setActivated(true);
+			//down.setActivated(true);
 			down.setVisibility(View.VISIBLE);
 		}
 		

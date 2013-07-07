@@ -81,7 +81,7 @@ public class NovelZipManager implements NovelPersistenceManager
    }
    
 	public void updateScene(String path, String text, String prompt){
-		List texts = new ArrayList();
+		List<String> texts = new ArrayList<String>();
 		texts.add(text);
 		texts.add(prompt);
 		updateEntry(path, texts);

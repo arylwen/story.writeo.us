@@ -188,7 +188,6 @@ public class PartDetailFragment extends SherlockFragment {
 		}
 	}
 	
-	@Override
 	public void onTemplateChosen(StructureFileTemplate file){
 		
 		setUpTemplate(file);

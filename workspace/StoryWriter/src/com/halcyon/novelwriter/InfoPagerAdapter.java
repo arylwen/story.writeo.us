@@ -74,7 +74,7 @@ public class InfoPagerAdapter extends FragmentStatePagerAdapter
 
         @Override
         public CharSequence getPageTitle(int position) {
-			String[] titles = {"Prompt", "Template Summary, Word Counters"};
+			String[] titles = {"Prompt", "Template Summary", "Word Counters"};
             return titles[position];
         }
 		

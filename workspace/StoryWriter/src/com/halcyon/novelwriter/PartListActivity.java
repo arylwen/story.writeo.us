@@ -120,11 +120,11 @@ public class PartListActivity extends SherlockFragmentActivity implements
 		onTemplateChosen(templates.get(0));	
 	}
 	
-	@Override
+	/*@Override
 	public void onViewCreated (View view, Bundle savedInstanceState)
     {
 		Log.e(TAG, "partlistactivity:onviewcreated");;
-	}
+	}*/
 
 	@Override
 	public void onContentChanged()

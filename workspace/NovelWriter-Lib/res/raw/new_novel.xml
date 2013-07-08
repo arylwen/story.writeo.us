@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<novel>
+	<name>New Novel</name>
+	<chapters>
+		<chapter>
+			<name>Chapter 1</name>
+			<scenes>
+				<scene>
+					<name>Scene 1</name>
+					<file>scenes/ed6709ba-c2c3-46a3-b754-2ef77a8702ff</file>
+				</scene>
+			</scenes>
+		</chapter>
+		<chapter>
+			<name>Chapter 2</name>
+			<scenes>
+				<scene>
+					<name>Scene 2</name>
+					<file>scenes/59a02fe4-852a-4d8c-8115-1ca8ce1ad41d</file>
+				</scene>
+			</scenes>
+		</chapter>
+		<chapter>
+			<name>Chapter 3</name>
+			<scenes>
+				<scene>
+					<name>Scene 3</name>
+					<file>scenes/f558ba87-eed9-4bfb-9da0-036d3a64be95</file>
+				</scene>
+			</scenes>
+		</chapter>
+    </chapters>
+</novel>

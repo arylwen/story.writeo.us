@@ -342,9 +342,12 @@ public class StoryWriterActivity extends SherlockFragmentActivity implements
 				Uri fileUri = intent.getData();
 				String fName = fileUri.getPath();
 
+				StringBuffer pmt = fm.openFile(getPromptFileName(fName), this);		
+				promptStr = pmt.toString();
 				// restore prompt
-				StringBuffer pmt = fm.openFile(getPromptFileName(fName), this);
-				prompt.setText(pmt.toString());
+				if(prompt != null){
+				     prompt.setText(promptStr);
+				}
 
 				// restore story
 				StringBuffer txt = fm.openFile(fName, this);

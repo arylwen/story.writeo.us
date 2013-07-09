@@ -1,15 +1,20 @@
 package org.openintents.filemanager;
 
-import android.content.*;
-import android.os.*;
-import android.os.Build.*;
-import android.support.v4.app.*;
-import android.view.*;
-import com.halcyon.filepicker.*;
-import java.io.*;
-import org.openintents.filemanager.lists.*;
-import org.openintents.filemanager.util.*;
-import org.openintents.intents.*;
+import java.io.File;
+
+import org.openintents.filemanager.lists.FileListFragment;
+import org.openintents.filemanager.lists.MultiselectListFragment;
+import org.openintents.filemanager.lists.PickFileListFragment;
+import org.openintents.filemanager.util.FileUtils;
+import org.openintents.intents.FileManagerIntents;
+
+import android.content.Intent;
+import android.os.Build.VERSION;
+import android.os.Build.VERSION_CODES;
+import android.os.Bundle;
+import android.os.Environment;
+import android.support.v4.app.FragmentActivity;
+import android.view.KeyEvent;
 
 public class IntentFilterActivity extends FragmentActivity {
 	private FileListFragment mFragment;
@@ -88,9 +93,9 @@ public class IntentFilterActivity extends FragmentActivity {
 		}
 		// Item pickers
 		else if (intent.getAction().equals(
-				FilePickerIntents.ACTION_PICK_DIRECTORY)
+				FileManagerIntents.ACTION_PICK_DIRECTORY)
 				|| intent.getAction().equals(
-						FilePickerIntents.ACTION_PICK_FILE)
+						FileManagerIntents.ACTION_PICK_FILE)
 				|| intent.getAction().equals(Intent.ACTION_GET_CONTENT)) {
 			if (intent.hasExtra(FileManagerIntents.EXTRA_TITLE))
 				setTitle(intent.getStringExtra(FileManagerIntents.EXTRA_TITLE));
@@ -112,7 +117,7 @@ public class IntentFilterActivity extends FragmentActivity {
 				extras.putBoolean(
 						FileManagerIntents.EXTRA_DIRECTORIES_ONLY,
 						intent.getAction().equals(
-								FilePickerIntents.ACTION_PICK_DIRECTORY));
+								FileManagerIntents.ACTION_PICK_DIRECTORY));
 
 				mFragment.setArguments(extras);
 				getSupportFragmentManager()

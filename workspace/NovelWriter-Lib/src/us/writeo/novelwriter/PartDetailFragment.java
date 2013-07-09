@@ -1,19 +1,30 @@
 package us.writeo.novelwriter;
 
-import android.os.*;
-import android.support.v4.view.*;
-import android.text.*;
-import android.util.*;
-import android.view.*;
-import android.widget.*;
-import com.actionbarsherlock.app.*;
-import java.io.*;
-import java.util.*;
-import us.writeo.common.*;
-import us.writeo.novel.model.*;
-import us.writeo.novel.persistence.*;
-import us.writeo.structuretemplate.model.*;
-import us.writeo.structuretemplate.persistence.*;
+import java.io.File;
+import java.util.List;
+
+import us.writeo.common.TextViewUndoRedo;
+import us.writeo.novel.model.Scene;
+import us.writeo.novel.persistence.NovelPersistenceManager;
+import us.writeo.novel.persistence.NovelZipManager;
+import us.writeo.novelwriter.lib.R;
+import us.writeo.structuretemplate.model.StructureFileTemplate;
+import us.writeo.structuretemplate.model.StructureTemplateHelper;
+import us.writeo.structuretemplate.model.StructureTemplateHelperImpl;
+import us.writeo.structuretemplate.persistence.TemplateFileManager;
+import android.os.Bundle;
+import android.support.v4.view.ViewPager;
+import android.text.Editable;
+import android.text.SpannableString;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ScrollView;
+
+import com.actionbarsherlock.app.SherlockFragment;
 
 /**
  * A fragment representing a single Part detail screen. This fragment is either

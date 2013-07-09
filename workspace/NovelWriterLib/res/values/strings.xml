@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<!--string name="application_name">The Writeo.US</string>
+	
+    <string name="story_app_name">Writeo.US-Story Edition</string>
+	
+	<string name="novel_app_name">Writeo.US-Novel Edition</string-->
+    <string name="title_part_detail">Part Detail</string>
+	
+	<string name="newFileName">Untitled</string>
+		
+	<string name="new_title">New file name...</string>
+	<string name="new_button">Create</string>
+	
+	<string name="save_title">Save as...</string>
+	<string name="save_button">Save</string>
+	<string name="open_title">Choose story...</string>
+	<string name="open_button">Open</string>
+	
+	<string name="ok">OK</string>
+	<string name="cancel">Cancel</string>
+</resources>

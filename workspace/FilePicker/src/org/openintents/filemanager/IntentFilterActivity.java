@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
+import org.openintents.intents.*;
 
 public class IntentFilterActivity extends FragmentActivity {
 	private FileListFragment mFragment;
@@ -72,6 +73,8 @@ public class IntentFilterActivity extends FragmentActivity {
 	}
 
 	private void chooseListType(Intent intent, Bundle extras) {
+		IntentProvider ip = (IntentProvider)extras.getSerializable("intentProvider");
+		if(ip == null) ip = new OIFMIntentProvider();
 		// Multiselect
 		if (FileManagerIntents.ACTION_MULTI_SELECT.equals(intent.getAction())) {
 			String tag = "MultiSelectListFragment";
@@ -93,9 +96,9 @@ public class IntentFilterActivity extends FragmentActivity {
 		}
 		// Item pickers
 		else if (intent.getAction().equals(
-				FileManagerIntents.ACTION_PICK_DIRECTORY)
+				ip.getActionPickDirectory())
 				|| intent.getAction().equals(
-						FileManagerIntents.ACTION_PICK_FILE)
+						ip.getActionPickFile())
 				|| intent.getAction().equals(Intent.ACTION_GET_CONTENT)) {
 			if (intent.hasExtra(FileManagerIntents.EXTRA_TITLE))
 				setTitle(intent.getStringExtra(FileManagerIntents.EXTRA_TITLE));
@@ -117,7 +120,7 @@ public class IntentFilterActivity extends FragmentActivity {
 				extras.putBoolean(
 						FileManagerIntents.EXTRA_DIRECTORIES_ONLY,
 						intent.getAction().equals(
-								FileManagerIntents.ACTION_PICK_DIRECTORY));
+								ip.getActionPickDirectory()));
 
 				mFragment.setArguments(extras);
 				getSupportFragmentManager()

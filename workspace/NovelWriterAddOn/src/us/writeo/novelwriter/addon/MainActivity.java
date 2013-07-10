@@ -1,4 +1,4 @@
-package us.writeo.dashboard;
+package us.writeo.novelwriter.addon;
 
 import android.app.*;
 import android.os.*;

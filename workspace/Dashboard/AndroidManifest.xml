@@ -5,21 +5,90 @@
     android:versionName="1.0" >
 
     <uses-sdk 
-        android:minSdkVersion="8" 
-        android:targetSdkVersion="11" />
+        android:minSdkVersion="10" 
+        android:targetSdkVersion="16" />
 
     <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
         <activity
             android:label="@string/app_name"
-            android:name=".MainActivity" >
+            android:name=".DashboardActivity" >
             <intent-filter >
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+			<intent-filter >
+                <action android:name="us.writeo.dashboard" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
-    </application>
+		
+		<activity 
+			android:name="org.openintents.filemanager.IntentFilterActivity"
+			android:theme="@style/Theme.Light.DarkTitle" >
+			<intent-filter>
+				<action android:name="us.writeo.filepicker.action.PICK_FILE" />
 
+				<category android:name="android.intent.category.DEFAULT" />
+
+				<data android:scheme="file" />
+				<data android:mimeType="*/*" />
+			</intent-filter>
+			<intent-filter>
+				<action android:name="us.writeo.filepicker.action.PICK_FILE" />
+
+				<category android:name="android.intent.category.DEFAULT" />
+
+				<data android:scheme="file" />
+			</intent-filter>
+			<intent-filter>
+				<action android:name="us.writeo.filepicker.action.PICK_FILE" />
+
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+			<intent-filter>
+				<action android:name="us.writeo.filepicker.action.PICK_DIRECTORY" />
+
+				<category android:name="android.intent.category.DEFAULT" />
+
+				<data android:scheme="file" />
+			</intent-filter>
+			<intent-filter>
+				<action android:name="us.writeo.filepicker.action.PICK_DIRECTORY" />
+
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+			<intent-filter>
+				<action android:name="android.intent.action.GET_CONTENT" />
+
+				<data android:mimeType="*/*" />
+
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.OPENABLE" />
+			</intent-filter>
+			<intent-filter>
+				<action android:name="android.intent.action.GET_CONTENT" />
+
+				<data android:scheme="file" />
+
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.OPENABLE" />
+			</intent-filter>
+			<intent-filter>
+				<action android:name="android.intent.action.GET_CONTENT" />
+
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.OPENABLE" />
+			</intent-filter>
+
+			<!-- Filter for multi select feature -->
+			<intent-filter>
+				<action android:name="org.openintents.action.MULTI_SELECT" />
+
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+		
+    </application>
 </manifest>

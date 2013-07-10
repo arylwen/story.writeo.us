@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, MainActivity!</string>
+    <string name="app_name">NovelWriterAddOn</string>
+	
+
+
+		<string name="application_name">Writeo.US Novel Edition Lite</string>
+
+		<string name="novel_app_name">Writeo.US Novel Edition Lite</string>
+
+	
+	
+
+</resources>

@@ -1,25 +1,40 @@
 package us.writeo.novelwriter;
 
-import android.content.*;
-import android.content.pm.*;
-import android.net.*;
-import android.os.*;
-import android.support.v4.app.*;
-import android.util.*;
-import android.view.*;
-import android.widget.*;
-import com.actionbarsherlock.app.*;
-import com.actionbarsherlock.view.*;
-import java.io.*;
-import java.lang.reflect.*;
-import java.util.*;
-import us.writeo.filepicker.*;
-import us.writeo.novel.model.*;
-import us.writeo.novel.persistence.*;
-import us.writeo.structuretemplate.model.*;
-import us.writeo.structuretemplate.persistence.*;
-import us.writeo.structuretemplate.view.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
+import us.writeo.filepicker.FilePicker;
+import us.writeo.novel.model.Chapter;
+import us.writeo.novel.model.Novel;
+import us.writeo.novel.model.NovelHelper;
+import us.writeo.novel.model.Scene;
+import us.writeo.novel.persistence.NovelPersistenceManager;
+import us.writeo.novel.persistence.NovelZipManager;
+import us.writeo.novel.persistence.SceneIterator;
+import us.writeo.novel.persistence.ZipSceneIterator;
+import us.writeo.structuretemplate.model.StructureFileTemplate;
+import us.writeo.structuretemplate.persistence.TemplateFileManager;
+import us.writeo.structuretemplate.view.ChooseTemplateDialogFragment;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ExpandableListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
@@ -66,7 +81,6 @@ public class PartListActivity extends SherlockFragmentActivity implements
 	private PartListFragment partList;
 	private Scene currentScene;
 	
-	//private FileManager fm;
 	private FilePicker fpk;
 	private NovelHelper nh;
 	private NovelPersistenceManager npm;
@@ -151,10 +165,8 @@ public class PartListActivity extends SherlockFragmentActivity implements
 		getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM); 
 		getSupportActionBar().setCustomView(customNav);
 		getSupportActionBar().setDisplayShowTitleEnabled(false);
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true); 
+		//getSupportActionBar().setDisplayHomeAsUpEnabled(true); 
 		getSupportActionBar().setDisplayShowHomeEnabled(true); 
-
-		
 		
 		fileName = getResources().getString( R.string.newFileName);
 

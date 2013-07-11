@@ -1,6 +1,6 @@
 package us.writeo.novelwriter;
 
-import us.writeo.novel.model.*;
+import us.writeo.common.novel.model.*;
 
 public interface EditChapterDialogListener
  {

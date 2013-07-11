@@ -4,8 +4,9 @@ import android.content.*;
 import android.os.*;
 import android.view.*;
 import android.widget.*;
+import us.writeo.*;
 import com.actionbarsherlock.app.*;
-import us.writeo.novel.model.*;
+import us.writeo.common.novel.model.*;
 
 
 public class EditSceneDataDialogFragment extends SherlockDialogFragment {

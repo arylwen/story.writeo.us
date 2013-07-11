@@ -15,7 +15,8 @@ import android.view.*;
 import android.widget.*;
 import com.actionbarsherlock.app.*;
 import com.actionbarsherlock.view.*;
-import us.writeo.novel.model.*;
+import us.writeo.*;
+import us.writeo.common.novel.model.*;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;

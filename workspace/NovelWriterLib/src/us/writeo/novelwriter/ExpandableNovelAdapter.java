@@ -7,8 +7,9 @@ import android.view.*;
 import android.view.View.*;
 import android.widget.*;
 import java.util.*;
-import us.writeo.novel.model.*;
-import us.writeo.novel.persistence.*;
+import us.writeo.*;
+import us.writeo.common.novel.model.*;
+import us.writeo.common.novel.persistence.*;
 
 public class ExpandableNovelAdapter extends BaseExpandableListAdapter implements OnClickListener {
 

@@ -5,6 +5,7 @@ import android.text.*;
 import android.view.*;
 import android.widget.*;
 import com.actionbarsherlock.app.*;
+import us.writeo.*;
 
 	public class TemplateInfoFragment extends SherlockFragment
 	{

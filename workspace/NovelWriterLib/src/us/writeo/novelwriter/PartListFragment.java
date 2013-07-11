@@ -10,8 +10,8 @@ import android.view.ContextMenu.*;
 import android.widget.*;
 import android.widget.ExpandableListView.*;
 import com.actionbarsherlock.app.*;
-import us.writeo.novel.model.*;
-import us.writeo.novel.persistence.*;
+import us.writeo.common.novel.model.*;
+import us.writeo.common.novel.persistence.*;
 
 /**
  * A list fragment representing a list of Parts. This fragment also supports

@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello">Hello World, MainActivity!</string>
-    <string name="app_name">NovelWriterAddOn</string>
+    <!--string name="hello">Hello World, MainActivity!</string>
+    <string name="app_name">NovelWriterAddOn</string-->
 	
-
-
-		<string name="application_name">Writeo.US Novel Edition Lite</string>
-
-		<string name="novel_app_name">Writeo.US Novel Edition Lite</string>
-
+	<string name="application_name">Writeo.US Novel Edition Lite</string>
+	<string name="novel_app_name">Writeo.US Novel Edition Lite</string>
 	
-	
+	<string name="new_title">New file name...</string>
+	<string name="new_button">Create</string>
+
+	<string name="save_title">Save as...</string>
+	<string name="save_button">Save</string>
+	<string name="open_title">Choose story...</string>
+	<string name="open_button">Open</string>
+
+	<!--string name="ok">OK</string>
+	<string name="cancel">Cancel</string-->
 
 </resources>

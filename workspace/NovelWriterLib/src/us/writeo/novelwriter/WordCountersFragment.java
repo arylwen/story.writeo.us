@@ -4,6 +4,7 @@ import android.os.*;
 import android.text.*;
 import android.view.*;
 import android.widget.*;
+import us.writeo.*;
 import com.actionbarsherlock.app.*;
 
 	public class WordCountersFragment extends SherlockFragment

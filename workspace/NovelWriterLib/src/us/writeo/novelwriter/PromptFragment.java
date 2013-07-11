@@ -4,6 +4,7 @@ import android.os.*;
 import android.view.*;
 import android.widget.*;
 import com.actionbarsherlock.app.*;
+import us.writeo.*;
 import us.writeo.common.*;
 
 public class PromptFragment extends SherlockFragment {

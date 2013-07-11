@@ -1,7 +1,7 @@
 package us.writeo.novelwriter;
 
-import us.writeo.novel.model.*;
-import us.writeo.novel.persistence.*;
+import us.writeo.common.novel.model.*;
+import us.writeo.common.novel.persistence.*;
 
 public class CountWordsProcessor implements SceneProcessor
 {

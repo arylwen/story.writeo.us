@@ -5,7 +5,7 @@ import android.content.*;
 import android.net.*;
 import java.io.*;
 import org.openintents.intents.*;
-import us.writeo.filepicker.*;
+import us.writeo.common.filepicker.*;
 import us.writeo.intents.*;
 
 public class WriteoUSFilePicker implements FilePicker

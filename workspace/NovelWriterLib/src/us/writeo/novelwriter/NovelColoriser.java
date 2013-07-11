@@ -4,7 +4,7 @@ import android.text.*;
 import android.text.style.*;
 import android.widget.*;
 import java.util.*;
-import us.writeo.structuretemplate.model.*;
+import us.writeo.common.structuretemplate.model.*;
 
 	public class NovelColoriser implements TextWatcher
 	{

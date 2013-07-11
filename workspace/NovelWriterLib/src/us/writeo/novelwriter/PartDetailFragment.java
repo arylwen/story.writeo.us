@@ -9,11 +9,12 @@ import android.widget.*;
 import com.actionbarsherlock.app.*;
 import java.io.*;
 import java.util.*;
+import us.writeo.*;
 import us.writeo.common.*;
-import us.writeo.novel.model.*;
-import us.writeo.novel.persistence.*;
-import us.writeo.structuretemplate.model.*;
-import us.writeo.structuretemplate.persistence.*;
+import us.writeo.common.novel.model.*;
+import us.writeo.common.novel.persistence.*;
+import us.writeo.common.structuretemplate.model.*;
+import us.writeo.common.structuretemplate.persistence.*;
 
 
 /**

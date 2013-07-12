@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?><classpath>
+<classpathentry kind="src" path="src"/>
+<classpathentry kind="src" path="gen"/>
+<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+<classpathentry kind="output" path="bin/classes"/>
+<classpathentry kind="lib" path="/storage/extSdCard/aprojects/story.writeo.us/workspace/TerebiA/lpc/libs/android-support-v4.jar"/>
+<classpathentry kind="lib" path="/storage/extSdCard/aprojects/story.writeo.us/workspace/TerebiA/lpc/libs/asm-all-3.2.jar"/>
+<classpathentry kind="lib" path="/storage/extSdCard/aprojects/story.writeo.us/workspace/TerebiA/lpc/libs/commons-io-2.4.jar"/>
+<classpathentry kind="lib" path="/storage/extSdCard/aprojects/story.writeo.us/workspace/TerebiA/lpc/libs/log4j-over-slf4j-1.7.5.jar"/>
+<classpathentry kind="lib" path="/storage/extSdCard/aprojects/story.writeo.us/workspace/TerebiA/lpc/libs/slf4j-android-1.6.1-RC1.jar"/>
+</classpath>

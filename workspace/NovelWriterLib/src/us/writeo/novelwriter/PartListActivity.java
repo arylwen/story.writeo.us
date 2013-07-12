@@ -89,7 +89,7 @@ public class PartListActivity extends SherlockFragmentActivity implements
 		
 		//fm = new FileManager();
 		
-		try
+		/*try
 		{
 			ApplicationInfo ai = getPackageManager().getApplicationInfo(this.getPackageName(), 
 																		PackageManager.GET_META_DATA);
@@ -137,8 +137,12 @@ public class PartListActivity extends SherlockFragmentActivity implements
 		}
 		finally{
 			//if (fpk == null ) fpk = new SWFilePicker(this);
-		}
+		}*/
 
+		fpk = FilePickerUtil.getFilePicker(this);
+		if(fpk == null){
+			//TODO: display error dialog and quit the application
+		}
 		nh = new NovelHelper();
 				
 		setContentView(R.layout.activity_part_list);
@@ -159,10 +163,9 @@ public class PartListActivity extends SherlockFragmentActivity implements
 		fileName = getResources().getString( R.string.newFileName);
 
 		if (findViewById(R.id.part_detail_container) != null) {
-			// The detail container view will be present only in the
-			// large-screen layouts (res/values-large-lanc and
-			// res/values-sw600dp-land). If this view is present, then the
-			// activity should be in two-pane mode.
+			// The detail container view will be present only in the large-screen layouts 
+			// (res/values-large-land and res/values-sw600dp-land). If this view is present, 
+			// then the activity should be in two-pane mode.
 			mTwoPane = true;
 
 			// In two-pane mode, list items should be given the

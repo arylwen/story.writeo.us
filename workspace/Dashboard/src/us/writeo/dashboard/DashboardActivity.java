@@ -51,6 +51,16 @@ public class DashboardActivity extends Activity implements OnItemClickListener {
   public void onItemClick(AdapterView<?> parent, View v, int position, long id) {    
       int menuId = ICONS[position].menuId;
 	  switch(menuId){
+		  case 1:
+		      String swintent = "us.writeo.storywriter";
+			  if(intentExists(swintent) ){
+		          Intent intent = new Intent(swintent);
+			      startActivity(intent);
+			  } else {
+				  //display dialog and send the user to the appstore
+			  }
+			  break;
+			  
 		  case 2:
 		      String nwintent = "us.writeo.novelwriter";
 			  if(intentExists(nwintent) ){

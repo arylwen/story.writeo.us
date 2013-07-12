@@ -1,0 +1,21 @@
+<structure>
+	<name>basic</name>
+	<mode>absolute</mode>
+	<parts>
+	<part>
+	    <name>Act 1</name>
+	    <color>#FF0000FF</color>
+	    <limit>250</limit>
+	</part>
+	<part>
+	    <name>Act 2</name>
+	    <color>#FF00FF00</color>
+	    <limit>750</limit>
+	</part>
+	<part>
+	    <name>Act 3</name>
+	    <color>#FFFF0000</color>
+	    <limit>1000</limit>
+	</part>
+	</parts>
+</structure>

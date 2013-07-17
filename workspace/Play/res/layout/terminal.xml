@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?> 
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+	android:layout_width="fill_parent" 
+	android:layout_height="fill_parent" 
+	android:orientation="vertical" > 
+	
+	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+		android:layout_width="fill_parent" 
+		android:layout_height="40dp" 
+		android:orientation="horizontal" 
+		android:layout_below="@+id/consolescroll" > 
+		<Button
+			android:id="@+id/start"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/mud_server_label_start" />
+
+		<Button
+			android:id="@+id/stop"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/mud_server_label_stop"
+			android:layout_toRightOf="@+id/start"/>
+		
+		<Button
+			android:id="@+id/connect"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/mud_client_label_connect"
+			
+			android:layout_toLeftOf="@+id/disconnect"/>
+
+		<Button
+			android:id="@+id/disconnect"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/mud_client_label_disconnect" 
+			android:layout_alignParentRight="true"/>
+		
+	</RelativeLayout>
+	
+	<ScrollView
+		android:id="@+id/consolescroll" 
+		android:layout_width="fill_parent"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:hint="@string/hello"> 
+		
+		<TextView 
+			android:id="@+id/console" 
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"/> 
+	</ScrollView> 
+	
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+		android:layout_width="fill_parent" 
+		android:layout_height="40dp" 
+		android:orientation="horizontal" 
+		android:layout_below="@+id/consolescroll" > 
+	<EditText 
+		android:id="@+id/editText1" 
+		android:layout_width="0dp" 
+		android:layout_height="match_parent"
+		android:layout_weight="90" > 
+		<requestFocus /> 
+	</EditText> 
+	
+	<Button android:id="@+id/button1" 
+		android:layout_width="0dp" 
+		android:layout_height="match_parent"
+		android:layout_weight="10" 
+		android:text="Send" /> 
+	</LinearLayout>
+	
+</LinearLayout>

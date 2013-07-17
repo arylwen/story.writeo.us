@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, MainActivity!</string>
+    <string name="app_name">Play</string>
+
+	<string name="mud_server_service_started">Play Started</string>
+	<string name="mud_server_service_stopped">Play Stopped</string>
+	<string name="mud_server_service_label">Writeo.US Play!</string>
+	<string name="mud_server_label_start">Start Play!</string>
+	<string name="mud_server_label_stop">Stop Play!</string>
+	<string name="mud_client_label_connect">Connect Play!</string>
+	<string name="mud_client_label_disconnect">Disconnect Play!</string>
+	
+	<string name="remote_service_connected">Play Connected!</string>
+	<string name="remote_service_disconnected">Play Disconnected!</string>
+	
+</resources>

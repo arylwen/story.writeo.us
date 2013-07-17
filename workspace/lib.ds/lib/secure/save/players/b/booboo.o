@@ -1,0 +1,114 @@
+# /secure/save/players/b/booboo Jul 16, 2013 9:45:28 PM
+interactive::container::look_in::Opacity 0
+interactive::container::look_in::InternalDesc 0
+interactive::object::look::Invisible 0
+interactive::object::look::Items ([])
+interactive::object::look::ExternalDesc "$N is nondescript."
+interactive::object::id::CapName "Booboo"
+interactive::object::description::Modify 1
+interactive::object::description::Short "$N the unaccomplished"
+interactive::object::description::ProperNoun 1
+interactive::object::properties::Properties (["brand_spanking_new":1,])
+interactive::interface::command::CommandHist ({})
+interactive::interface::command::Paused 0
+interactive::interface::command::localcmds ({})
+interactive::interface::command::next_command ({})
+interactive::interface::command::MaxCommandHistSize 20
+interactive::interface::chat::RestrictedChannels ({})
+interactive::interface::chat::NoChanColors 0
+interactive::interface::nmsh::history::HistorySize 10
+interactive::interface::nmsh::PreviousWorkingDirectory 0
+interactive::interface::nmsh::Nicknames ([])
+interactive::interface::nmsh::Aliases (["prac":"skills","lp":"lpuni $*","examine":"look at $*","nw":"go northwest","northeast":"go northeast","northwest":"go northwest","chat":"newbie $*","north":"go north","southeast":"go southeast","ig":"intergossip $*","ic":"intercre $*","sw":"go southwest","east":"go east","southwest":"go southwest","c":"cre $*","d":"go down","exa":"look at $*","e":"go east","dc":"dchat $*","trophy":"kills","exit":"go out","up":"go up","i":"inventory","l":"look $*","se":"go southeast","inf":"score","n":"go north","sc":"status","practice":"skills","p":"people","ne":"go northeast","s":"go south","bio":"biography","u":"go up","t":"tell $*","w":"go west","west":"go west","x":"look at $*","eq":"equipment","out":"go out","sco":"score","aa":"ascii_art $*","down":"go down","inv":"inventory","south":"go south",])
+interactive::interface::nmsh::Prompt "> "
+interactive::interface::nmsh::Xverbs (["'":"say $*","]":"] $*","\"":"say $*",":":"emote $*",])
+interactive::interface::nmsh::CurrentWorkingDirectory "/"
+interactive::interface::Blocked ([])
+interactive::interface::PauseMessages 0
+interactive::interface::Screen ({80,20,})
+interactive::interface::MessageQueue 0
+interactive::interface::Terminal "ansi"
+interactive::interface::BlockAnnoying 0
+interactive::interface::MessageExceptions 0
+interactive::interface::annoyblock 0
+interactive::messages::Messages (["invis":"$N disappears.","telout":"$N teleports away.","leave":"$N leaves $D.","dest":"$N dests $O.","clone":"$N clones $O.","home":"$N goes home.","telin":"$N teleports in.","vis":"$N appears.","come":"$N enters.",])
+interactive::autosave::Inventory ({})
+interactive::LoginSite "/domains/default/room/start"
+interactive::BirthTime 1374029111
+interactive::LoginTime 1374029128
+interactive::HostSite "0.0.0.0"
+interactive::Email 0
+interactive::WebPage 0
+interactive::Age 0
+interactive::Password 0
+interactive::Marriages ({})
+interactive::WhereBlock 0
+interactive::Rank "citizen"
+interactive::Brief 0
+interactive::RescueBit 0
+interactive::News ([])
+interactive::RealName 0
+living::magic::SpellBook ([])
+living::combat::classes::abilities::Level 1
+living::combat::classes::abilities::Skills (["psionic defense":(["level":2,"points":0,"class":3,]),])
+living::combat::classes::Morality 0
+living::combat::classes::Religion ({0,0,})
+living::combat::classes::Class 0
+living::combat::classes::Clan 0
+living::combat::classes::SkillModifiers ([])
+living::combat::race::genetics::Stats (["coordination":(["level":45,"points":0,"class":2,]),"strength":(["level":24,"points":0,"class":3,]),"durability":(["level":37,"points":0,"class":4,]),"luck":(["level":24,"points":0,"class":3,]),"charisma":(["level":39,"points":0,"class":2,]),"speed":(["level":34,"points":0,"class":3,]),"intelligence":(["level":65,"points":0,"class":1,]),"agility":(["level":35,"points":0,"class":3,]),"wisdom":(["level":46,"points":0,"class":3,]),])
+living::combat::race::genetics::Resistance (["medium":0,"low":0,"immune":0,"high":0,"none":4194302,])
+living::combat::race::genetics::LightSensitivity ({25,75,})
+living::combat::race::genetics::Blind 0
+living::combat::race::genetics::CustomStats 15
+living::combat::race::body::position::Position 2
+living::combat::race::body::body_mass::BodyMass 0
+living::combat::race::body::mount::Mount 0
+living::combat::race::body::mount::Riders ({})
+living::combat::race::body::undead::UndeadType 0
+living::combat::race::body::undead::Undead 0
+living::combat::race::body::persist::SaveRecurse 0
+living::combat::race::body::persist::Saved ({})
+living::combat::race::body::Caffeine 0
+living::combat::race::body::StaminaPoints 470.0
+living::combat::race::body::Sleeping 0
+living::combat::race::body::DeathEvents 0
+living::combat::race::body::godmode 0
+living::combat::race::body::ExtraChannels ({})
+living::combat::race::body::melee 0
+living::combat::race::body::Poison 0
+living::combat::race::body::ExperiencePoints 50
+living::combat::race::body::Food 100
+living::combat::race::body::Biter 0
+living::combat::race::body::Torso "torso"
+living::combat::race::body::Limbs (["neck":(["armors":0,"health":380,"parent":"torso","children":({"head",}),"class":1,]),"left hand":(["armors":0,"health":100,"parent":"left arm","children":({}),"class":4,]),"right arm":(["armors":0,"health":190,"parent":"torso","children":({"right hand",}),"class":2,]),"torso":(["armors":0,"health":380,"parent":0,"children":({"neck","right leg","left leg","right arm","left arm",}),"class":1,]),"left leg":(["armors":0,"health":190,"parent":"torso","children":({"left foot",}),"class":2,]),"left arm":(["armors":0,"health":190,"parent":"torso","children":({"left hand",}),"class":2,]),"head":(["armors":0,"health":380,"parent":"neck","children":({}),"class":1,]),"right foot":(["armors":0,"health":100,"parent":"right leg","children":({}),"class":4,]),"left foot":(["armors":0,"health":100,"parent":"left leg","children":({}),"class":4,]),"right hand":(["armors":0,"health":100,"parent":"right arm","children":({}),"class":4,]),"right leg":(["armors":0,"health":190,"parent":"torso","children":({"right foot",}),"class":2,]),])
+living::combat::race::body::Fingers (["right hand":5,"left hand":5,])
+living::combat::race::body::Agent 0
+living::combat::race::body::MagicPoints 700
+living::combat::race::body::Alcohol 0
+living::combat::race::body::MissingLimbs ([])
+living::combat::race::body::Drink 100
+living::combat::race::body::HealthPoints 420
+living::combat::race::language::Polyglot 0
+living::combat::race::language::DefaultLanguage "Common"
+living::combat::race::language::Languages (["english":(["name":"English","native":1,"points":0,"level":100,]),"common":(["name":"Common","native":0,"points":0,"level":100,]),])
+living::combat::race::talk::SpeakColor "CYAN%^"
+living::combat::race::Gender "female"
+living::combat::race::Race "human"
+living::combat::race::Town "Town"
+living::combat::Wimpy 0.2
+living::combat::WimpyCommand "go out"
+living::combat::Dead 0
+living::carry::MaxCarry 0
+living::quest::QuestBook ([])
+living::quest::QuestPoints 0
+living::currency::Currency (["silver":134,])
+living::currency::Bank ([])
+living::Attackable 1
+living::NoCondition 0
+living::isPK 0
+Deaths 0
+Muffed ({})
+TitleLength 1
+Titles ({})
+TrainingPoints 0

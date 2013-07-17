@@ -32,7 +32,7 @@
 		<meta-data android:value="us.writeo.novelwriter.standalone.NWFilePicker" android:name="filePicker" />
         <activity
             android:name="us.writeo.novelwriter.PartDetailActivity"
-            android:label="@string/title_part_detail">
+            android:label="@string/novel_app_name">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".PartListActivity" />

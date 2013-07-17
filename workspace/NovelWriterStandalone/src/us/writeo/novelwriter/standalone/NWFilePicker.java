@@ -1,11 +1,14 @@
 package us.writeo.novelwriter.standalone;
 
-import android.app.*;
-import android.content.*;
-import android.net.*;
-import java.io.*;
-import org.openintents.intents.*;
-import us.writeo.filepicker.*;
+import java.io.File;
+import java.io.Serializable;
+
+import org.openintents.intents.FileManagerIntents;
+
+import us.writeo.common.filepicker.FilePicker;
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 
 public class NWFilePicker implements FilePicker
 {

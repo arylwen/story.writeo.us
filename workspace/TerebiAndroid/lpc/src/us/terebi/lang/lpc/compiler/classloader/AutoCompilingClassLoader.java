@@ -17,19 +17,15 @@
 
 package us.terebi.lang.lpc.compiler.classloader;
 
-import java.net.URL;
-import java.net.URLClassLoader;
-
-import org.apache.log4j.Logger;
-
-import us.terebi.lang.lpc.compiler.ClassNameMapper;
-import us.terebi.lang.lpc.compiler.CompileException;
-import us.terebi.lang.lpc.compiler.ObjectCompiler;
+import dalvik.system.*;
+import java.net.*;
+import org.apache.log4j.*;
+import us.terebi.lang.lpc.compiler.*;
 
 /**
  * 
  */
-public class AutoCompilingClassLoader extends URLClassLoader
+public class AutoCompilingClassLoader extends DexClassLoader
 {
     private final Logger LOG = Logger.getLogger(AutoCompilingClassLoader.class);
 
@@ -37,12 +33,19 @@ public class AutoCompilingClassLoader extends URLClassLoader
 
     public AutoCompilingClassLoader(URL[] urls, ClassLoader parent, ObjectCompiler compiler)
     {
-        super(urls, parent);
+        //super(urls[0].toString().substring(5), parent);
+		//super("/storage/extSdCard/aprojects/story.writeo.us/workspace/lib.ds/jar/lib.jar", parent);
+		super( "/storage/extSdCard/aprojects/story.writeo.us/workspace/lib.ds/work/classes.dex", 
+			  "/data/data/us.writeo/app_dex", null,parent);
+		for(int i = 0; i< urls.length; i++){
+		    LOG.debug("Class loader urls["+i+"] is: "+urls[i].toString().substring(5));
+		}
         _compiler = compiler;
     }
 
     public Class< ? > findClass(String name) throws ClassNotFoundException
     {
+		LOG.debug("class name:"+name);
         compile(name);
         return super.findClass(name);
     }
@@ -70,4 +73,5 @@ public class AutoCompilingClassLoader extends URLClassLoader
             }
         }
     }
+	
 }

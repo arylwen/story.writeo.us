@@ -19,11 +19,10 @@
 
 package us.terebi.engine;
 
-import java.io.File;
-
-import org.apache.log4j.Logger;
-
-import us.terebi.engine.config.PropertiesConfig;
+import android.util.*;
+import java.io.*;
+import org.apache.log4j.*;
+import us.terebi.engine.config.*;
 
 /**
  * @author <a href="http://blog.adjective.org/">Tim Vernum</a>
@@ -51,6 +50,7 @@ public class Main
         catch (Exception e)
         {
             LOG.fatal("Shutting down server", e);
+			Log.e("lib.ds", e.getMessage(), e);
         }
     }
 

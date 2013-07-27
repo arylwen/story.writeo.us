@@ -4,6 +4,7 @@ import android.app.*;
 import android.os.*;
 import android.view.*;
 import android.widget.*;
+import org.apache.log4j.*;
 
 public class MainActivity extends Activity
 {

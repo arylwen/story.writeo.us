@@ -4,4 +4,7 @@
     <string name="hello">Hello World, MainActivity!</string>
     <string name="app_name">engine</string>
 
+	<string name="mud_server_label_start">Start Play!</string>
+	<string name="mud_server_label_stop">Stop Play!</string>
+	
 </resources>

@@ -1,13 +1,13 @@
 package us.writeo;
 
-import android.app.*;
 import android.content.*;
 import android.os.*;
 import android.view.*;
 import android.view.View.*;
 import android.widget.*;
+import com.actionbarsherlock.app.*;
 
-public class MainActivity extends Activity
+public class MainActivity extends SherlockActivity
 {
 
 	/** Messenger for communicating with service. */
@@ -17,7 +17,7 @@ public class MainActivity extends Activity
 	
 	boolean mIsBound;
 	/** Some text view we are using to show state information. */
-	TextView console;
+	TextView console, title;
 
     /** Called when the activity is first created. */
     @Override
@@ -25,6 +25,17 @@ public class MainActivity extends Activity
 	{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.terminal);
+		
+		View customNav = LayoutInflater.from(this).inflate(R.layout.custom_title_bar, null);		
+		title = (TextView) customNav.findViewById(R.id.notetitle);
+		getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM); 
+		getSupportActionBar().setCustomView(customNav);
+		getSupportActionBar().setDisplayShowTitleEnabled(false);
+		//if(dashboardInstalled()){
+			getSupportActionBar().setDisplayHomeAsUpEnabled(true); 
+		//}
+		getSupportActionBar().setDisplayShowHomeEnabled(true); 
+		
 		
 		console = (TextView) findViewById(R.id.console);
 		

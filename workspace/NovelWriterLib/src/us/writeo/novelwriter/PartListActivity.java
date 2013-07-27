@@ -41,7 +41,8 @@ import com.actionbarsherlock.view.MenuItem;
  */
 public class PartListActivity extends SherlockFragmentActivity implements
 		PartListFragment.Callbacks, EditChapterDialogListener, 
-        EditSceneDataDialogFragment.EditSceneDialogListener, NovelColoriser.CounterListener, 
+        EditSceneDataDialogFragment.EditSceneDialogListener, 
+		NovelColoriser.CounterListener, 
 		ChooseTemplateDialogFragment.TemplateDialogListener
 {
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello">Hello World, MainActivity!</string>
+    <string name="newFileName">none</string>
     <string name="app_name">Play</string>
 
 	<string name="mud_server_service_started">Play Started</string>

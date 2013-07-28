@@ -1,10 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?><classpath>
-<classpathentry kind="src" path="src"/>
-<classpathentry kind="src" path="gen"/>
-<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
-<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
-<classpathentry kind="output" path="bin/classes"/>
-<classpathentry kind="lib" path="/storage/extSdCard/aprojects/story.writeo.us/workspace/TerebiAndroid/engine/libs/android-support-v4.jar"/>
-<classpathentry kind="lib" path="/storage/extSdCard/aprojects/story.writeo.us/workspace/TerebiAndroid/engine/libs/log4j-over-slf4j-1.7.5.jar"/>
-<classpathentry kind="lib" path="/storage/extSdCard/aprojects/story.writeo.us/workspace/TerebiAndroid/engine/libs/slf4j-android-1.6.1-RC1.jar"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="gen"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/lpc"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/net"/>
+	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

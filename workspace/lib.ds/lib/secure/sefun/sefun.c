@@ -199,7 +199,9 @@ object find_object( string str ){
     object ret;
     string err;
     if(!str || !stringp(str)) return 0;
-    err = catch(ret = efun::find_object(str));
+    //err = catch(ret = efun::find_object(str));
+    err = 0;
+	ret = efun::find_object(str);
     if(err || !ret) return 0;
     if((int)master()->valid_apply(({ "SECURE", "ASSIST", "SNOOP_D" }))) return ret;
     if(base_name(previous_object()) == SERVICES_D) return ret;

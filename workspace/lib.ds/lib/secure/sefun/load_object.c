@@ -11,7 +11,8 @@ object load_object(string str) {
     if(!str) return 0;
     if(!stringp(str)) error("Bad argument 1 to load_object().\n");
     if(ob = find_object(str)) return ob;
-    catch(call_other(str, "???"));
+    //catch(call_other(str, "???"));
+	call_other(str, "???");
     return find_object(str);
 }
 
@@ -34,7 +35,8 @@ int update(string file){
     if(find_object(file)) {
         return 0;
     }
-    catch(call_other(file, "???"));
+    //catch(call_other(file, "???"));
+    call_other(file, "???");
     if(!find_object(file)) {
         load_object(file);
     }

@@ -87,7 +87,7 @@ public void run() {
 		} 
 	} 
 	
-	public static void stop(){
+	public static void stopServer(){
 		serverContinue = false;
 	}
 } 

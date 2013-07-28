@@ -1,11 +1,18 @@
 package us.terebi.lang.lpc.compiler.classloader;
 
-import com.android.dx.cf.iface.*;
-import com.android.dx.dex.*;
-import com.android.dx.dex.cf.*;
-import com.android.dx.dex.code.*;
-import com.android.dx.dex.file.*;
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+
+import com.android.dx.cf.iface.ParseException;
+import com.android.dx.dex.DexOptions;
+import com.android.dx.dex.cf.CfOptions;
+import com.android.dx.dex.cf.CfTranslator;
+import com.android.dx.dex.code.PositionList;
+import com.android.dx.dex.file.ClassDefItem;
+import com.android.dx.dex.file.DexFile;
 
 public class DexClient {
     /** number of warnings during processing */
@@ -53,17 +60,17 @@ public class DexClient {
      * @return whether processing was successful
      */
     private boolean processClass(String name, byte[] bytes) {
-        try {
+        //try {
             ClassDefItem clazz =
                 CfTranslator.translate(name, bytes, cfOptions, outputDex.getDexOptions());
             outputDex.add(clazz);
             return true;
-        } catch (ParseException ex) {
-          ex.printStackTrace();
-        }
+        //} catch (ParseException ex) {
+        //  ex.printStackTrace();
+        //}
 
-        warnings++;
-        return false;
+        //warnings++;
+        //return false;
     }
 
     /**

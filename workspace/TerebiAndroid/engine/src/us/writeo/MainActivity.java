@@ -34,10 +34,13 @@ public class MainActivity extends Activity
     }
 
 	private OnClickListener mStartListener = new OnClickListener() { 
-	    public void onClick(View v)
+	    @Override
+		public void onClick(View v)
 		{ 
+	    	Log.e(TAG,"start clicked");
 			String[] args = new String[1];
-			args[0] = "/storage/extSdCard/aprojects/story.writeo.us/workspace/lib.ds/etc/ds.terebi.config";
+			//args[0] = "/storage/extSdCard/aprojects/story.writeo.us/workspace/lib.ds/etc/ds.terebi.config";
+			args[0] = "/sdcard/lib.ds/etc/ds.terebi.config";
 			
 
 			File dexDir = MainActivity.this.getDir("dex",0);
@@ -59,11 +62,15 @@ public class MainActivity extends Activity
 	}; 
 
 	private OnClickListener mStopListener = new OnClickListener() { 
+		@Override
 		public void onClick(View v)
 		{ 
+			Log.e(TAG,"stop clicked");
             //Shutdown.token().notifyAll();
-			String base = "/storage/extSdCard/aprojects/story.writeo.us/workspace/lib.ds/work";
-			String dump = "/storage/extSdCard/aprojects/story.writeo.us/workspace/lib.ds/work/classes.dex";
+			//String base = "/storage/extSdCard/aprojects/story.writeo.us/workspace/lib.ds/work";
+			//String dump = "/storage/extSdCard/aprojects/story.writeo.us/workspace/lib.ds/work/classes.dex";
+			String base = "/sdcard/lib.ds/work";
+			String dump = "/sdcard/lib.ds/work/classes.dex";
 
 			//Map<String, byte[]> bytecode = dexIt(new File(base), "");
 			DexClasses dexer = new DexClasses(base, dump);

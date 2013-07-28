@@ -155,6 +155,7 @@ import org.apache.commons.io.comparator.*;
 				output.write(dexedbytecode);
 				output.flush();
 				output.close();
+				Log.e("lib.ds","dex file ready");
 			}
 			catch (FileNotFoundException e)
 			{

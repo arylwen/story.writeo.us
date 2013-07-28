@@ -1,19 +1,20 @@
-package us.writeo.novelwriter.standalone;
+package us.writeo.storywriter.standalone;
 
-import java.io.*;
-import org.openintents.intents.*;
+import java.io.Serializable;
 
-public class NWIntentProvider implements IntentProvider, Serializable
+import org.openintents.intents.IntentProvider;
+
+public class SWIntentProvider implements IntentProvider, Serializable
 {
 
 	public String getActionPickFile()
 	{
-		return NWFilePickerIntents.ACTION_PICK_FILE;
+		return SWFilePickerIntents.ACTION_PICK_FILE;
 	}
 
 	public String getActionPickDirectory()
 	{
-		return NWFilePickerIntents.ACTION_PICK_DIRECTORY;
+		return SWFilePickerIntents.ACTION_PICK_DIRECTORY;
 	}
 
 }

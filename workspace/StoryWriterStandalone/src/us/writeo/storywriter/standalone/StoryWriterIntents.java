@@ -1,4 +1,4 @@
-package com.halcyon.storywriter;
+package us.writeo.storywriter.standalone;
 
 public final class StoryWriterIntents
 {

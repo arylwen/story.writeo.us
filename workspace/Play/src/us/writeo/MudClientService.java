@@ -147,7 +147,7 @@ public class MudClientService extends Service{
 
 	@Override
 	public void onDestroy() {
-		EchoServer.stop();
+		EchoServer.stopServer();
 		// Cancel the persistent notification.        
 		mNM.cancel(NOTIFICATION);
 

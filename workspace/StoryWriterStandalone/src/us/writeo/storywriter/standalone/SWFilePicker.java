@@ -1,9 +1,10 @@
-package com.halcyon.storywriter;
+package us.writeo.storywriter.standalone;
 
 import java.io.File;
 
 import org.openintents.intents.FileManagerIntents;
 
+import us.writeo.common.filepicker.FilePicker;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;

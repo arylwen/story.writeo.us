@@ -195,12 +195,13 @@ private static void load_access(string cfg, mapping resource) {
         if( !file_exists(str + ".c") ) return;
         t = time();
         write("Preloading: " + str + "...");
-        if( err = catch(call_other(str, "???")) )
-            write("\nGot error "+err+" when loading "+str+".\n");
-        else {
+        call_other(str, "???");
+        //if( err = catch(call_other(str, "???")) )
+        //    write("\nGot error "+err+" when loading "+str+".\n");
+        //else {
             t = time() - t;
             write("("+(t/60)+"."+(t%60)+")\n");
-        }
+        //}
     }
 
     int valid_write(string file, object ob, string fun) {
@@ -314,7 +315,8 @@ private static void load_access(string cfg, mapping resource) {
         if( sscanf(nom, "%s/%*s", tmp) ) nom = tmp;
         nom = user_path(nom)+"adm/access";
         if(file_size(nom+".c") < 0) return 0;
-        catch(x = (int)call_other(nom, "check_access", ob, fun, file, oper));
+        //catch(x = (int)call_other(nom, "check_access", ob, fun, file, oper));
+        x = (int)call_other(nom, "check_access", ob, fun, file, oper);
         return x;
     }
 #else
@@ -330,7 +332,8 @@ private static void load_access(string cfg, mapping resource) {
         if( sscanf(nom, "%s/%*s", tmp) ) nom = tmp;
         nom = user_path(nom)+"adm/access";
         if(file_size(nom+".c") < 0) return 0;
-        catch(x = (int)call_other(nom, "check_access", ob, fun, file, oper));
+        //catch(x = (int)call_other(nom, "check_access", ob, fun, file, oper));
+        x = (int)call_other(nom, "check_access", ob, fun, file, oper);
         return x;
     }
 #endif
@@ -342,7 +345,8 @@ private static void load_access(string cfg, mapping resource) {
         if( !sscanf(file, DOMAINS_DIRS+"/%s/%*s", nom) ) return 0;
         nom = DOMAINS_DIRS+"/"+nom+"/adm/access";
         if(file_size(nom+".c") < 0) return 0;
-        catch(x = (int)call_other(nom, "check_access", ob, fun, file, o));
+        //catch(x = (int)call_other(nom, "check_access", ob, fun, file, o));
+        x = (int)call_other(nom, "check_access", ob, fun, file, o);
         return x;
     }
 
@@ -353,11 +357,12 @@ private static void load_access(string cfg, mapping resource) {
 
         true(port);
         file = LIB_CONNECT;
-        if( err  = catch(ob = new(file)) ) {
-            write("It looks like someone is working on the user object.\n");
-            write(err);
-            destruct(ob);
-        }
+        ob = new(file);
+        //if( err  = catch(ob = new(file)) ) {
+        //    write("It looks like someone is working on the user object.\n");
+        //    write(err);
+        //    destruct(ob);
+        //}
         return ob;
     }
 
@@ -513,9 +518,10 @@ private static void load_access(string cfg, mapping resource) {
         }
         previous_unguarded = Unguarded;
         Unguarded = previous_object(1);
-        err = catch(val = evaluate(f) );
+        //err = catch(val = evaluate(f) );
+        val = evaluate(f);
         Unguarded = previous_unguarded;
-        if(err) error(err);
+        //if(err) error(err);
         return val; 
     }
 
@@ -573,9 +579,11 @@ private static void load_access(string cfg, mapping resource) {
           sscanf(file, ESTATES_DIRS+"/%s/%s/%s", tmp, nom, tmp2) != 3 ) 
             sscanf(file, "/%s/%s", nom, tmp);
         if( !nom ) nom = "log";
-        catch(write_file(DIR_ERROR_LOGS "/" + nom, timestamp()+" "+msg));
+        //catch(write_file(DIR_ERROR_LOGS "/" + nom, timestamp()+" "+msg));
+        write_file(DIR_ERROR_LOGS "/" + nom, timestamp()+" "+msg);
         if(msg && this_player(1) && builderp(this_player(1))){
-            catch(tell_player(this_player(1),msg));
+            //catch(tell_player(this_player(1),msg));
+            tell_player(this_player(1),msg);
         }
     }
 
@@ -818,9 +826,13 @@ private static void load_access(string cfg, mapping resource) {
         sefun::set_eval_limit(1000000000);
         if(tmp == RELOAD_D && stub) NewPlayer = stub;
         else NewPlayer = ob;
-        if(file_size(DIR_CRES+ "/" + nom[0..0]+ "/" +nom+__SAVE_EXTENSION__) > -1) 
-            err = catch(ob = load_object(DIR_CRES+"/"+nom[0..0]+"/"+nom));
-        else err = catch(ob = load_object(DIR_PLAYERS+"/"+nom[0..0]+"/"+nom));
+        if(file_size(DIR_CRES+ "/" + nom[0..0]+ "/" +nom+__SAVE_EXTENSION__) > -1) {
+            //err = catch(ob = load_object(DIR_CRES+"/"+nom[0..0]+"/"+nom));
+            ob = load_object(DIR_CRES+"/"+nom[0..0]+"/"+nom);
+        } else { 
+            //err = catch(ob = load_object(DIR_PLAYERS+"/"+nom[0..0]+"/"+nom));
+            ob = load_object(DIR_PLAYERS+"/"+nom[0..0]+"/"+nom);
+        }
         NewPlayer = 0;
         sefun::set_eval_limit(old_limit);
         if(err) error(err);
@@ -860,13 +872,15 @@ private static void load_access(string cfg, mapping resource) {
                 continue;
             }
             f = bind( (: call_other, ob, "clean_up" :), ob );
-            if( f ) catch(evaluate(f));
+            //if( f ) catch(evaluate(f));
+            if( f ) evaluate(f);
             if( !ob ) {
                 y++;
                 continue;
             }
             f = bind((: call_other, ob, "reset", ResetNumber :), ob);
-            if( f ) catch(evaluate(f));
+            //if( f ) catch(evaluate(f));
+            if( f ) evaluate(f);
         }
         write_file(DIR_LOGS "/reset", "\t" + x + " objects reclaimed, " +
           (sizeof(obs) - y) + " objects reset, " + y + " objects "

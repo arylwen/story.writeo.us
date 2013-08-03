@@ -35,10 +35,13 @@ public class AutoCompilingClassLoader extends DexClassLoader
     {
         //super(urls[0].toString().substring(5), parent);
 		//super("/storage/extSdCard/aprojects/story.writeo.us/workspace/lib.ds/jar/lib.jar", parent);
-		super( "/sdcard/lib.ds/work/classes.dex", 
-			  "/data/data/us.writeo/app_dex", null,parent);
+		//super( "/sdcard/lib.ds/work/classes.dex", 
+		//	  "/data/data/us.writeo/app_dex", null,parent);
+		super( "/storage/extSdCard/aprojects/story.writeo.us/workspace/lib.ds/work/classes.dex", 
+			  "/data/data/us.writeo/app_dex", null,parent);	  
+			  
 		for(int i = 0; i< urls.length; i++){
-		    LOG.debug("Class loader urls["+i+"] is: "+urls[i].toString().substring(5));
+		    LOG.debug("Class loader urls["+i+"] is: "+urls[i]);
 		}
         _compiler = compiler;
     }

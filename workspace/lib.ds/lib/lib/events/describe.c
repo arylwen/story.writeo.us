@@ -28,7 +28,10 @@ void eventDescribeEnvironment(int brief){
     }
 
     else i =  this_object()->GetEffectiveVision();
-    switch( i ){
+	
+	//write_file("log_gab", "/lib/events/describe.c eventDescribeEnvironment GetEffectiveVision: " +i+"\n");
+    
+	switch( i ){
     case VISION_BLIND:
         this_object()->eventPrint("You are blind and can see nothing.");
         break;
@@ -45,6 +48,10 @@ void eventDescribeEnvironment(int brief){
         this_object()->eventPrint("It is too %^YELLOW%^bright%^RESET%^ to see.");
         break;
     }
+	
+	//write_file("log_gab", "/lib/events/describe.c eventDescribeEnvironment brief: " +brief+"\n");
+	//write_file("log_gab", "/lib/events/describe.c eventDescribeEnvironment long: " +(string)env->GetLong()+"\n");
+	
     if( !brief ){
         if( i == VISION_CLEAR ){
             desc = (string)env->GetObviousExits() || "";
@@ -85,7 +92,13 @@ void eventDescribeEnvironment(int brief){
         }
         else desc = "\n";
     }
+	
+	//write_file("log_gab", "/lib/events/describe.c eventDescribeEnvironment desc: " +desc+"\n");
+	//write_file("log_gab", "/lib/events/describe.c eventDescribeEnvironment this_object: " +this_object()+"\n");
+	//write_file("log_gab", "/lib/events/describe.c eventDescribeEnvironment functions : " +functions(this_object())+"\n");
+	
     if( desc ) this_object()->eventPrint(desc, MSG_ROOMDESC);
+
     if(sizeof(altern_obvious)){
         int quant = sizeof(env->GetExits()) + sizeof(env->GetEnters());
         if(quant > 1) altern_obvious = replace_string(altern_obvious,"$Q","s");

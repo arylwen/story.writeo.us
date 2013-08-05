@@ -356,7 +356,7 @@ static private void LoadIndices() {
               }
               help = "Index: %^GREEN%^" + index + "%^RESET%^\n" +
               "Topic: %^GREEN%^" + topic + "%^RESET%^\n\n" + help;
-              return help;;
+              return help;
 
           case "library objects":
               topic = GetTopic(index, topic);

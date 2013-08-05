@@ -10,6 +10,7 @@ static string save_file = "/domains/campus/save/jennybot.o";
 
 string LongDesc(){
     string ret;
+    write_file("log_gab", "/domains/campus/npc/jennybot.c active: " +active+"\n");
     if(!active){
         ret = "On closer inspection, this attractive "+
         "young lady is no lady at all...she's an android! "+
@@ -37,7 +38,8 @@ static void create(){
     SetAdjectives(({"orientation","young","female","polite","pretty","guide","newbie","simple","extremely"}));
     SetGender("female");
     SetShort("a polite young woman");
-    SetLong( (: LongDesc :) );
+    string longd = LongDesc();
+    SetLong( longd );
     SetInventory(([
         "/domains/campus/armor/pillbox_hat" : "wear hat",
         "/domains/campus/armor/wglove_r" : "wear white right glove",
@@ -255,8 +257,9 @@ int eventSwitch(int arg){
     case 9:eventAct9();break;
     case 11:eventAct11();break;
     default:write("");break;
-        return 1;
     }
+
+    return 1;
 }
 
 int eventDoTip(int i){
@@ -282,3 +285,13 @@ void heart_beat(){
     }
     if(hb > 20 && active) eventDoTip(tip);
 }
+
+//---------- overrides ----------
+int eventForce(string cmd){
+    bot::eventForce(cmd);
+}
+
+/*varargs mixed eventSpeak(object target, int cls, string msg, string lang){
+	write_file("log_gab", "/domains/campus/npc/jennybot.c eventSpeak: " +msg+"\n");
+	return bot::eventSpeak(target, cls, msg, lang);
+}*/

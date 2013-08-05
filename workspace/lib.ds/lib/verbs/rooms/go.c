@@ -42,6 +42,7 @@ mixed can_go_into_str(string str) {
 }
 
 mixed do_go_str(string str) {
+    write_file("log_gab", "/verbs/rooms/go.c env " +environment(this_player())+"\n");   
     return (mixed)environment(this_player())->eventGo(this_player(), str);
 }
 

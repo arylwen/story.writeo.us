@@ -54,12 +54,12 @@ int eventCast(object who, int level, string race, object array targets) {
     if( target == who ) {
         send_messages("", "A %^BOLD%^CYAN%^translucent magical shield%^RESET%^ "
           "suddenly appears around $agent_possessive_noun body.", who, 0,
-          environment(target));
+          environment(target), 0);
     }
     else {
         send_messages("", "A %^BOLD%^CYAN%^translucent magical shield%^RESET%^ "
           "suddenly appears around $target_possessive_noun body.", who,
-          target, environment(target));
+          target, environment(target), 0);
     }
     return 1;
 }
@@ -79,13 +79,13 @@ int hitCallback(object who, object agent, int x, class MagicProtection cl) {
 
     send_messages("", "The %^YELLOW%^magical shield%^RESET%^ around "
       "$agent_name wavers as $target_name strikes it.",
-      who, agent, environment(who));
+      who, agent, environment(who), 0);
     return x;
 }
 
 void endCallback(object who) {
     if( who ) {
         send_messages("", "The %^BOLD%^CYAN%^magical shield%^RESET%^ around "
-          "$agent_name shatters into nothingness.", who, 0, environment(who));
+          "$agent_name shatters into nothingness.", who, 0, environment(who), 0);
     }
 }

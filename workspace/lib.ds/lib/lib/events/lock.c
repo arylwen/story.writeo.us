@@ -110,14 +110,14 @@ varargs mixed eventLock(object who, mixed arg1, mixed arg2){
     if( !sizeof(ids & GetKeys()) ){
         send_messages("try", "$agent_name $agent_verb to lock $target_name "
           "with " + key->GetShort() + ", but it does not work.",
-          who, this_object(), environment(who));
+          who, this_object(), environment(who), 0);
     }
     else {
         mixed tmp;
 
         send_messages("attempt", "$agent_name $agent_verb to lock "
           "$target_name with " + key->GetShort() + ".",
-          who, this_object(), environment(who));
+          who, this_object(), environment(who), 0);
         tmp = key->eventLockLock(who, this_object());
         if( tmp != 1 ){
             if( tmp ){
@@ -178,15 +178,15 @@ varargs mixed eventPick(object who, string id, object tool){
         who->AddSkillPoints("stealth", 2*(LockStrength + strength));	
         SetLocked(0);
         send_messages("pick", "$agent_name $agent_verb the lock on "
-          "$target_name!", who, this_object(), environment(who));
+          "$target_name!", who, this_object(), environment(who), 0);
         return 1;
     }
     send_messages("fail", "$agent_name $agent_verb in $agent_possessive "
       "attempt to pick the lock on $target_name.",
-      who, this_object(), environment(who));
+      who, this_object(), environment(who), 0);
     if( random(100) > strength ){
         send_messages("cut", "$agent_name $agent_verb $agent_reflexive "
-          "on the lock.", who, this_object(), environment(who));
+          "on the lock.", who, this_object(), environment(who), 0);
         who->eventReceiveDamage(this_object(), PIERCE, random(10) + 1, 0, limb);
     }
     return 1;
@@ -210,14 +210,14 @@ varargs mixed eventUnlock(object who, mixed arg1, mixed arg2){
     if( !sizeof(ids & GetKeys()) ){
         send_messages("attempt", "$agent_name $agent_verb to unlock "
           "$target_name with " + key->GetShort() + ", but it "
-          "does not work.", who, this_object(), environment(who));
+          "does not work.", who, this_object(), environment(who), 0);
     }
     else {
         mixed tmp;
 
         send_messages("attempt", "$agent_name $agent_verb $target_name with "+
           key->GetShort() + ".", who, this_object(),
-          environment(who));
+          environment(who), 0);
         tmp = key->eventUnlockLock(who, this_object());
         if( tmp != 1 ){
             if( tmp ){

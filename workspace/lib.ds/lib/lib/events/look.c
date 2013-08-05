@@ -91,7 +91,8 @@ varargs mixed AddItem(mixed item, mixed val){
             Items[item] = val;
         }
         else if( arrayp(item) ){
-            map(item, (: AddItem($1, $(val)) :));
+            //map(item, (: AddItem($1, $(val)) :));
+			foreach(mixed aitem in item) AddItem(aitem, val);
             return val;
         }
         else {

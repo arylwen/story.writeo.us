@@ -36,15 +36,18 @@ static void create(){
 }
 
 static string process_input(string str){
+    write_file("log_gab", "interface.c.c process_input: " +str+"\n");
     SetCommandFail(0);
     command::process_input(str);
     if( Client ){
         int cl;
 
         sscanf(str, "%d %s", cl, str);
+        write_file("log_gab", "interface.c.c process_input new str " +str+"\n");
     }
-    if( (str = editor::process_input(str)) == "" ) return "";
-    else {
+	//TODO no editor commands for this version
+    //if( (str = editor::process_input(str)) == "" ) return "";
+    //else {
         str = nmsh::process_input(str);
         if( str != "" ){
             return chat_command(str);
@@ -52,7 +55,7 @@ static string process_input(string str){
         else {
             return "";
         }
-    }
+    //}
 }
 
 static void terminal_type(string str){
@@ -63,6 +66,7 @@ static void terminal_type(string str){
 static void window_size(int width, int height){ SetScreen(width, height); }
 
 int eventReceive(string message){
+	write_file("log_gab", "/lib/interface.c eventReceive: " +message+"\n");
     int max_length = __LARGEST_PRINTABLE_STRING__ - 192;
     if(sizeof(message) > max_length){
         while(sizeof(message)){
@@ -71,7 +75,10 @@ int eventReceive(string message){
             message = replace_string(message, tmp, "");
         }
     }
-    else receive(message);
+    else{
+    	write_file("log_gab", "/lib/interface.c eventReceive actual: " +message+"\n");
+    	receive(message);
+    }
 }
 
 
@@ -169,6 +176,10 @@ varargs int eventPauseMessages(int x, int exceptions){
 varargs int eventPrint(string msg, mixed arg2, mixed arg3){
     int msg_class;
 
+    write_file("log_gab", "/lib/interface.c eventPrint: " +msg+"\n");
+    //write_file("log_gab", "/lib/interface.c this_object: " +this_object()+"\n");
+	//write_file("log_gab", "/lib/interface.c functions : " +functions(this_object())+"\n");
+
     if( !msg ) return 0;
     if( !arg2 && !arg3 ) msg_class = MSG_ENV;
     else if( !arg2 ){
@@ -190,24 +201,32 @@ varargs int eventPrint(string msg, mixed arg2, mixed arg3){
 
     if( GetLogHarass() )
         log_file("harass/" + GetKeyName(), strip_colours(msg) + "\n");
-    if( !TermInfo )
-        TermInfo = (mapping)TERMINAL_D->query_term_info(GetTerminal());
+
+    if( !TermInfo ){
+    	TermInfo = (mapping)TERMINAL_D->query_term_info(GetTerminal());
+    }
+
     if( !(msg_class & MSG_NOCOLOUR) ){
         int indent;
 
         if( msg_class & MSG_CONV ) indent = 4;
         else indent = 0;
+
         if( msg_class & MSG_NOWRAP )
             msg = terminal_colour(msg + "%^RESET%^", TermInfo);
         else
             msg = terminal_colour(msg + "%^RESET%^\n", TermInfo,
               GetScreen()[0], indent);
+
+        write_file("log_gab", "/lib/interface.c eventPrint idented: " +msg+"\n");
+    } else if( !(msg_class & MSG_NOWRAP) ){
+    	msg = wrap(msg, GetScreen()[0]-1);
+    	write_file("log_gab", "/lib/interface.c eventPrint: wrapped " +msg+"\n");
     }
-    else if( !(msg_class & MSG_NOWRAP) ) msg = wrap(msg, GetScreen()[0]-1);
+
     if(PauseMessages && !(msg_class & MessageExceptions)){
         MessageQueue += msg;
-    }
-    else {
+    } else {
         if( Client ) eventReceive("<" + msg_class + " " + msg + " " + msg_class +">\n");
         else eventReceive(msg);
     }

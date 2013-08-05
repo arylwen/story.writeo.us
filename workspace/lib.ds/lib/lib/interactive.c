@@ -483,3 +483,9 @@ string SetWebPage(string page){
     }
     return (WebPage = page);
 }
+
+varargs int eventPrint(string msg, mixed arg2, mixed arg3){
+
+	return interface::eventPrint(msg, arg2, arg3);
+
+}

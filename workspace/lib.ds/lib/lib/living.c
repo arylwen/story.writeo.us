@@ -702,6 +702,9 @@ varargs int eventMoveLiving(mixed dest, string omsg, string imsg, mixed dir){
     object *inv;
     object prev;
     string prevclim, newclim;
+    int i;
+
+    write_file("log_gab", "/lib/living.c omsg " +omsg+"\n");
 
     if(omsg && stringp(omsg)){
         omsg = replace_string(omsg, "$N", this_object()->GetName());
@@ -711,6 +714,7 @@ varargs int eventMoveLiving(mixed dest, string omsg, string imsg, mixed dir){
     }
 
     if( prev = environment() ){
+
         prevclim = (string)prev->GetClimate();
         if( stringp(dest) ){
             if(dest[0] != '/'){
@@ -720,8 +724,10 @@ varargs int eventMoveLiving(mixed dest, string omsg, string imsg, mixed dir){
                 dest = "/"+implode(arr[0..sizeof(arr)-2], "/")+"/"+dest;
             }
         }
-        if( !eventMove(dest) ){
-            eventPrint("You remain where you are.", MSG_SYSTEM);
+        write_file("log_gab", "/lib/living.c before eventMove " +dest+"\n");
+        if( !this_object()->eventMove(dest) ){
+            this_object()->eventPrint("You remain where you are.", MSG_SYSTEM);
+            //write_file("log_gab", "/lib/living.c cannot move \n");
             return 0;
         }
         inv = filter(all_inventory(prev), (: (!this_object()->GetInvis($1) 
@@ -752,11 +758,22 @@ varargs int eventMoveLiving(mixed dest, string omsg, string imsg, mixed dir){
         eventPrint("You remain where you are.", MSG_SYSTEM);
         return 0;
     }
-    inv = filter(all_inventory(environment()),
-      (: (!this_object()->GetInvis($1) && !GetProperty("stealthy") &&
-          living($1) && ($1 != this_object())) :));
+    //inv = filter(all_inventory(environment()),
+    //  (: (!this_object()->GetInvis($1) && !GetProperty("stealthy") &&
+    //      living($1) && ($1 != this_object())) :));
+
+    inv = ({ });
+    i = 0;
+    foreach(object item in all_inventory(environment())) {
+    	if(!this_object()->GetInvis(item) && !GetProperty("stealthy") &&
+    	          living(item) && (item != this_object())){
+    		inv += ({ item });
+    		i++;
+    	}
+    }
 
     inv->eventPrint(imsg, MSG_ENV);
+
     if(this_object()->GetInvis()){
         if(!creatorp(this_object())) AddStaminaPoints(-(15-(GetSkillLevel("stealth")/10)));
         AddSkillPoints("stealth", 30 + GetSkillLevel("stealth")*2);
@@ -849,3 +866,13 @@ varargs int eventMoveLiving(mixed dest, string omsg, string imsg, mixed dir){
     eventMoveFollowers(environment(this_object()));
     return 1;
 }
+
+varargs mixed eventSpeak(object target, int cls, string msg, string lang){
+	return combat::eventSpeak(target, cls, msg, lang);
+}
+
+varargs mixed eventHearTalk(object who, object target, int cls, string verb,
+  string msg, string lang){
+	return combat::eventHearTalk(who, target, cls, verb, msg, lang);
+}
+

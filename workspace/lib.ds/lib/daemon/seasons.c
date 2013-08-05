@@ -536,7 +536,8 @@ string GetLong(string arg) {
     int eventShow(object who, string args) {
         string str;
         if( !who || !sizeof(args) ) return 0;
-        if( !str = GetLong(args) ) return 0;
+        str = GetLong(args);
+        if( !str ) return 0;
         if( !(string)environment(who)->GetClimateExposed() ) {
             who->eventPrint("You can't see that from here!");
             return 1;

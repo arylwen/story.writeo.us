@@ -50,16 +50,23 @@ void validate(){
 }
 
 string *CompileCreList(){
-    string *cre_dirs = unguarded( (: get_dir(DIR_CRES+"/") :) );
+    //string *cre_dirs = unguarded( (: get_dir(DIR_CRES+"/") :) );
+    string *cre_dirs = unguarded( (: get_dir, DIR_CRES+"/" :) );
+	write_file("log_gab", "players.c 1\n");
     string *cres = ({});
     foreach(string subdir in cre_dirs){
         cres += unguarded( (: get_dir,DIR_CRES+"/"+subdir+"/" :) );
     }
+	write_file("log_gab", "players.c 2\n");
+
     foreach(string cre in cres){
         if(member_array(cre, user_list) == -1 ||
           member_array(cre, creators) == -1) 
             this_object()->AddPlayerInfo(replace_string(cre, ".o",""));
     }
+	
+	write_file("log_gab", "players.c 3\n");
+
     return cres;
 }
 

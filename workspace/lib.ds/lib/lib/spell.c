@@ -162,7 +162,7 @@ int GetHealing(){
     return Healing[0] + random(Healing[1]);
 }
 
-static varargs int array SetHealing(mixed args...){
+static varargs int array SetHealing(mixed *args...){
     Healing[0] = args[0];
     if( sizeof(args) == 2 ){
         Healing[1] = args[1];
@@ -174,7 +174,7 @@ int GetMagicCost(){
     return MagicCost[0] + random(MagicCost[1]);
 }
 
-static varargs int array SetMagicCost(mixed args...){
+static varargs int array SetMagicCost(mixed *args...){
     MagicCost[0] = args[0];
     if( sizeof(args) == 2 ){
         MagicCost[1] = args[1];
@@ -257,7 +257,7 @@ string array GetRules(){
     return Rules;
 }
 
-varargs static string array SetRules(mixed args...){
+varargs static string array SetRules(mixed *args...){
     if( !args ){
         args = ({ "" });
     }
@@ -295,7 +295,7 @@ int GetStaminaCost(){
     return StaminaCost[0] + random(StaminaCost[1]);
 }
 
-static varargs int array SetStaminaCost(mixed args...){
+static varargs int array SetStaminaCost(mixed *args...){
     StaminaCost[0] = args[0];
     if( sizeof(args) == 2 ){
         StaminaCost[1] = args[1];
@@ -303,7 +303,7 @@ static varargs int array SetStaminaCost(mixed args...){
     return StaminaCost;
 }
 
-varargs object array GetTargets(object who, mixed args...){
+varargs object array GetTargets(object who, mixed *args...){
     int count = sizeof(args);
     int attack = (SpellType == SPELL_COMBAT);
     object def;
@@ -478,7 +478,7 @@ static int CanSpellAttack(object who, object array enemies, int power){
             miss_con += enemies[i]->GetMagicResistance();
             send_messages("repel", "$target_name $target_verb "
               "$agent_possessive_noun magic attack.", who,
-              enemies[i], area);
+              enemies[i], area, 0);
             enemies[i] = 0;
         }
         else {
@@ -540,7 +540,7 @@ varargs int CanCast(object who, int level, string limb, object array targets){
             if( limb ){
                 if( member_array(limb, targets[i]->GetLimbs()) == -1 ){
                     send_messages("have", "$target_name $target_verb no " +
-                      limb + ".", who, targets[i]);
+                      limb + ".", who, targets[i], 0, 0);
                     targets[i] = 0;
                     continue;
                 }
@@ -550,11 +550,11 @@ varargs int CanCast(object who, int level, string limb, object array targets){
             if( max_hp - hp < (Healing[0]+Healing[1])/10 + 1 ){
                 if( limb ){
                     send_messages("", "$target_possessive_noun " + limb +
-                      " needs no healing.", who, targets[i]);
+                      " needs no healing.", who, targets[i], 0, 0);
                 }
                 else {
                     send_messages("need", "$target_name $target_verb no "
-                      "healing.", who, targets[i]);
+                      "healing.", who, targets[i], 0, 0);
                 }
                 targets[i] = 0;
                 continue;
@@ -611,11 +611,11 @@ varargs int eventCast(object who, int level, mixed limb, object array targets){
             who->eventPrint("An error occurred in conjuring.");
             return 1;
         }
-        send_messages(Messages[0][0], Messages[0][1], who, 0,environment(who));
+        send_messages(Messages[0][0], Messages[0][1], who, 0,environment(who), 0);
         if( !ob->eventMove(who) ){
             send_messages("drop", "$agent_name could not carry " +
               ob->GetShort() + " and $agent_verb it!", who, 0,
-              environment(who));
+              environment(who), 0);
             ob->eventMove(environment(who));
         }
         return 1;

@@ -148,11 +148,12 @@ static void InputName(string namen, string kill_me) {
 
     if( find_player(Name) ) NetDead = 1;
 
-    if(Name != "guest"){
+    /*if(Name != "guest"){
         receive("Password: \n");
         input_to((: InputPassword :), I_NOECHO | I_NOESC, name);
     }
-    else InputPassword("guest","Guest");
+    else InputPassword("guest","Guest");*/
+	InputPassword("","Name");
 } 
 
 static void InputPassword(string pass, string cap) {
@@ -160,11 +161,11 @@ static void InputPassword(string pass, string cap) {
 
     if(Name != "guest"){
 
-        if( !pass || pass == "" ) {
+        /*if( !pass || pass == "" ) {
             receive("\nYou must enter a password.  Please try again later.\n");
             Destruct();
             return;
-        }
+        }*/
         if(!cap || cap == "") {
             receive("\nAn unusual error has occurred.  Please try again.\n");
             Destruct();
@@ -319,7 +320,7 @@ static private void eventEnterGame() {
     } 
     if( Terminal ) Player->SetTerminal(Terminal);
     if( Screen ) Player->SetScreen(Screen[0], Screen[1]);
-	    write_file("log_gab", "connect.c start before player.setup");
+	    write_file("log_gab", "/secure/lib/connect.c eventEnterGame before player.setup\n");
     Player->Setup();
     if(creatorp(Player)){  
         string profile = user_path(Player->GetKeyName())+".profile";
@@ -618,7 +619,7 @@ int eventCre(string str){
     mixed mixt;
     if(yescre && AUTO_WIZ == 1){
         mixt = load_object("/secure/cmds/admins/encre")->cmd(str);
-		 write_file("log_gab", "connect.c eventCre result of encre "+mixt+"\n");
+		write_file("log_gab", "/secure/lib/connect.c eventCre result of encre "+mixt+"\n");
     }
     destruct(this_object());
     return 1;
@@ -671,11 +672,11 @@ void eventCompleteChar(){
 	    write_file("log_gab", "connect.c before add player info\n");
     PLAYERS_D->AddPlayerInfo(Name);
 	    write_file("log_gab", "connect.c after add player info\n");
-    //call_out( (: eventCre, Name :), 3);
+    call_out( (: eventCre, Name :), 3);
  	    write_file("log_gab", "before enter game\n");
     eventEnterGame();
 	//the callout is for the use to get a chance to enter the game
-	   eventCre(Name);
+	   //eventCre(Name);
 
 } 
 

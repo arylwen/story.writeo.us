@@ -20,6 +20,7 @@ string match_command(string verb){
     filter(this_player()->GetCommands(), (: localcmds += ({ $1[0] }) :));
     localcmds += CMD_D->GetCommands();
     localcmds += keys(VERBS_D->GetVerbs());
+	write_file("log_gab", "/secure/sefun/english.c match_commands: " +localcmds+"\n");
     if(member_array(verb,localcmds) == -1){
         if(alphap(verb)) local_arr = regexp(localcmds,"^"+verb);
         if(sizeof(local_arr) == 1) {

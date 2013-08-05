@@ -21,6 +21,8 @@ void create() {
     eventRehash( ({ DIR_PLAYER_CMDS, DIR_CREATOR_CMDS, 
         DIR_SECURE_PLAYER_CMDS, DIR_SECURE_CREATOR_CMDS, 
         DIR_ADMIN_CMDS, DIR_SECURE_ADMIN_CMDS }) );
+		
+	write_file("log_gab", "/daemon/command.c after rehash: " +Commands+"\n");
 }
 
 void eventRehash(mixed paths) {
@@ -46,6 +48,8 @@ void eventRehash(mixed paths) {
 string GetCommand(string cmd, string *path) {
     string *tmp;
 
+	write_file("log_gab", "daemon/command.c file: " +Commands+"\n");
+	
     if( Commands[cmd] && sizeof(tmp = (path & (string *)Commands[cmd])) )
         return sprintf("%s/%s", tmp[0], cmd);
     else {

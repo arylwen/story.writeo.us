@@ -60,7 +60,7 @@ mixed CanLock(object who, string foo){
     foreach(string side, class door_side val in Sides){
         if( member_array(room, val->Rooms) != -1 ){
             if( !GetLockable(side) ) return 0;
-            else return seal::CanLock(who);
+            else return seal::CanLock(who, 0);
         }
     }
     return 0;
@@ -76,7 +76,7 @@ mixed CanLock(object who, string foo){
  * Tests to see if a certain player can unlock the door with a given
  * key
  */
-mixed CanUnlock(object who){
+mixed CanUnlock(object who, string id){
     object room;
 
     if( !(room = environment(who)) ) return 0;
@@ -100,7 +100,7 @@ mixed CanUnlock(object who){
  * you may issue the appropriate message
  */
 
-varargs mixed eventClose(object who){
+varargs int eventClose(object who, string id){
     object room,whom;
     string tmp;
 
@@ -216,7 +216,9 @@ int eventRegisterSide(string side){
     ((class door_side)Sides[side])->Rooms = 
     distinct_array(((class door_side)Sides[side])->Rooms +
       ({ previous_object() }));
-    previous_object()->AddItem(id, (: GetLong($(side)) :));
+    //previous_object()->AddItem(id, (: GetLong($(side)) :));
+    string sdesc = GetLong(side);
+    previous_object()->AddItem(id, sdesc);
     foreach(object ob in all_inventory(previous_object())){
         if( !ob->isDummy() ){
             continue;
@@ -294,8 +296,11 @@ mapping GetSide(string side){
 }
 
 int SetLockable(string side, int x){
-    if( !Sides[side] )
-        Sides[side] = new(class door_side, Rooms : ({}));
+    if( !Sides[side] ){
+        //Sides[side] = new(class door_side, Rooms : ({}));
+        Sides[side] = new(class door_side);
+        Sides[side]->Rooms =  ({});
+    }
     return (((class door_side)Sides[side])->Lockable = x); 
 }
 
@@ -304,7 +309,11 @@ int GetLockable(string side){
 }
 
 varargs string *SetId(string side, mixed *args...){ 
-    if( !Sides[side] ) Sides[side] = new(class door_side, Rooms : ({}));
+    if( !Sides[side] ) {
+    	//Sides[side] = new(class door_side, Rooms : ({}));
+        Sides[side] = new(class door_side);
+        Sides[side]->Rooms =  ({});
+    }
     ((class door_side)Sides[side])->Ids = ({});
     foreach(mixed val in args){
         if( stringp(val) ) ((class door_side)Sides[side])->Ids += ({ val });
@@ -316,8 +325,11 @@ varargs string *SetId(string side, mixed *args...){
 string *GetId(string side){ return ((class door_side)Sides[side])->Ids; }
 
 mixed SetShort(string side, mixed short){
-    if( !Sides[side] )
-        Sides[side] = new(class door_side, Rooms : ({}));
+    if( !Sides[side] ){
+       // Sides[side] = new(class door_side, Rooms : ({}));
+        Sides[side] = new(class door_side);
+        Sides[side]->Rooms =  ({});
+    }
     return (((class door_side)Sides[side])->Short = short);
 }
 
@@ -344,8 +356,11 @@ string GetDefiniteShort(){
 }
 
 mixed SetLong(string side, mixed long){
-    if( !Sides[side] )
-        Sides[side] = new(class door_side, Rooms : ({}));
+    if( !Sides[side] ){
+        //Sides[side] = new(class door_side, Rooms : ({}));
+        Sides[side] = new(class door_side);
+        Sides[side]->Rooms =  ({});
+    }
     return (((class door_side)Sides[side])->Long = long);
 }
 
@@ -360,7 +375,11 @@ string GetLong(string side){
 }
 
 varargs string *SetKeys(string side, mixed *args...){
-    if( !Sides[side] ) Sides[side] = new(class door_side, Rooms : ({}));
+    if( !Sides[side] ){
+    	//Sides[side] = new(class door_side, Rooms : ({}));
+        Sides[side] = new(class door_side);
+        Sides[side]->Rooms =  ({});
+    }
     ((class door_side)Sides[side])->Keys = ({});
     foreach(mixed val in args){
         if( stringp(val) ) ((class door_side)Sides[side])->Keys += ({ val });

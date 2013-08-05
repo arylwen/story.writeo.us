@@ -627,3 +627,72 @@ varargs int eventTrain(string skill, int points){
     }
     return 1;
 }
+
+//---------- overrides -----------
+
+varargs int eventPrint(string msg, mixed arg2, mixed arg3){
+
+	return interactive::eventPrint(msg, arg2, arg3);
+    /*int msg_class;
+
+    if( !msg ) return 0;
+    if( !arg2 && !arg3 ) msg_class = MSG_ENV;
+    else if( !arg2 ){
+        if( !intp(arg3) ) msg_class = MSG_ENV;
+        else msg_class = arg3;
+    }
+    else if( !intp(arg2) ) msg_class = MSG_ENV;
+    else msg_class = arg2;
+    if( !(msg_class & MSG_NOBLOCK) && GetBlocked("all") ) return 0;
+
+    if((msg_class & MSG_ANNOYING) && annoyblock) return 0;*/
+
+    /* This is no longer necessary, since the commands
+     * "mute" and "gag" can now keep things quiet on
+     * on channels for individuals if they so wish.
+     * if((msg_class & MSG_CHAN) && environment() &&
+     *  environment()->GetProperty("meeting room")) return 0;
+     */
+
+    /*if( GetLogHarass() )
+        log_file("harass/" + GetKeyName(), strip_colours(msg) + "\n");
+    if( !TermInfo )
+        TermInfo = (mapping)TERMINAL_D->query_term_info(GetTerminal());
+    if( !(msg_class & MSG_NOCOLOUR) ){
+        int indent;
+
+        if( msg_class & MSG_CONV ) indent = 4;
+        else indent = 0;
+        if( msg_class & MSG_NOWRAP )
+            msg = terminal_colour(msg + "%^RESET%^", TermInfo);
+        else
+            msg = terminal_colour(msg + "%^RESET%^\n", TermInfo,
+              GetScreen()[0], indent);
+    }
+    else if( !(msg_class & MSG_NOWRAP) ) msg = wrap(msg, GetScreen()[0]-1);
+    if(PauseMessages && !(msg_class & MessageExceptions)){
+        MessageQueue += msg;
+    }
+    else {
+        if( Client ) eventReceive("<" + msg_class + " " + msg + " " + msg_class +">\n");
+        else eventReceive(msg);
+    }
+    return 1;*/
+}
+
+
+varargs int eventMoveLiving(mixed dest, string omsg, string imsg, mixed dir){
+      return living::eventMoveLiving(dest, omsg, imsg, dir);
+}
+
+varargs mixed eventSpeak(object target, int cls, string msg, string lang){
+	return living::eventSpeak(target, cls, msg, lang);
+}
+
+varargs mixed eventHearTalk(object who, object target, int cls, string verb,
+  string msg, string lang){
+
+	 write_file("log_gab", "/lib/player.c eventHearTalk: " +msg+"\n");
+
+	return living::eventHearTalk(who, target, cls, verb, msg, lang);
+}

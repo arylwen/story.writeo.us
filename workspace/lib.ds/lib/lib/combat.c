@@ -1117,3 +1117,13 @@ int eventExecuteAttack(mixed target){
             evaluate(f);
         }
     }
+
+//----------- overrides ----------
+    varargs mixed eventSpeak(object target, int cls, string msg, string lang){
+    	return race::eventSpeak(target, cls, msg, lang);
+    }
+
+    varargs mixed eventHearTalk(object who, object target, int cls, string verb,
+    		string msg, string lang){
+    	return race::eventHearTalk(who, target, cls, verb, msg, lang);
+    }

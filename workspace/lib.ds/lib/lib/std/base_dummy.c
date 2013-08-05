@@ -27,7 +27,7 @@ inherit LIB_SCRATCH;
 int isDummy(){
     return 1;
 }
-varargs string array SetId(mixed ids...){
+varargs string array SetId(mixed *ids...){
     ids = id::SetId(ids);
     if( sizeof(ids) && !GetKeyName() ){
         SetKeyName(ids[0]);
@@ -110,8 +110,10 @@ varargs static void create(string array id, mixed long, string array adj){
         if(!GetShort()) SetShort(add_article(id[0]));
         SetId(id...);
     }
+    write_file("log_gab", "/lib/std/base_dummy.c long: " +long+"\n");
     SetExternalDesc(long || "");
     SetInvis(1);
+    write_file("log_gab", "/lib/std/base_dummy.c end: \n");
 }
 
 varargs mixed eventKnock(object who, mixed what){

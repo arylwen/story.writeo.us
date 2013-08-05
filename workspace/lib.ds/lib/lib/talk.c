@@ -136,6 +136,7 @@ varargs mixed eventHearTalk(object who, object target, int cls, string verb,
         break;
 
     case TALK_LOCAL:
+    	write_file("log_gab", "/lib/talk.c message: " +msg+"\n");
         if( target ){
             if( target != this_object() ){
                 if( msg[<1] == '?' ) tmp = (string)target->GetName();
@@ -255,6 +256,7 @@ varargs mixed eventSpeak(object target, int cls, string msg, string lang){
             if( lang ) tmp = tmp + " in " + capitalize(lang);
         }
         tmp = tmp + ", \"%^BOLD%^" + SpeakColor + msg + "%^RESET%^\"";
+        write_file("log_gab", "/lib/talk.c str: " +tmp+"\n");
         this_object()->eventPrint(tmp, MSG_CONV);
         env->eventHearTalk(this_object(), target, cls, verb, msg,
           lang);

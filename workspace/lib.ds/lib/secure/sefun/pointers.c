@@ -102,11 +102,9 @@ int councilp(object ob) {
     int val;
 
     if(!ob) ob = previous_object();
-    //if( ! catch( val = (int)VOTING_D->IsCouncilMember(ob) ) )
-	val = (int)VOTING_D->IsCouncilMember(ob);
-    //if( val )
+    if( ! catch( val = (int)VOTING_D->IsCouncilMember(ob) ) )
         return (!creatorp(ob) && ( val ));
-    //return 0;
+    return 0;
 }
 
 int avatarp(object ob) {

@@ -89,7 +89,7 @@ mixed can_look_at_str_on_obj(string targ, string verb, string id1, string id2){
 
 
 mixed do_look() {
-    if(environment(this_player()) && !this_player()->GetInvis() &&  
+    if(environment(this_player()) && !this_player()->GetInvis(0) &&
       !environment(this_player())->GetProperty("meeting room"))
         environment(this_player())->eventPrint((string)this_player()->GetName() +
           " looks around.", this_player(), (MSG_ENV|MSG_ANNOYING));
@@ -106,7 +106,7 @@ mixed do_look_str(string str) {
 }
 
 varargs mixed do_look_at_obj(object ob, mixed arg) {
-    if(ob->GetInvis() && !archp(this_player()) && 
+    if(ob->GetInvis(0) && !archp(this_player()) &&
       base_name(ob) != LIB_BASE_DUMMY && !inherits(LIB_BASE_DUMMY,ob) ){
         write("There is no "+arg+" here.");
         return 1;
@@ -131,7 +131,7 @@ mixed do_look_in_obj(object ob, mixed arg){
 }
 
 mixed do_look_inside_obj(object ob,mixed arg) {
-    if(ob->GetInvis() && !archp(this_player()) &&
+    if(ob->GetInvis(0) && !archp(this_player()) &&
       base_name(ob) != LIB_BASE_DUMMY && !inherits(LIB_BASE_DUMMY,ob) ){
         return write("There is no "+arg+" here.");
     }
@@ -139,7 +139,7 @@ mixed do_look_inside_obj(object ob,mixed arg) {
 }
 
 mixed do_look_at_obj_word_obj(object target, object storage, mixed arg) {
-    if(target->GetInvis() && !archp(this_player()) &&
+    if(target->GetInvis(0) && !archp(this_player()) &&
       base_name(target) != LIB_BASE_DUMMY && !inherits(LIB_BASE_DUMMY,target) ){
         return write("There is no "+arg+" here.");
     }

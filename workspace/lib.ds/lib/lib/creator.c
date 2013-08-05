@@ -103,6 +103,7 @@ void eventDescribeEnvironment(int verbose){
     }
     message("system", file_name(env), this_object());
     player::eventDescribeEnvironment(verbose);
+    //describe::eventDescribeEnvironment(verbose);
 }
 
 static int Destruct(){

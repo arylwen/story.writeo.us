@@ -327,21 +327,22 @@ varargs int eventPrint(string msg, mixed arg2, mixed arg3){
     return 1;
 }
 
-int eventReceiveObject(object who){
+int eventReceiveObject( ){
     object ob;
 
     ob = previous_object();
-    if( !ob || !container::eventReceiveObject() ) return 0;
+    //TODO 0 or this_object() ???
+    if( !ob || !container::eventReceiveObject(0) ) return 0;
     AddCarriedMass((int)ob->GetMass());
     if(environment()) environment()->AddCarriedMass((int)ob->GetMass());
     return 1;
 }
 
-int eventReleaseObject(object who){
+int eventReleaseObject(){
     object ob;
 
     ob = previous_object();
-    if( !ob || !container::eventReleaseObject() ) return 0;
+    if( !ob || !container::eventReleaseObject(0) ) return 0;
     if( ob->GetMass() ){
         AddCarriedMass( -((int)ob->GetMass()) );
         if(environment()) environment()->AddCarriedMass(-(ob->GetMass()));
@@ -675,4 +676,13 @@ int SetVisibleRiders(int i){
     if(i) VisibleRiders = 1;
     else VisibleRiders = 0;
     return VisibleRiders;
+}
+
+//---------- overrides ----------
+int eventForce(string cmd){
+    command::eventForce(cmd);
+}
+
+varargs mixed eventSpeak(object target, int cls, string msg, string lang){
+	return living::eventSpeak(target, cls, msg, lang);
 }

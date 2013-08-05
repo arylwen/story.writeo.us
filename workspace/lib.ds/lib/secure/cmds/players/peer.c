@@ -29,7 +29,8 @@ mixed cmd(string str) {
     case "d" : str = "down";break;
     }
     env = environment(this_player());
-    if( !file = (string)env->GetExit(str) ) file = (string)env->GetEnter(str);
+	file = (string)env->GetExit(str);
+    if( !file ) file = (string)env->GetEnter(str);
     if( !sizeof(file) )
         return "You cannot peer that way.";
     if( (i = this_player()->GetEffectiveVision()) > 5 )
@@ -42,15 +43,17 @@ mixed cmd(string str) {
           this_player() );
         return 1;
     }
+	env = load_object(file);
     if( !unguarded((: file_exists, file + ".c" :)) ||
-      (!env = load_object(file)) ) {
+      (!env) ) {
         message("my_action", "It is not safe to peer "+str+"!", this_player() );
         return 1;
     }
     if(env->GetProperty("no peer")){
         return "You can't see in that direction.";
     }
-    if( (i = this_player()->GetEffectiveVision(file,1)) > 5 )
+	i = this_player()->GetEffectiveVision(file,1);
+    if(  i > 5 )
         return "It is too bright in that direction.";
     else if( i < 3 )
         return "It is too dark there.";

@@ -45,7 +45,7 @@ varargs int CanCast(object who, int level, string limb, object array targs) {
     if( targ_rel != my_rel ) {
         send_messages("are", "$target_name $target_verb not of ",
           "$agent_possessive faith.",
-          who, target);
+          who, target, 0);
         return 0;
     }
     return spell::CanCast(who, level, limb, targs);
@@ -73,7 +73,7 @@ varargs int eventCast(object who, int level, string limb, object array targs) {
 
     send_messages(({ "bring" }), "$agent_name $agent_verb "
       "$target_name back from the dead.",
-      who, target, environment(who));
+      who, target, environment(who), 0);
     target->eventRevive();
     who->AddMagicPoints(-(int)who->GetMagicPoints());
     return 1;

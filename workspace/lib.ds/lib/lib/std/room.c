@@ -846,6 +846,8 @@ varargs mixed eventHearTalk(object who, object target, int cls, string verb,
     object *obs;
     string exit, door;
 
+    write_file("log_gab", "/lib/std/room.c this_object: " +who+"\n");
+
     switch(cls){
     case TALK_PRIVATE:
         return 1;
@@ -858,14 +860,24 @@ varargs mixed eventHearTalk(object who, object target, int cls, string verb,
         return 1;
 
     case TALK_LOCAL:
+    	write_file("log_gab", "/lib/std/room.c talk local: " +msg+"\n");
         obs = get_livings(this_object(),1);
         if(sizeof(obs)) obs -= ({ who });
-        if(sizeof(obs))
-            obs->eventHearTalk(who, target, cls, verb, msg, lang);
+        write_file("log_gab", "/lib/std/room.c observers: " +obs+"\n");
+        if(sizeof(obs)){
+            //obs->eventHearTalk(who, target, cls, verb, msg, lang);
+        	foreach(object obsobj in obs){
+        		obsobj->eventHearTalk(who, target, cls, verb, msg, lang);
+        	}
+        }
         obs = get_livings(this_object(),2);
         if(sizeof(obs)) obs -= ({ who });
-        if(sizeof(obs))
-            obs->eventHearTalk(who, target, cls, verb, msg, lang);
+        if(sizeof(obs)){
+            //obs->eventHearTalk(who, target, cls, verb, msg, lang);
+        	foreach(object obsobj in obs){
+        		obsobj->eventHearTalk(who, target, cls, verb, msg, lang);
+        	}
+        }
         return 1;
 
     case TALK_AREA:

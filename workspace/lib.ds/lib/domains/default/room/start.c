@@ -14,6 +14,7 @@ void create() {
         "down" : "/domains/campus/room/start",
       ]) );
     SetNoModify(1);
+	write_file("log_gab", "domain/default/room/start.c created \n");
 }
 void init(){
     ::init();

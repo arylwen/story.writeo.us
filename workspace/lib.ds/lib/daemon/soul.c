@@ -338,7 +338,7 @@ mixed can_verb_rule(string verb, string rle) {
     return 1;
 }
 
-varargs mixed do_verb_rule(string verb, string rle, mixed args...) {
+varargs mixed do_verb_rule(string verb, string rle, mixed *args...) {
     object env = environment(this_player());
     class emote e = Emotes[verb];
     class rule r = e->Rules[rle];
@@ -417,7 +417,7 @@ varargs mixed do_verb_rule(string verb, string rle, mixed args...) {
         }
     }
     else {
-        send_messages(r->Message[0], r->Message[1], this_player(), args, env);
+        send_messages(r->Message[0], r->Message[1], this_player(), args, env, 0);
         if( args ) {
             args->eventReceiveEmote(this_player(), verb);
         }

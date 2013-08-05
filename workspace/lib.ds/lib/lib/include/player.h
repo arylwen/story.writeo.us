@@ -22,7 +22,7 @@ void eventRevive();
 varargs int eventShow(object who, string str);
 int eventMove(mixed dest);
 int eventFollow(object dest, int followChance);
-varargs int eventMoveLiving(mixed dest, string omsg, string imsg);
+varargs int eventMoveLiving(mixed dest, string omsg, string imsg, mixed dir);
 int eventReceiveObject(object foo);
 int eventReleaseObject(object foo);
 void eventLoad(mixed *value, int recurse);

@@ -112,3 +112,16 @@ int SetNoBotCondition(int foo){
 int GetNoBotCondition(){
     return NoBotCondition;
 }
+
+//---------- overrides ----------
+int eventForce(string cmd){
+    sentient::eventForce(cmd);
+}
+
+varargs mixed eventSpeak(object target, int cls, string msg, string lang){
+	return sentient::eventSpeak(target, cls, msg, lang);
+}
+
+varargs int eventPrint(string msg, mixed arg2, mixed arg3){
+	return sentient::eventPrint(msg, arg2, arg3);
+}

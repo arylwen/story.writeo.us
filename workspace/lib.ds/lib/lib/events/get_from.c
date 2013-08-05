@@ -136,7 +136,7 @@ mixed eventGetFrom(object who, object array what){
         }
     }
     send_messages("get", "$agent_name $agent_verb " + msg +
-      " from $target_name.", who, this_object(), environment(who));
+      " from $target_name.", who, this_object(), environment(who), 0);
     return 1;
 }
 

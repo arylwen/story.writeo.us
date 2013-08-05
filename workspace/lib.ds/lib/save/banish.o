@@ -1,9 +1,9 @@
-# /daemon/banish Jul 17, 2013 4:41:45 AM
-__WatchNames ({})
-__TmpBanish ([])
+# /daemon/banish Jul 24, 2013 8:01:45 PM
 __IllegalSubStrings ({})
 __Allowed ({})
 __Names ({})
-__WatchSites ({})
+__TmpBanish ([])
+__WatchNames ({})
 __Sites ({})
 __Guests ({})
+__WatchSites ({})

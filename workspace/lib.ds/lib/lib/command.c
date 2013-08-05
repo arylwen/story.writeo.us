@@ -52,6 +52,8 @@ static int cmdAll(string args){
     mixed err;
     string verb, file;
 
+	write_file("log_gab", "/lib/command.c cmdAll args: " +args+"\n");
+	
     if(Paused){
         return 0;
     }
@@ -73,8 +75,11 @@ static int cmdAll(string args){
     else CommandHist += ({ query_verb()+" "+args });
 
     old_agent = this_agent(this_object());
-    verb = query_verb();
-
+	write_file("log_gab", "/lib/command.c cmdAll old_agent: " +old_agent+"\n");
+    
+	verb = query_verb();
+	write_file("log_gab", "/lib/command.c cmdAll verb: " +verb+"\n");
+	
     if(this_player()->GetSleeping() > 0){
         if(verb != "wake"){
             this_player()->eventPrint("You are asleep.");
@@ -83,8 +88,11 @@ static int cmdAll(string args){
     }
 
     if(BARE_EXITS){
+	    write_file("log_gab", "/lib/command.c cmdAll BARE_EXITS\n");
         localcmds = ({});
         filter(this_player()->GetCommands(), (: localcmds += ({ $1[0] }) :));
+	    write_file("log_gab", "/lib/command.c cmdAll EXITS: " + environment(this_player())->GetExits() +"\n");
+  
         if(member_array(verb,CMD_D->GetCommands()) == -1 &&
           member_array(verb,keys(VERBS_D->GetVerbs())) == -1 &&
           member_array(verb,localcmds) == -1 && environment(this_player())->GetExits()){
@@ -93,6 +101,7 @@ static int cmdAll(string args){
         }
     }
 
+	//match_command(verb);
     if(COMMAND_MATCHING && sizeof(match_command(verb))) verb = match_command(verb);
 
     if(OLD_STYLE_PLURALS && args){
@@ -128,8 +137,13 @@ static int cmdAll(string args){
         this_player()->eventPrint("How clever of you. Or lucky. In any case, this command is unavailable to you.");
         return 1;
     }
+	
+	write_file("log_gab", "/lib/command.c cmdAll not a custom command: " +verb+"\n");
+	
     if( !(file = (query_custom_command(verb) )) || query_custom_command(verb) == ""){
-        if( !(file = (string)CMD_D->GetCommand(verb, GetSearchPath())) ){
+	    file = (string)CMD_D->GetCommand(verb, GetSearchPath());
+		write_file("log_gab", "command.c file: " +file+"\n");
+        if( !(file) ){
             string cmd;
             int dbg;
 
@@ -159,6 +173,8 @@ static int cmdAll(string args){
         }
     }
 
+	write_file("log_gab", "command.c cmdAll file: " +file+"\n");
+	
     if( (err = (mixed)call_other(file, "cmd", args)) != 1 ){
         string cmd;
 

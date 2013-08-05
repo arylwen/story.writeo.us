@@ -13,6 +13,10 @@ object GetLastEnvironment(){
 }
 
 int eventMove(mixed dest){
+
+
+	write_file("log_gab", "/lib/props/move.c dest: " +dest+"\n");
+
     object ob,to,furn,prev;
     int depth;
     to=this_object();
@@ -32,9 +36,11 @@ int eventMove(mixed dest){
         if( !(ob = find_object(dest)) ){
             string str;
 
-            if( str = catch(call_other(dest, "???")) ){
+            str = catch(call_other(dest, "???"));
+            write_file("log_gab", "/lib/props/move.c catch: " +str+"\n");
+            if( str  ){
                 if( creatorp() ){
-                    eventPrint(str, MSG_ERROR);
+                    this_object()->eventPrint(str, MSG_ERROR);
                 }
                 return 0;
             }
@@ -69,6 +75,7 @@ int eventMove(mixed dest){
     prev = environment(ob);
     move_object(ob);
     ob->eventReceiveObject(this_object());
+    write_file("log_gab", "/lib/props/move.c env: " +environment() +"\n");
     if(environment() == prev) return 0;
     if( environment() ){
         foreach(object peer in all_inventory(environment())){

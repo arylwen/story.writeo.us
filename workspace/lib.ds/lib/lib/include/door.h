@@ -16,10 +16,15 @@ mixed CanLock(object who, string id);
 mixed CanUnlock(object who, string id);
 
 varargs int eventClose(object by, string id);
-mixed eventLock(object who, string id, object key);
-varargs int eventOpen(object who, string id, object tool);
+//mixed eventLock(object who, string id, object key);
+varargs mixed eventLock(object who, mixed key, mixed foo);
+
+//varargs int eventOpen(object who, string id, object tool);
+varargs int eventOpen(object who, object tool);
+
 int eventRegisterSide(string side);
-mixed eventUnlock(object who, string id, object key);
+//mixed eventUnlock(object who, string id, object key);
+mixed eventUnlock(object who, object key);
 
 void SetSide(string side, mapping mp);
 int SetLockable(string side, int x);

@@ -1,18 +1,19 @@
-# /secure/daemon/players Jul 17, 2013 4:45:55 AM
-creators ({"writeous","arylwen",})
-Titles ({})
+# /secure/daemon/players Jul 24, 2013 7:52:20 PM
 PendingEncres ({})
-BirthTime 1374054123
-players ({"booboo","writeous","aelyah","arylwen",})
-Muffed ({})
-player_save_file "/secure/save/creators/a/arylwen.o"
-LoginTime 1374054143
+Titles ({})
+creators ({"aelyah","arykwen","writeous","keelath","writeous - copy","arylwenn","arylwen",})
+LoginTime 1374185590
 HostSite "0.0.0.0"
-PendingDecres ({})
+player_save_file "/secure/save/creators/a/arylwen.o"
+BirthTime 1374185567
+players ({"aelyah","arykwen","booboo","writeous","keelath","writeous - copy","arylwenn","arylwen",})
+Muffed ({})
+CreatorBirth 1374711994
 TitleLength 1
-Marriages ({})
+News (["general":1373822090466])
 Rank "citizen"
-News ([])
-user_list ({"booboo","writeous","aelyah","arylwen",})
-LoginSite "/domains/default/room/start"
+Marriages ({})
+PendingDecres ({})
 PlayerDataMap ([])
+LoginSite "/domains/default/room/start"
+user_list ({"aelyah","arykwen","writeous","booboo","keelath","writeous - copy","arylwenn","arylwen",})

@@ -49,6 +49,14 @@ mixed do_say_to_liv_str(object targ, string str) {
     return (mixed)this_player()->eventSpeak(targ, TALK_LOCAL, str, lang);
 }
 
+mixed other_say_to_liv_str(object who, object targ, string str) {
+	write_file("log_gab", "/lib/verbs/common/say.c other_say_to_liv_str: " +str+"\n");
+	write_file("log_gab", "/lib/verbs/common/say.c this_object: " +who+"\n");
+    string lang = (string)who->GetDefaultLanguage() ||
+    (string)who->GetNativeLanguage();
+    return (mixed)who->eventSpeak(targ, TALK_LOCAL, str, lang);
+}
+
 mixed do_say() { return 1; }
 
 mixed do_say_str(string str) { return do_say_to_liv_str(0, str); }

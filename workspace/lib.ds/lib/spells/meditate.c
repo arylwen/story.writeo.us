@@ -42,7 +42,7 @@ int eventCast(object who, int level) {
 
     send_messages("", "A %^BOLD%^MAGENTA%^dark magical field%^RESET%^ "
       "briefly appears around $agent_possessive_noun body.", who, 0,
-      environment(who));
+      environment(who), 0);
     return 1;
 }
 

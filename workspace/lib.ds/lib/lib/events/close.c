@@ -56,7 +56,7 @@ mixed eventClose(object who){
         return 0;
     }
     send_messages("close", "$agent_name $agent_verb $target_name.",
-      who, this_object(), environment(who));
+      who, this_object(), environment(who), 0);
     return 1;
 }
 
@@ -65,7 +65,7 @@ varargs mixed eventOpen(object who, object tool){
         return 0;
     }
     send_messages("open", "$agent_name $agent_verb $target_name.",
-      who, this_object(), environment(who));
+      who, this_object(), environment(who), 0);
     return 1;
 }
 

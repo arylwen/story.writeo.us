@@ -312,3 +312,13 @@ static void heart_beat(){
     genetics::heart_beat();
     set_heart_beat(GetHeartRate());
 }
+
+//----------- overrides ----------
+    varargs mixed eventSpeak(object target, int cls, string msg, string lang){
+    	return talk::eventSpeak(target, cls, msg, lang);
+    }
+
+    varargs mixed eventHearTalk(object who, object target, int cls, string verb,
+      string msg, string lang){
+    	return talk::eventHearTalk(who, target, cls, verb, msg, lang);
+    }

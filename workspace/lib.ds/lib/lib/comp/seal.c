@@ -12,19 +12,19 @@ inherit LIB_CLOSE;
 inherit LIB_LOCK;
 
 mixed CanLock(object who, string id){
-    mixed tmp = lock::CanLock(who);
+    mixed tmp = lock::CanLock(who, 0);
 
     if( tmp != 1 ){
         return tmp;
     }
-    if( !GetClosed() ){
+    if( !close::GetClosed() ){
         return "You cannot lock it while it is open.";
     }
     return 1;
 }
 
 varargs mixed CanOpen(object who, string id){
-    if( GetLocked() ){
+    if( lock::GetLocked() ){
         id = "It is locked!";
         return id;
     }
@@ -33,16 +33,16 @@ varargs mixed CanOpen(object who, string id){
 
 varargs mixed eventOpen(object who, object tool){
     if( tool && GetLocked() ){
-        mixed tmp =  eventPick(who, tool);
+        mixed tmp =  lock::eventPick(who, 0, tool);
 
-        if( tmp != 1 || GetLocked() ){
+        if( tmp != 1 || lock::GetLocked() ){
             return tmp;
         }
     }
-    if( GetLocked() ){
+    if( lock::GetLocked() ){
         send_messages(({ "attempt", "find" }), "$agent_name $agent_verb to "
           "open $target_name, but $agent_nominative $agent_verb "
-          "it locked.", who, this_object(), environment(who));
+          "it locked.", who, this_object(), environment(who), 0);
         return 1;
     }
     return close::eventOpen(who, tool);

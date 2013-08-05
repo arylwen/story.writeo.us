@@ -67,7 +67,11 @@ mapping SetConsultResponses(mapping mp){
 }
 
 mixed AddCommandResponse(string str, mixed val){
-    return (CommandResponses[str] = val);
+	if(!CommandResponses){
+		CommandResponses = ([]);
+	}
+	CommandResponses[str] = val;
+    return (CommandResponses[str]);
 }
 
 mixed GetCommandResponse(string str){
@@ -393,4 +397,13 @@ static void heart_beat(){
             }
         }
     }
+}
+
+//---------- overrides ----------
+int eventForce(string cmd){
+    npc::eventForce(cmd);
+}
+
+varargs mixed eventSpeak(object target, int cls, string msg, string lang){
+	return npc::eventSpeak(target, cls, msg, lang);
 }

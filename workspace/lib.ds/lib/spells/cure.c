@@ -38,7 +38,7 @@ int eventCast(object who, int level, mixed limbs, object array targets) {
     else {
         send_messages("", "$agent_possessive_noun spell completely heals "
           "$target_name!",who,
-          target, environment(target));
+          target, environment(target), 0);
         health = target->GetMaxHealthPoints()-target->GetHealthPoints();
         magic = target->GetMaxMagicPoints()-target->GetMagicPoints();
         stamina = target->GetMaxStaminaPoints()-target->GetStaminaPoints();
@@ -53,7 +53,7 @@ int eventCast(object who, int level, mixed limbs, object array targets) {
         send_messages("collapse","$agent_name $agent_verb "
           "from the effort of casting " 
           "such a spell!%^RESET%^", who,
-          0, environment(target));        
+          0, environment(target), 0);        
         if(health > who->GetHealthPoints()) 
             who->eventReceiveDamage(who,SHOCK,who->GetHealthPoints()-1);
         else who->eventReceiveDamage(who,SHOCK,health);

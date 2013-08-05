@@ -57,13 +57,12 @@ varargs mixed reload(mixed ob, int recursive, int quiet){
                 if(ubi) StringFellows[fellow->GetKeyName()] = ubi;
             }
         }
-		load_object(CMD_UPDATE)->cmd(args + filename);
-        //unguarded( (: mx = catch(load_object(CMD_UPDATE)->cmd(args + filename)) :) );
-        //if(mx) {
-        //    write("There appears to be a problem updating one or more files.");
-        //    write("Reload failed.");
-        //}
-        //else {
+        unguarded( (: mx = catch(load_object(CMD_UPDATE)->cmd(args + filename)) :) );
+        if(mx) {
+            write("There appears to be a problem updating one or more files.");
+            write("Reload failed.");
+        }
+        else {
             if(dudes) {
                 dudes->eventMove(filename);
                 foreach(object fellow in dudes){
@@ -73,7 +72,7 @@ varargs mixed reload(mixed ob, int recursive, int quiet){
                 }
             }
             if(!quiet) write("Reload complete.");
-        //}
+        }
         StringFellows = ([]);
         return 1;
     }

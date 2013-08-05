@@ -1,7 +1,7 @@
 #include <lib.h>
 #include <vendor_types.h>
 inherit LIB_ITEM;
-inherit LIB_READ;
+//inherit LIB_READ;
 
 
 int TestFunc(){

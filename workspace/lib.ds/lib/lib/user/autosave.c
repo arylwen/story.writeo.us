@@ -24,12 +24,12 @@ nomask void save_player(string nom);
 
 int Setup(){
 
-    write_file("log_gab", "autosave.c.c setup before callout "+GetKeyName()+"\n");
+    write_file("log_gab", "/lib/user/autosave.c.c setup before callout "+GetKeyName()+"\n");
     master()->create_save();
 	//call outs do not work???
-    //call_out( (: save_player, GetKeyName() :), 2 );
+    call_out( (: save_player, GetKeyName() :), 2 );
     restore_inventory();
-	save_player(GetKeyName());
+
     return 1;
 }
 
@@ -69,7 +69,7 @@ nomask int restore_player(string nom){
 nomask void save_player(string nom){
     string file;
 
-	write_file("log_gab", "autosave.c save_player "+nom);
+	write_file("log_gab", "/lib/user/autosave.c save_player "+nom+"\n");
     if( !nom || nom != GetKeyName() ){
         return;
     }

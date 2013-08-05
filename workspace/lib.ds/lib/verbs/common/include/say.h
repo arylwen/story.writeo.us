@@ -12,4 +12,6 @@ mixed do_say_to_liv_str(object ob, string str);
 mixed do_say_str(string str);
 string GetHelp(string str);
 
+mixed other_say_to_liv_str(object who, object targ, string str);
+
 #endif /* l_say_h */

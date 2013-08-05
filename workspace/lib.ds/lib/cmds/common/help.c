@@ -153,10 +153,10 @@ varargs void HelpMenu(string index) {
                                 message("prompt", "\n\nHit <return>: ",
                                   this_player());
                                 input_to(function(string str, string ind) {
-                                      HelpMenu(ind); }, ind);
+                                      HelpMenu(ind); }, 0, ind);
                                 return;
                             }, ind);
-                      }, ind);
+                      }, 0, ind);
               };
               this_player()->eventPage(explode(tmp, "\n"), "help", f, index);
           }

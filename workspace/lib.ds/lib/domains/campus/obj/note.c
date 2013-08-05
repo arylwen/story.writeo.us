@@ -1,7 +1,9 @@
 #include <lib.h>
 #include <vendor_types.h>
 inherit LIB_ITEM;
-inherit LIB_READ;
+
+//item already inherits from read and terebi doesn't like it
+//inherit LIB_READ;
 
 int TestFunc(){
     this_player()->eventPage("/domains/campus/txt/note.txt","system");

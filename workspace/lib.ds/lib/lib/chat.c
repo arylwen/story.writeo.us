@@ -25,6 +25,8 @@ static string chat_command(string str){
     string cmd, arg, tmp;
     int x;
 
+	write_file("log_gab", "chat_command.c chat_command: " +str+"\n"); 
+	
     if( (x = strsrch(str, " ")) == -1){
         cmd = str;
         arg = "";

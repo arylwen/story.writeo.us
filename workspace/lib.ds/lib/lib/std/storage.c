@@ -134,7 +134,8 @@ mixed CanPutInto(object who, object what){
     string wherefrom,stackstring;
     string *callstack;
 
-    if(!tmp = holder::CanPutInto(who, what)){
+    tmp = holder::CanPutInto(who, what);
+    if(!tmp){
         if(GetClosed()) return capitalize(GetDefiniteShort()) + " is closed right now.";
         else return "You can't do that right now.";
     }

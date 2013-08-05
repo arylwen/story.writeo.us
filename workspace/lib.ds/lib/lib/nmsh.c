@@ -315,6 +315,8 @@ nomask string write_prompt(){
 string process_input(string str){ 
     string tmp, xtra, request; 
 
+	 write_file("log_gab", "/lib/nmsh.c process_input: " +str+"\n");
+	
     if(!str || str == "") return ""; 
     else if(GetClient() &&
       member_array(GetClient(), SUPPORTED_CLIENTS) != -1){
@@ -324,8 +326,12 @@ string process_input(string str){
         }
         else return str;
     }
-    else if((tmp = eventHistory(str)) == "") return "";     if(tmp != str) message("system", tmp, this_object());
-    return do_alias(do_nickname(tmp));
+    else if((tmp = eventHistory(str)) == "") return "";     
+	
+	if(tmp != str) message("system", tmp, this_object());
+
+	write_file("log_gab", "nmsh.c do_alias: " +str+"\n");    
+	return do_alias(do_nickname(tmp));
 } 
 
 nomask static void process_request(string request, string xtra){

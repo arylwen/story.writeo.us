@@ -73,11 +73,17 @@ public class EngineInitialiser
         ExecutionTimeCheck check = new ExecutionTimeCheck(_config.getLong(ConfigNames.MAX_EVAL_TIME_INIT, 30000));
         try
         {
+        	//start the callout manager
+        	_context.callout().start();
             synchronized (_context.lock())
             {
                 check.begin();
-                ObjectDefinition sefunDefinition = _objectManager.defineSimulatedEfunObject(getLocalPath(_mudlib.sefun()));
-                ObjectDefinition masterDefinition = _objectManager.defineMasterObject(getLocalPath(_mudlib.master()));
+                String sefunFileName = getLocalPath(_mudlib.sefun());
+                sefunFileName = sefunFileName.replace('\\', '/'); //windows support
+                ObjectDefinition sefunDefinition = _objectManager.defineSimulatedEfunObject(sefunFileName);
+                String masterFileName = getLocalPath(_mudlib.master());
+                masterFileName = masterFileName.replace('\\', '/'); //windows support
+                ObjectDefinition masterDefinition = _objectManager.defineMasterObject(masterFileName);
                 return new CoreObjects(_objectManager, masterDefinition.getMasterInstance(), sefunDefinition.getMasterInstance());
             }
         }
@@ -110,6 +116,7 @@ public class EngineInitialiser
         ObjectBuilderFactory factory = new ObjectBuilderFactory(efuns);
         factory.setWorkingDir(_compileOptions.compilerOutputDirectory());
         factory.setParser(parser);
+        factory.setClassLoaderName(_config.getString(ConfigNames.AUTO_COMPILING_CLASS_LOADER));
         factory.setDebugOptions(new DebugOptions(_compileOptions.getDebugPatterns()));
         ObjectBuilder builder = factory.createBuilder(fileFinder);
 

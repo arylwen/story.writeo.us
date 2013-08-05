@@ -1,6 +1,5 @@
 /* ------------------------------------------------------------------------
- * $Id$
- * Copyright 2009 Tim Vernum
+ * Copyright 2010 Tim Vernum
  * ------------------------------------------------------------------------
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,54 +15,59 @@
  * ------------------------------------------------------------------------
  */
 
-package us.terebi.plugins.interactive.efun;
+package us.terebi.lang.lpc.runtime.jvm.efun;
 
-import java.util.Collections;
+import static us.terebi.lang.lpc.runtime.jvm.support.ValueSupport.floatValue;
+
+import java.util.Arrays;
 import java.util.List;
 
-import us.terebi.engine.server.ObjectShell;
 import us.terebi.lang.lpc.runtime.ArgumentDefinition;
-import us.terebi.lang.lpc.runtime.Callable;
-import us.terebi.lang.lpc.runtime.FunctionSignature;
+import us.terebi.lang.lpc.runtime.FieldDefinition;
 import us.terebi.lang.lpc.runtime.LpcType;
 import us.terebi.lang.lpc.runtime.LpcValue;
 import us.terebi.lang.lpc.runtime.ObjectInstance;
-import us.terebi.lang.lpc.runtime.jvm.efun.AbstractEfun;
-import us.terebi.lang.lpc.runtime.jvm.efun.ThisObjectEfun;
+import us.terebi.lang.lpc.runtime.jvm.exception.LpcRuntimeException;
 import us.terebi.lang.lpc.runtime.jvm.type.Types;
+import us.terebi.lang.lpc.runtime.jvm.value.VoidValue;
 import us.terebi.lang.lpc.runtime.util.ArgumentSpec;
 
 /**
  * 
  */
-public class InteractiveEfun extends AbstractEfun implements FunctionSignature, Callable
+public class PowEfun extends AbstractEfun implements Efun
 {
-    public List< ? extends ArgumentDefinition> defineArguments()
+    protected List< ? extends ArgumentDefinition> defineArguments()
     {
-        return Collections.singletonList(new ArgumentSpec("ob", Types.OBJECT));
-    }
-
-    public boolean acceptsLessArguments()
-    {
-        return true;
+        return Arrays.asList( //
+                new ArgumentSpec("n", Types.FLOAT), //
+                new ArgumentSpec("power", Types.INT) //
+        );
     }
 
     public LpcType getReturnType()
     {
-        return Types.INT;
+        return Types.FLOAT;
     }
 
     public LpcValue execute(List< ? extends LpcValue> arguments)
-    {    	
+    {
         checkArguments(arguments);
-        //aelyah ObjectInstance instance = (arguments.isEmpty() ? ThisObjectEfun.this_object() : arguments.get(0).asObject());
-        ObjectInstance instance = null;
-        if(arguments.isEmpty() || arguments.get(0).getActualType().equals(Types.NIL)){
-        	instance =  ThisObjectEfun.this_object() ;
-        } else {
-        	instance = arguments.get(0).asObject();
+
+        checkArguments(arguments);
+        LpcValue arg = arguments.get(0);
+        double n = arg.asDouble();
+        LpcValue powarg = arguments.get(0);
+        long pow = powarg.asLong();
+
+        if (n > Double.MAX_VALUE)
+        {
+            throw new LpcRuntimeException("Argument " + arg + " to pow() is too large");
         }
-        return getValue(ObjectShell.isConnectionObject(instance));
+        else
+        {
+            return floatValue(Math.pow(n, pow));
+        }
     }
 
 }

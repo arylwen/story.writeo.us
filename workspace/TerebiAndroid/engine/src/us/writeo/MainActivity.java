@@ -1,6 +1,7 @@
 package us.writeo;
 
 import android.app.*;
+import android.content.*;
 import android.os.*;
 import android.util.*;
 import android.view.*;
@@ -14,11 +15,13 @@ import us.terebi.engine.*;
 public class MainActivity extends Activity
 {
     private static final String TAG = "lib.ds";
+	public static Context engineContext;
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState)
 	{
         super.onCreate(savedInstanceState);
+		engineContext = this;
         setContentView(R.layout.main);
 
 		// Watch for button clicks. 
@@ -37,25 +40,32 @@ public class MainActivity extends Activity
 	    @Override
 		public void onClick(View v)
 		{ 
-	    	Log.e(TAG,"start clicked");
+	    	Log.e(TAG, "start clicked");
 			String[] args = new String[1];
 			//args[0] = "/storage/extSdCard/aprojects/story.writeo.us/workspace/lib.ds/etc/ds.terebi.config";
 			args[0] = "/sdcard/lib.ds/etc/ds.terebi.config";
-			
 
-			File dexDir = MainActivity.this.getDir("dex",0);
-			Log.e(TAG,"dex dir is: "+dexDir);
-			
-			try
-			{
-				Log.e("lib.ds", "before main 123");
-				Main.main(args);
-				Log.e("lib.ds", "after main 123");
-			}
-			catch (Exception e)
-			{
 
-				Log.e("lib.ds", e.getMessage(), e);
+			File dexDir = MainActivity.this.getDir("dex", 0);
+			Log.e(TAG, "dex dir is: " + dexDir);
+
+			boolean reboot = true;
+			while(reboot){
+				try
+				{
+					Log.e("lib.ds", "before main 123");
+					Main.main(args);
+					Log.e("lib.ds", "after main 123");
+				}
+				catch (ClassNotFoundException e){
+					reboot = true;
+					Log.e("lib.ds", "rebooting..."+e.getMessage(), e);
+				}
+				catch (Exception e){
+
+					Log.e("lib.ds", e.getMessage(), e);
+					reboot = false;
+				}
 			}
 		} 
 
@@ -65,7 +75,7 @@ public class MainActivity extends Activity
 		@Override
 		public void onClick(View v)
 		{ 
-			Log.e(TAG,"stop clicked");
+			Log.e(TAG, "stop clicked");
             //Shutdown.token().notifyAll();
 			//String base = "/storage/extSdCard/aprojects/story.writeo.us/workspace/lib.ds/work";
 			//String dump = "/storage/extSdCard/aprojects/story.writeo.us/workspace/lib.ds/work/classes.dex";
@@ -77,29 +87,29 @@ public class MainActivity extends Activity
 			dexer.dexFiles();
 			//byte[] dexedbytecode = dexer.classesToDex(bytecode);
 			/*try
-			{
-				FileOutputStream  output = new FileOutputStream(dump);
-				output.write(dexedbytecode);
-				output.flush();
-				output.close();
-			}
-			catch (FileNotFoundException e)
-			{
-				Log.e("lib.ds", e.getMessage(), e);
-			}
-			catch (IOException e)
-			{
-				Log.e("lib.ds", e.getMessage(), e);
-			}
-			
-			try
-			{
-				jarIt(base);
-			}
-			catch (IOException e)
-			{
-				Log.e(TAG, e.getMessage(), e);
-			}*/
+			 {
+			 FileOutputStream  output = new FileOutputStream(dump);
+			 output.write(dexedbytecode);
+			 output.flush();
+			 output.close();
+			 }
+			 catch (FileNotFoundException e)
+			 {
+			 Log.e("lib.ds", e.getMessage(), e);
+			 }
+			 catch (IOException e)
+			 {
+			 Log.e("lib.ds", e.getMessage(), e);
+			 }
+
+			 try
+			 {
+			 jarIt(base);
+			 }
+			 catch (IOException e)
+			 {
+			 Log.e(TAG, e.getMessage(), e);
+			 }*/
 	    } 
 	}; 
 
@@ -169,7 +179,7 @@ public class MainActivity extends Activity
 	    Manifest manifest = new Manifest(); 
 		manifest.getMainAttributes().put(Attributes.Name.MANIFEST_VERSION, "1.0"); 
 		JarOutputStream target = new JarOutputStream(new FileOutputStream(
-		      "/storage/extSdCard/aprojects/story.writeo.us/workspace/lib.ds/jar/lib.jar"), manifest); 
+														 "/storage/extSdCard/aprojects/story.writeo.us/workspace/lib.ds/jar/lib.jar"), manifest); 
 		add(new File(base), base, target); 
 		target.close(); 
 	} 

@@ -21,6 +21,7 @@ import dalvik.system.*;
 import java.net.*;
 import org.apache.log4j.*;
 import us.terebi.lang.lpc.compiler.*;
+import us.writeo.*;
 
 /**
  * 
@@ -30,15 +31,19 @@ public class AutoCompilingClassLoader extends DexClassLoader
     private final Logger LOG = Logger.getLogger(AutoCompilingClassLoader.class);
 
     private final ObjectCompiler _compiler;
+	private static String _base;
+	private static String _bootdex;
 
     public AutoCompilingClassLoader(URL[] urls, ClassLoader parent, ObjectCompiler compiler)
     {
         //super(urls[0].toString().substring(5), parent);
 		//super("/storage/extSdCard/aprojects/story.writeo.us/workspace/lib.ds/jar/lib.jar", parent);
-		super( "/sdcard/lib.ds/work/classes.dex", 
-			  "/data/data/us.writeo/app_dex", null,parent);
+		//super( "/sdcard/lib.ds/work/classes.dex", 
+		//	  "/data/data/us.writeo/app_dex", null,parent);
 		//super( "/storage/extSdCard/aprojects/story.writeo.us/workspace/lib.ds/work/classes.dex", 
 		//	  "/data/data/us.writeo/app_dex", null,parent);	  
+		super( getDexFileList(urls), 
+			  MainActivity.engineContext.getDir("dex", 0).getAbsolutePath(), null,parent);
 			  
 		for(int i = 0; i< urls.length; i++){
 		    LOG.debug("Class loader urls["+i+"] is: "+urls[i]);
@@ -50,7 +55,16 @@ public class AutoCompilingClassLoader extends DexClassLoader
     {
 		LOG.debug("class name:"+name);
         compile(name);
-        return super.findClass(name);
+		Class<?> clazz = null;
+		try{
+           clazz = super.findClass(name);
+		} catch (ClassNotFoundException e) {
+			LOG.debug("Dexing: " + name);
+			dexClasses();
+			LOG.debug("Done dexing: " + name);
+			clazz = super.findClass(name);
+		}
+		return clazz;
     }
 
     private void compile(String name)
@@ -66,7 +80,11 @@ public class AutoCompilingClassLoader extends DexClassLoader
             {
                 LOG.debug("Attempt to compile " + lpc);
             }
-            _compiler.precompile(lpc);
+            if( _compiler.precompile(lpc)){
+				LOG.debug("Dexing: " + name);
+                dexClasses();
+				LOG.debug("Done dexing: " + name);
+		    }
         }
         catch (CompileException e)
         {
@@ -77,4 +95,16 @@ public class AutoCompilingClassLoader extends DexClassLoader
         }
     }
 	
+	private static String getDexFileList(URL[] urls){
+		_base = urls[0].getPath();
+		_bootdex = _base + "classes.dex";
+		//return urls[0].toString() + "classes.dex";
+		return _bootdex;
+	}
+	
+	private void dexClasses(){
+		
+		DexClasses dexer = new DexClasses(_base, _bootdex);
+		dexer.dexFiles();
+	}
 }

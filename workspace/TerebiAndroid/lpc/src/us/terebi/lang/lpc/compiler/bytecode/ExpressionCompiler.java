@@ -127,7 +127,7 @@ import static us.terebi.lang.lpc.compiler.bytecode.ByteCodeConstants.LPC_RUNTIME
 import static us.terebi.lang.lpc.compiler.bytecode.ByteCodeConstants.LPC_VALUE;
 import static us.terebi.lang.lpc.compiler.bytecode.ByteCodeConstants.STRING_VALUE_CONSTRUCTOR;
 import static us.terebi.lang.lpc.compiler.bytecode.FunctionLiteralCompiler.findReferencedVariables;
-import static us.terebi.lang.lpc.compiler.bytecode.FunctionLiteralCompiler.getReferencedVariables;
+import static us.terebi.lang.lpc.compiler.bytecode.FunctionLiteralCompiler.*;
 import static us.terebi.lang.lpc.runtime.jvm.support.MiscSupport.commonType;
 
 /**

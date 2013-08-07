@@ -1,11 +1,11 @@
 <configuration>
 	<!-- Create a file appender for a log in the application's data directory -->
 	<appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender"> 
-	    <file>/sdcard/_logs.ds/terebi.log</file> 
+	    <file>/sdcard/lib.ds/logs/terebi.log</file> 
 		
 		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">      
 			<fileNamePattern>
-				/sdcard/_logs.ds/terebi.%i.log
+				/sdcard/lib.ds/logs/terebi.%i.log
 			</fileNamePattern>      
 			<minIndex>1</minIndex>      
 			<maxIndex>10</maxIndex>    

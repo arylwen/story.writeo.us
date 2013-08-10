@@ -1,7 +1,0 @@
-224:/d/Genesis/ship/ship.c (/d/Genesis/ship/ship.c)
-(void) give_leave_warning()
-/*
- * Function name: give_leave_warning
- * Description:   This function is here to give the players a warning
-		  before the ship leaves.
- */

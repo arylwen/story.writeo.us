@@ -1,5 +1,0 @@
-Include : #include <stdproperties>
-
-Property: NPC_M_NO_ACCEPT_GIVE
-
-Purpose : Obsolete, use LIVE_M_NO_ACCEPT_GIVE

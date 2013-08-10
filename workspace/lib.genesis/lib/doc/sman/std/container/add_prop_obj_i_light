@@ -1,5 +1,0 @@
-86:/std/container.c (/std/container.c)
-(nomask int) add_prop_obj_i_light()
-/*
- * Block functions disabling setting of calculated properties
- */

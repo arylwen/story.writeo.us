@@ -1,2 +1,0 @@
-F_VALUE_WEAPON(wch, wcp)                (20 + (wch * wcp))
-

@@ -1,8 +1,0 @@
-72:/std/player_sec.c (/std/player_sec.c)
-(public int *) query_orig_stat()
-/*
- * Function name: query_orig_stat
- * Description:   Return the default starting stats of a player
- *                This function is supposed to be replaced in inheriting
- *                player objects.
- */

@@ -1,8 +1,0 @@
-NAME
-	fact - returns the factorial of a number
-
-SYNOPSIS
-	float	fact(float)
-
-DESCRIPTION
-	TBD	

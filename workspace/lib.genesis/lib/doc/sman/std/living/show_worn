@@ -1,8 +1,0 @@
-26:/std/living/wear.c (/std/living.c)
-(public string) show_worn(object for_obj)
-/*
- * Function name: show_worn
- * Description:   Display the items that are worn
- * Arguments:     object for_obj - the onlooker
- * Returns:       A string describing the worn items
- */

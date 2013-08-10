@@ -1,6 +1,0 @@
-41:/std/living/spells.c (/std/living.c)
-(public object *) query_spellobjs()
-/*
- * Function name: query_spellobjs
- * Description:   return the spellobj list.
- */

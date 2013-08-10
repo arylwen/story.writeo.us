@@ -1,6 +1,0 @@
-59:/obj/edit.c (/obj/edit.c)
-(public void) create_object()
-/*
- * Function name: create_object
- * Description  : Called to create the object.
- */

@@ -1,7 +1,0 @@
-Name       : F_BACKSTAB_MIN_SKILL
-
-Defined in : <formulas.h>
-
-Description: The minimal skill you need to be able to backstab anyone.
-
-Returns    : (int)the minimal skill.

@@ -1,7 +1,0 @@
-65:/std/act/action.c (/std/act/action.c)
-(string *) query_act()
-/*
- * Function name: query_act
- * Description:   Get the array of actions this mobile do
- * Returns:	  The array
- */

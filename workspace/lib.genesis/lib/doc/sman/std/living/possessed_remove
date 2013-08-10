@@ -1,6 +1,0 @@
-8:/std/living/possess.c (/std/living.c)
-(private void) possessed_remove()
-/*
- * Function name: remove_object
- * Description:   Destruct this object, but check for possessed first
- */

@@ -1,6 +1,0 @@
-67:/d/Genesis/ship/deck.c (/d/Genesis/ship/deck.c)
-(nomask void) create_room()
-/*
- * Function name: create_room
- * Description  : Set up default values for the ship deck
- */

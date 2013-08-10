@@ -1,5 +1,0 @@
-184:/std/mobile.c (/std/mobile.c)
-(object) query_link_remote()
-/*
- * Description: Return the pointer to the current controller
- */

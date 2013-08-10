@@ -1,5 +1,0 @@
-F_PENMOD(pen, skill) ((((pen) > (skill) ? (skill) : (pen)) + 50) * \
-        (((skill) > (pen) ? (pen) + ((skill) - (pen)) / 2 : (skill)) + 50) / \
-        30 - 80)
-
-

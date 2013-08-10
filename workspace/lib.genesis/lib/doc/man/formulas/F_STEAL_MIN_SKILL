@@ -1,7 +1,0 @@
-Name       : F_STEAL_MIN_SKILL
-
-Defined in : <formulas.h>
-
-Description: The minimal skill you need to be able to steal.
-
-Returns    : (int)the minimal skill.

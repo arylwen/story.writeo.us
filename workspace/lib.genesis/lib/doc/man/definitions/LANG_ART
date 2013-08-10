@@ -1,4 +1,0 @@
-*Defined in /sys/language.h
-
-LANG_ART(word)		Get the article to the word, 'a' or 'an'
-

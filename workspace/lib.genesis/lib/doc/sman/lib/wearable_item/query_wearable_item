@@ -1,7 +1,0 @@
-178:/lib/wearable_item.c (/lib/wearable_item.c)
-(public nomask int) query_wearable_item()
-/*
- * Function name: query_wearable_item
- * Description  : Function to identify this object as being wearable.
- * Returns      : int 1 - always.
- */

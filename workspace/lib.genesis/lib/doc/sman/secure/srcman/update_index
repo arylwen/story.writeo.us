@@ -1,6 +1,0 @@
-135:/secure/srcman.c (/secure/srcman.c)
-(public void) update_index(string mdir)
-/*
- * Function name:   update_index
- * Description:     Update the function index
- */

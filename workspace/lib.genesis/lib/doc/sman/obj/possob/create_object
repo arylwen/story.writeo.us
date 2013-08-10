@@ -1,6 +1,0 @@
-31:/obj/possob.c (/obj/possob.c)
-(public void) create_object()
-/*
- * Function name: create_object
- * Description:	  Initialize the object
- */

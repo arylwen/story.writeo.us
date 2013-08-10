@@ -1,6 +1,0 @@
-132:/std/resistance.c (/std/resistance.c)
-(int) query_time()
-/*
- * Function name: query_time
- * Description:   How long will we be resistive
- */

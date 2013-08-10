@@ -1,7 +1,0 @@
-55:/std/book.c (/std/book.c)
-(void) init()
-/*
- * Function name: init
- * Description:   initialise the commands 
- * Arguments:	  
- */

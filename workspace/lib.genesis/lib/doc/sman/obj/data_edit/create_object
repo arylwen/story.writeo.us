@@ -1,6 +1,0 @@
-34:/obj/data_edit.c (/obj/data_edit.c)
-(nomask public void) create_object()
-/*
- * Function name: create_object
- * Description  : Constructor. It is called to create this object.
- */

@@ -1,6 +1,0 @@
-113:/std/book.c (/std/book.c)
-(void) turn_me()
-/*
- * Function name: turn_me
- * Description:   turn the book to the next page
- */

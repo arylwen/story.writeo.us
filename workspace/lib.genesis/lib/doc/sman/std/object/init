@@ -1,8 +1,0 @@
-2588:/std/object.c (/std/object.c)
-(public void) init()
-/*
- * Function name: init
- * Description  : Add the 'command items' of this object. Note that if
- *                you redefine this function, the command items will not
- *                work unless you do ::init(); in your code!
- */

@@ -1,2 +1,0 @@
-F_FATIGUE_FORMULA(stuffed, max) (10 + (stuffed) * 30 / (max))
-

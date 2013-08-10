@@ -1,6 +1,0 @@
-14:/std/combat/chumlock.c (/std/combat/chumlock.c)
-(public nomask void) create_chumanoid()
-/*
-* Function name: create_chumanoid
-* Description:   Reset the combat functions
-*/

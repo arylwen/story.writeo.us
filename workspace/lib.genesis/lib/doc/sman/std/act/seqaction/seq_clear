@@ -1,5 +1,0 @@
-314:/std/act/seqaction.c (/std/act/seqaction.c)
-(void) seq_clear(string name)
-/*
- *  Description: Clears a given sequence from commands.
- */

@@ -1,6 +1,0 @@
-38:/std/workroom.c (/std/workroom.c)
-(nomask void) create_room()
-/*
- * Function name: create_room
- * Description:   Create the room
- */

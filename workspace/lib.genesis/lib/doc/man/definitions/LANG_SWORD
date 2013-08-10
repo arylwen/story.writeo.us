@@ -1,4 +1,0 @@
-*Defined in /sys/language.h
-
-LANG_SWORD(word)	Get the singular form of a word
-

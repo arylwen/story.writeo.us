@@ -1,4 +1,0 @@
-*Defined in /sys/macros.h
-
-CAN_SEE_IN_A_ROOM(ob, room)	True if ob can see in a certain room.
-

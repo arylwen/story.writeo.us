@@ -1,7 +1,0 @@
-437:/secure/mail_reader.c (/secure/mail_reader.c)
-(public void) init()
-/*
- * Function name: init
- * Description  : If a player encounters the object, add the commands to
- *                him or her.
- */

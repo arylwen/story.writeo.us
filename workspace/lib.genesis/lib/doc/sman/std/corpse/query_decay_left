@@ -1,8 +1,0 @@
-443:/std/corpse.c (/std/corpse.c)
-(int) query_decay_left()
-/*
- * Function name: query_decay_left
- * Description  : Find out how much time (in seconds) there is left till the
- *                corpse decays. Note: query_decay() returns minutes!
- * Returns      : int - the decay time in seconds.
- */

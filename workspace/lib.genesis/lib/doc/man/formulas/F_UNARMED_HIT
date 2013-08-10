@@ -1,2 +1,0 @@
-F_UNARMED_HIT(skill, dex)    ((skill) / 7 + (dex) / 20)
-

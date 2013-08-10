@@ -1,6 +1,0 @@
-126:/std/resistance.c (/std/resistance.c)
-(void) set_time(int i)
-/*
- * Function name: set_time
- * Description:   How long this will hold
- */

@@ -1,6 +1,0 @@
-2805:/secure/master/fob.c (/secure/master.c)
-(void) update_teams(void)
-/*
- * Function name: update_teams
- * Description  : Update the list of teams.
- */

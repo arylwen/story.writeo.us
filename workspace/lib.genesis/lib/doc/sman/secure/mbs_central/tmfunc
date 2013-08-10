@@ -1,9 +1,0 @@
-2035:/secure/mbs_central.c (/secure/mbs_central.c)
-(static nomask int) tmfunc(string tm)
-/*
- * Function name: tmfunc
- * Description:	  This help function calculates the age in seconds of a
- *		  posting on a board
- * Arguments:	  tm - the posting name
- * Returns:	  The time number
- */

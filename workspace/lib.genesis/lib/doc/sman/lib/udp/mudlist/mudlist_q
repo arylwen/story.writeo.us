@@ -1,5 +1,0 @@
-59:/lib/udp/mudlist.c (/lib/udp/mudlist.c)
-(int) mudlist_q(mapping p)
-/*
- * mudlist_q
- */

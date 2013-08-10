@@ -1,4 +1,0 @@
-*Defined in /sys/language.h
-
-LANG_POSS(word)		Gives the possessive form of <word>.
-

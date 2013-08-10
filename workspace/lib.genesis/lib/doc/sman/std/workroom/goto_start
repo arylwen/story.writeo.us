@@ -1,8 +1,0 @@
-102:/std/workroom.c (/std/workroom.c)
-(string) goto_start()
-/*
- * Function name: goto_start
- * Description  : Find and return the default start location of the player
- *                who uses the 'startloc' exit.
- * Returns      : string - the filename of that room.
- */

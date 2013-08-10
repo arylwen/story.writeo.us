@@ -1,5 +1,0 @@
-735:/std/heap.c (/std/heap.c)
-(void) appraise_object(int num)
-/*
- * Description: Called when player tries to appraise the heap.
- */

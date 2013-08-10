@@ -1,4 +1,0 @@
-*Defined in /sys/language.h
-
-LANG_PSENT(words)		Get the plural form of a sentence
-

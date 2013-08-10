@@ -1,6 +1,0 @@
-34:/lib/skill_raise.c (/lib/skill_raise.c)
-(public nomask void) create_skill_raise()
-/*
- * Function name: create_skill_raise
- * Description  : Initialize the package.
- */

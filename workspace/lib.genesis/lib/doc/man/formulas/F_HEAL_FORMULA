@@ -1,2 +1,0 @@
-F_HEAL_FORMULA(con, intox) ((con) / 3 + (intox) / 4 + 1)
-

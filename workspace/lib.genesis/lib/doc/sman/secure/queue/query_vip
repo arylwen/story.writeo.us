@@ -1,7 +1,0 @@
-404:/secure/queue.c (/secure/queue.c)
-(public string *) query_vip()
-/*
- * Function name: query_vip
- * Description  : Return the names of the people in the queue.
- * Returns      : string * - the people in the queue.
- */

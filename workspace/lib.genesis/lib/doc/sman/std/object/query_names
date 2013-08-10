@@ -1,5 +1,0 @@
-1350:/std/object.c (/std/object.c)
-(public string *) query_names()
-/*
- * Description: Returns all names of the object
- */

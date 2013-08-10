@@ -1,6 +1,0 @@
-872:/std/door.c (/std/door.c)
-(void) set_door_name(mixed name)
-/*
- * Function name: set_door_name
- * Description:	  Set the name of the door
- */

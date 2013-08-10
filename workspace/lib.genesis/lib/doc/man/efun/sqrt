@@ -1,8 +1,0 @@
-NAME
-	sqrt - give squareroot of a number
-
-SYNOPSIS
-	float sqrt(float arg)
-	
-DESCRIPTION
-	Returns the squareroot of arg.

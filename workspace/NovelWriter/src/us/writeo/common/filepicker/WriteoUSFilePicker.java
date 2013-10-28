@@ -1,0 +1,78 @@
+package us.writeo.common.filepicker;
+
+import android.app.*;
+import android.content.*;
+import android.net.*;
+import java.io.*;
+import org.openintents.intents.*;
+import us.writeo.intents.*;
+import us.writeo.novelwriter.*;
+
+public class WriteoUSFilePicker implements FilePicker
+{
+		private Activity activity;
+		private WriteoUSIntentProvider intentProvider;
+
+		public WriteoUSFilePicker(Activity aActivity)
+		{
+			activity = aActivity;
+			intentProvider = new WriteoUSIntentProvider();
+		}
+
+		public void pickFileForNew()
+		{
+			Intent intent2Browse = new Intent();
+			intent2Browse.setAction(intentProvider.getActionPickFile());
+			Uri startDir = Uri.fromFile(new File("/sdcard"));
+			intent2Browse.setData(startDir);
+
+			intent2Browse.putExtra(FileManagerIntents.EXTRA_TITLE, activity.getString(R.string.wrscmn_new_title));
+			intent2Browse.putExtra(FileManagerIntents.EXTRA_BUTTON_TEXT, activity.getString(R.string.wrscmn_new_button));
+			intent2Browse.putExtra("intentProvider", intentProvider);
+
+			activity.startActivityForResult(intent2Browse, NEW_FILE_REQUEST_CODE);
+		}
+
+		public void pickFileForSave()
+		{
+			Intent intent2Browse = new Intent();
+			intent2Browse.setAction(intentProvider.getActionPickFile());
+			Uri startDir = Uri.fromFile(new File("/sdcard"));
+			intent2Browse.setData(startDir);
+
+			intent2Browse.putExtra(FileManagerIntents.EXTRA_TITLE, activity.getString(R.string.wrscmn_save_title));
+			intent2Browse.putExtra(FileManagerIntents.EXTRA_BUTTON_TEXT, activity.getString(R.string.wrscmn_save_button));
+			intent2Browse.putExtra("intentProvider", intentProvider);
+
+			activity.startActivityForResult(intent2Browse, SAVE_FILE_REQUEST_CODE);
+		}
+
+		public void pickFileForOpen()
+		{
+			Intent intent2Browse = new Intent();
+			intent2Browse.setAction(intentProvider.getActionPickFile());
+			Uri startDir = Uri.fromFile(new File("/sdcard"));
+			intent2Browse.setData(startDir);
+
+			intent2Browse.putExtra(FileManagerIntents.EXTRA_TITLE, activity.getString(R.string.wrscmn_open_title));
+			intent2Browse.putExtra(FileManagerIntents.EXTRA_BUTTON_TEXT, activity.getString(R.string.wrscmn_open_button));
+			intent2Browse.putExtra("intentProvider", intentProvider);
+
+			activity.startActivityForResult(intent2Browse, OPEN_FILE_REQUEST_CODE);
+		}
+
+		public void pickDirectory()
+		{
+			Intent intent2Browse = new Intent();
+			intent2Browse.setAction(intentProvider.getActionPickDirectory());
+			Uri startDir = Uri.fromFile(new File("/sdcard"));
+			intent2Browse.setData(startDir);
+
+			intent2Browse.putExtra(FileManagerIntents.EXTRA_TITLE, activity.getString(R.string.wrscmn_new_title));
+			intent2Browse.putExtra(FileManagerIntents.EXTRA_BUTTON_TEXT, activity.getString(R.string.wrscmn_new_button));
+			intent2Browse.putExtra("intentProvider", intentProvider);
+
+			activity.startActivityForResult(intent2Browse, NEW_FILE_REQUEST_CODE);
+		}
+
+	}

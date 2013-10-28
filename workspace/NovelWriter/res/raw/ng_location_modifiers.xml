@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+<location_modifiers>
+	<location_modifier>windy</location_modifier>
+	<location_modifier>calm</location_modifier>
+	<location_modifier>cold</location_modifier>
+	<location_modifier>wild</location_modifier>
+	<location_modifier>rough</location_modifier>
+	<location_modifier>silent</location_modifier>
+	<location_modifier>dreary</location_modifier>
+	<location_modifier>silent</location_modifier>
+	<location_modifier>noisy</location_modifier>
+	<location_modifier>pleasant</location_modifier>
+	<location_modifier>sunny</location_modifier>
+	<location_modifier>dark</location_modifier>
+	<location_modifier>dusty</location_modifier>
+	<location_modifier>breezy</location_modifier>
+	<location_modifier>dirty</location_modifier>
+	<location_modifier>clean</location_modifier>
+	<location_modifier>hot</location_modifier>
+	<location_modifier>slimy</location_modifier>
+	<location_modifier>smelly</location_modifier>
+	<location_modifier>cluttered</location_modifier>
+	<location_modifier>crowded</location_modifier>
+</location_modifiers>
+</root>

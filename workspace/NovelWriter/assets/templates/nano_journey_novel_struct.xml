@@ -1,0 +1,75 @@
+<structure>
+	<name>nano journey</name>
+	<mode>absolute</mode>
+	<parts>
+		<part>
+			<name>Ordinary World</name>
+			<color>#FF0000FF</color>
+			<limit>3750</limit>
+		</part>
+		<part>
+			<name>Call to Adventure</name>
+			<color>#FF7777CC</color>
+			<limit>7500</limit>
+		</part>
+		<part>
+			<name>Refusal of the Call</name>
+			<color>#FF555599</color>
+			<limit>10000</limit>
+		</part>
+
+		<part>
+			<name>Meeting with the Mentor</name>
+			<color>#FF333366</color>
+			<limit>12500</limit>
+		</part>
+
+		<part>
+			<name>Crossing the First Threshold</name>
+			<color>#FF00FF00</color>
+			<limit>15000</limit>
+		</part>
+
+		<part>
+			<name>Tests, Allies, Enemies</name>
+			<color>#FF00DD33</color>
+			<limit>17500</limit>
+		</part>
+
+		<part>
+			<name>Approach</name>
+			<color>#FF00BB66</color>
+			<limit>25000</limit>
+		</part>
+
+		<part>
+			<name>Ordeal</name>
+			<color>#FF009999</color>
+			<limit>33750</limit>
+		</part>
+
+		<part>
+			<name>Reward</name>
+			<color>#FF0077BB</color>
+			<limit>37500</limit>
+		</part>
+
+		<part>
+			<name>The Road Back</name>
+			<color>#FFFF0000</color>
+			<limit>41250</limit>
+		</part>
+
+		<part>
+			<name>Ressurection</name>
+			<color>#FFDD2200</color>
+			<limit>46250</limit>
+		</part>
+
+		<part>
+			<name>Return with the Elixir</name>
+			<color>#FFBB4400</color>
+			<limit>50000</limit>
+		</part>
+	</parts>
+</structure>

@@ -8,6 +8,7 @@ import us.writeo.common.novel.model.*;
 
 public class NovelZipManager implements NovelPersistenceManager
 {
+
    private static final String TAG="NW NovelZipManager";
    private String zipFileName;
    private Novel novel;
@@ -453,5 +454,23 @@ public class NovelZipManager implements NovelPersistenceManager
 		}
 		
 		return ret;
+	}
+	
+	public DailyCounters getDailyWordCounters()
+	{
+		String countersXml = getScene("dailyCounters.xml");
+		DailyCounters counters;
+		if(countersXml == null){
+			countersXml = "<root><dailyCounters></dailyCounters></root>";
+		}
+		    
+		counters = DailyCountersHelper.readDailyCounters(countersXml);
+		
+		return counters;
+	}
+	
+	public void saveDailyWordCounters(DailyCounters aDailyWordCounterList){
+		String dailyCountersStr = DailyCountersHelper.dailyCountersToString(aDailyWordCounterList);
+		updateEntry("dailyCounters.xml", dailyCountersStr);
 	}
 }

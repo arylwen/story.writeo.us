@@ -86,58 +86,6 @@ public class PartListActivity extends SherlockFragmentActivity implements
 	@Override
 	public void onCreate(Bundle savedInstanceState)  {
 		super.onCreate(savedInstanceState);
-		
-		//fm = new FileManager();
-		
-		/*try
-		{
-			ApplicationInfo ai = getPackageManager().getApplicationInfo(this.getPackageName(), 
-																		PackageManager.GET_META_DATA);
-			if(ai != null){
-				Bundle metadata = ai.metaData;
-			    String value = metadata.getString("filePicker");	
-		
-		        if(value != null){
-			        Class clazz = Class.forName(value);
-		
-			        Constructor[] constructors = clazz.getDeclaredConstructors();
-			        Constructor c = constructors[0];
-			        Object[] params = new Object[1];
-			        params[0] = this;
-			
-		            fpk = (FilePicker)c.newInstance(params);
-			        Log.e(TAG, "obtained a filepicker "+fpk.getClass().getName());
-				}
-			}
-		
-		}
-		catch (PackageManager.NameNotFoundException e)
-		{
-            Log.e(TAG, "couldn't get a file picker "+e.toString());
-		} 
-		catch (ClassNotFoundException e)
-		{
-			Log.e(TAG, "couldn't get a file picker "+e.toString());
-		}
-		catch (InstantiationException e)
-		{
-			Log.e(TAG, "couldn't get a file picker "+e.toString());
-		}
-		catch (InvocationTargetException e)
-		{
-			Log.e(TAG, "couldn't get a file picker "+e.toString());
-		}
-		catch (IllegalAccessException e)
-		{
-			 Log.e(TAG, "couldn't get a file picker "+e.toString());
-		}
-		catch (IllegalArgumentException e)
-		{
-			Log.e(TAG, "couldn't get a file picker "+e.toString());
-		}
-		finally{
-			//if (fpk == null ) fpk = new SWFilePicker(this);
-		}*/
 
 		fpk = FilePickerUtil.getFilePicker(this);
 		if(fpk == null){
@@ -235,6 +183,11 @@ public class PartListActivity extends SherlockFragmentActivity implements
 			if(!f.exists()){
 				fileName = getResources().getString( R.string.newFileName);
 				isUntitled = true;
+				nh = new NovelHelper();
+				npm = null;
+				SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
+				editor.putString("fileName", null);		
+				editor.commit();
 			} else {
 				isUntitled = false;
 			}
@@ -294,6 +247,7 @@ public class PartListActivity extends SherlockFragmentActivity implements
 			arguments.putSerializable(PartDetailFragment.ARG_SCENE, scene);
 			arguments.putSerializable(PartDetailFragment.ARG_FILE_NAME, fileName);
 			arguments.putLong("wordsBeforeScene", wordsBeforeScene);
+			arguments.putLong("totalWordCount", totalWordCount);
 			arguments.putSerializable("currentTemplate", currentTemplate);
 						
 			fragment = new PartDetailFragment();
@@ -326,12 +280,12 @@ public class PartListActivity extends SherlockFragmentActivity implements
 	{
 		super.onCreateOptionsMenu(menu);
 
-		menu.add(0, MENU_NEW_FILE, 0, "New Novel").setShortcut('0', 'n').setIcon(R.drawable.ic_new);		
+		menu.add(0, MENU_NEW_FILE, 0, "New Novel").setShortcut('N', 'n').setIcon(R.drawable.ic_new);		
 		menu.add(0, MENU_OPEN_FILE, 0, "Open Novel").setShortcut('0', 'o').setIcon(R.drawable.ic_open);
 		menu.add(0, MENU_CHOOSE_STRUCT, 0, "Choose Structure...").
-		            setShortcut('0', 'a').setIcon(R.drawable.ic_open);
+		            setShortcut('S', 's').setIcon(R.drawable.ic_open);
 		menu.add(0, MENU_GENERATE_NOVEL, 0, "Generate Novel").
-		            setShortcut('0', 'g').setIcon(R.drawable.ic_save);
+		            setShortcut('G', 'g').setIcon(R.drawable.ic_save);
 		
 		if(mTwoPane){
 			//undo/redo make sense only if we have a text field displayed
@@ -508,6 +462,7 @@ public class PartListActivity extends SherlockFragmentActivity implements
 				    updateTitle();
 				    npm = new NovelZipManager(fileName, null, getCacheDir());
 				    novel = partList.resetModel(npm);
+					saveState();
 				    isUntitled = false;
 				}
 				
@@ -567,6 +522,9 @@ public class PartListActivity extends SherlockFragmentActivity implements
 		}
 		currentSceneWordCount = wordCount;
 		updateTitle();
+		if(fragment != null){
+			fragment.updateDailyWordCounters(totalWordCount);
+		}
 	}
 	
 	@Override

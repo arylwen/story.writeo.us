@@ -55,7 +55,16 @@ public class ZipNovelGenerator implements NovelGenerator
 		if(sounds == null) return null;	
 	
 		Secrets secrets = readSecrets();
-		if(secrets == null) return null;	    
+		if(secrets == null) return null;
+		
+		Items items = readItems();		
+		if (items == null) return null;
+		
+		Colors colors = readColors();		
+		if (colors == null) return null;	
+		
+		Traits traits = readTraits();		
+		if (traits == null) return null;
 	
 		ArrayList<SceneInfo> sceneInfoList = new ArrayList<SceneInfo>();
 		
@@ -75,7 +84,7 @@ public class ZipNovelGenerator implements NovelGenerator
 			sceneInfo.setCharacter2(characters.getCharacters().get(index2));
 			
 			//generate verb
-			int index3 = r.nextInt(21);
+			int index3 = r.nextInt(verbs.getVerbs().size());
 			sceneInfo.setVerb(verbs.getVerbs().get(index3));
 			
 			//generate location modifier
@@ -87,7 +96,7 @@ public class ZipNovelGenerator implements NovelGenerator
 			sceneInfo.setLocation(locations.getLocations().get(index5));
 			
 			//generate scent
-			int index6 = r.nextInt(21);
+			int index6 = r.nextInt(scents.getScents().size());
 			sceneInfo.setScent(scents.getScents().get(index6));
 			
 			//generate sound
@@ -96,7 +105,26 @@ public class ZipNovelGenerator implements NovelGenerator
 			
 			//generate secret
 			int index8 = r.nextInt(21);
-			sceneInfo.setSecret(secrets.getSecrets().get(index8));			
+			sceneInfo.setSecret(secrets.getSecrets().get(index8));					
+			
+			//generate items
+			for(int j=0; j < 5 ; j++){
+				int index9 = r.nextInt(items.getItems().size());
+				sceneInfo.getItems().add(items.getItems().get(index9));									
+			}
+			
+			//generate colors
+			for(int j=0; j < 5 ; j++){
+				int index10 = r.nextInt(colors.getColors().size());
+				sceneInfo.getColors().add(colors.getColors().get(index10));									
+			}
+			
+			
+			//generate items
+			for(int j=0; j < 5 ; j++){
+				int index11 = r.nextInt(traits.getTraits().size());
+				sceneInfo.getTraits().add(traits.getTraits().get(index11));									
+			}
 			
 			sceneInfoList.add(sceneInfo);
 		}
@@ -306,6 +334,78 @@ public class ZipNovelGenerator implements NovelGenerator
 		}
 	}
 	
+	private Colors readColors() 
+	{
+		InputStream inputStream1 = null;
+
+		Colors colors = null;
+		try
+		{
+			inputStream1 = new FileInputStream(this.novelTemplateFolder + "/ng_colors.xml");
+		    byte[] reader = new byte[inputStream1.available()];
+		    while (inputStream1.read(reader) != -1)
+			{};						
+		    String xml = new String(reader);						
+		    //Log.e(TAG, xml);						
+		    colors = ColorsHelper.readColors(xml);	
+		}
+		catch (IOException e)
+		{
+		    Log.e(TAG, e.getMessage());
+	    }
+		finally
+		{
+		    if (inputStream1 != null)
+			{
+				try
+				{ 
+					inputStream1.close();
+				}
+				catch (IOException e)
+				{ 
+					Log.e(TAG, e.getMessage());
+				}
+			}
+		}
+		return colors;
+	}
+	
+	private Traits readTraits() 
+	{
+		InputStream inputStream1 = null;
+
+		Traits traits = null;
+		try
+		{
+			inputStream1 = new FileInputStream(this.novelTemplateFolder + "/ng_traits.xml");
+		    byte[] reader = new byte[inputStream1.available()];
+		    while (inputStream1.read(reader) != -1)
+			{};						
+		    String xml = new String(reader);						
+		    //Log.e(TAG, xml);						
+		    traits = TraitsHelper.readTraits(xml);	
+		}
+		catch (IOException e)
+		{
+		    Log.e(TAG, e.getMessage());
+	    }
+		finally
+		{
+		    if (inputStream1 != null)
+			{
+				try
+				{ 
+					inputStream1.close();
+				}
+				catch (IOException e)
+				{ 
+					Log.e(TAG, e.getMessage());
+				}
+			}
+		}
+		return traits;
+	}
+	
 	private Secrets readSecrets() 
 	{
 		InputStream inputStream1 = null;
@@ -350,7 +450,6 @@ public class ZipNovelGenerator implements NovelGenerator
 		Sounds sounds = null;
 		try
 		{
-		    //inputStream1 = context.getResources().openRawResource(R.raw.ng_sounds);
 			inputStream1 = new FileInputStream(this.novelTemplateFolder + "/ng_sounds.xml");
 		    byte[] reader = new byte[inputStream1.available()];
 		    while (inputStream1.read(reader) != -1)
@@ -417,6 +516,44 @@ public class ZipNovelGenerator implements NovelGenerator
 		return locations;
 	}
 
+	
+	private Items readItems() 
+	{
+		InputStream inputStream1 = null;
+		//CharactersHelper ch = new CharactersHelper();
+		Items items = null;
+		try
+		{
+		    //inputStream1 = context.getResources().openRawResource(R.raw.ng_locations);
+			inputStream1 = new FileInputStream(this.novelTemplateFolder + "/ng_items.xml");
+		    byte[] reader = new byte[inputStream1.available()];
+		    while (inputStream1.read(reader) != -1)
+			{};						
+		    String xml = new String(reader);						
+		    //Log.e(TAG, xml);						
+		    items = ItemsHelper.readItems(xml);	
+		}
+		catch (IOException e)
+		{
+		    Log.e(TAG, e.getMessage());
+	    }
+		finally
+		{
+		    if (inputStream1 != null)
+			{
+				try
+				{ 
+					inputStream1.close();
+				}
+				catch (IOException e)
+				{ 
+					Log.e(TAG, e.getMessage());
+				}
+			}
+		}
+		return items;
+	}
+	
 	private Scents readScents() 
 	{
 		InputStream inputStream1 = null;

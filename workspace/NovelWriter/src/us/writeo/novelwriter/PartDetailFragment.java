@@ -9,7 +9,6 @@ import android.widget.*;
 import com.actionbarsherlock.app.*;
 import java.io.*;
 import java.util.*;
-import us.writeo.*;
 import us.writeo.common.*;
 import us.writeo.common.novel.model.*;
 import us.writeo.common.novel.persistence.*;
@@ -47,6 +46,10 @@ public class PartDetailFragment extends SherlockFragment {
 
 	private NovelPersistenceManager npm;
 	private String fileName;
+	
+	DailyCounters counters;
+	WordCounterManager wcm;
+	
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
 	 * fragment (e.g. upon screen orientation changes).
@@ -90,16 +93,12 @@ public class PartDetailFragment extends SherlockFragment {
 			
 		String textStr = npm.getScene(scene.getPath());
 		String prompt = npm.getScene(scene.getPath()+".1");
-			
-		/*String textStr = null;
-		if (getArguments().containsKey("text")) {
-			textStr = (String)getArguments().getSerializable(("text"));
-		}	*/	
 		
 		text = 	((EditText) rootView.findViewById(R.id.note));			
 		if (textStr != null) {		
 					text.setText(textStr);
 		}
+		
 		long wordsBeforeScene = 0;
 		if (getArguments().containsKey("wordsBeforeScene")) {
 			wordsBeforeScene = getArguments().getLong("wordsBeforeScene");
@@ -129,30 +128,33 @@ public class PartDetailFragment extends SherlockFragment {
 				public void afterTextChanged(Editable s) { }
 				public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 		});	
-		
-		//attach undo/redo behavior to text
-		//undoRedo = new TextViewUndoRedo(text);
-		
-		/*String prompt = null;
-		if (getArguments().containsKey("prompt")) {
-			prompt = (String)getArguments().getSerializable(("prompt"));
-		}*/
-				
-		//SpannableString spannablecontent = coloriser.getColorisedTemplateInfo();
+						
+		//set up the pages of infoPageAdapter
 		mInfoPagerAdapter = new InfoPagerAdapter(getActivity().getSupportFragmentManager(), 
 		                     prompt);
 		Log.e(TAG, "Created pager adapter");
-							 //, currentFileTemplate.getFile(), spannablecontent);
 
         // Set up the ViewPager, attaching the adapter.
         mViewPager = (ViewPager) rootView.findViewById(R.id.pager);
         mViewPager.setAdapter(mInfoPagerAdapter);
 		
-		//onTemplateChosen(currentFileTemplate);	
-		
+		//set up template in InfoPager
 		SpannableString spannablecontent = coloriser.getColorisedTemplateInfo();
 		mInfoPagerAdapter.setTemplate(currentFileTemplate.getName(), spannablecontent);
+		
+		//set up the word counters
+	    long totalWordCount = 0;
+		if (getArguments().containsKey("totalWordCount")) {
+			totalWordCount = getArguments().getLong("totalWordCount");
+		}	
+		
+		counters = npm.getDailyWordCounters();
+		wcm = new WordCounterManager(counters.getWordCounters());
+		wcm.updateWordCounterInfo(totalWordCount);
+		mInfoPagerAdapter.setWordCounters("Daily Word Count", wcm.getColorisedWordCountInfo());
+		
 		mInfoPagerAdapter.notifyDataSetChanged();
+		
 		text.getText().clearSpans();
 		text.setText(text.getText());
 		
@@ -221,6 +223,10 @@ public class PartDetailFragment extends SherlockFragment {
 		   String newPrompt = getPrompt();
 		   
 		   npm.updateScene(scene.getPath(), newScene, newPrompt);
+		   
+		   //if fragment modified, let's update word counters
+		   npm.saveDailyWordCounters(counters);
+		   
 		   Log.e(TAG, "modified");
 	   }
    }
@@ -228,4 +234,10 @@ public class PartDetailFragment extends SherlockFragment {
    public long getWordCount(){
 	   return NovelColoriser.wordCount(text.getText().toString());
    }
+   
+   public void updateDailyWordCounters(long totalWordCount){
+	   wcm.updateWordCounterInfo(totalWordCount);
+	   mInfoPagerAdapter.setWordCounters("", wcm.getColorisedWordCountInfo());
+   }
+  
 }

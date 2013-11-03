@@ -1,5 +1,6 @@
 package us.writeo.novelgenerator.model;
 
+import java.util.*;
 import us.writeo.common.novel.model.*;
 
 public class SceneInfo
@@ -12,6 +13,39 @@ public class SceneInfo
 	 protected String scent;
 	 protected String sound;
 	 protected String secret;
+	protected List<Item> items = new ArrayList<Item>();
+	protected List<String> colors = new ArrayList<String>();
+	protected List<String> traits = new ArrayList<String>();
+
+	public void setTraits(List<String> traits)
+	{
+		this.traits = traits;
+	}
+
+	public List<String> getTraits()
+	{
+		return traits;
+	}
+
+	public void setColors(List<String> colors)
+	{
+		this.colors = colors;
+	}
+
+	public List<String> getColors()
+	{
+		return colors;
+	}
+
+	public void setItems(List<Item> items)
+	{
+		this.items = items;
+	}
+
+	public List<Item> getItems()
+	{
+		return items;
+	}
 	 
 	 public NCharacter getCharacter1(){
 		 return character1;
@@ -82,6 +116,8 @@ public class SceneInfo
 		
     public String toString(){
 		StringBuffer sceneStr = new StringBuffer();
+		
+		sceneStr.append(secret);
 		sceneStr.append(character1.getName());
 		sceneStr.append(" and ");
 		sceneStr.append(character2.getName());
@@ -96,8 +132,27 @@ public class SceneInfo
 		sceneStr.append(sound);
 		sceneStr.append(" and smelled ");
 		sceneStr.append(scent);
-		sceneStr.append(". ");
-		sceneStr.append(secret);
+		sceneStr.append(".\n ");
+	
+		sceneStr.append("Items of interest: ");
+		for(int i = 0; i< items.size(); i++ ){
+			sceneStr.append(items.get(i).getName() + " ");
+		}
+		sceneStr.append(".\n ");
+		
+		sceneStr.append("Colors: ");
+		for(int i = 0; i< colors.size(); i++ ){
+			sceneStr.append(colors.get(i)+ " ");
+		}
+		sceneStr.append(".\n ");
+		
+		sceneStr.append("Traits: ");
+		for(int i = 0; i< traits.size(); i++ ){
+			sceneStr.append(traits.get(i) + " ");
+		}
+		sceneStr.append(".\n ");
+		
+		
 		return sceneStr.toString();
 	}
 }

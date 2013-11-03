@@ -5,6 +5,7 @@ import android.support.v4.app.*;
 import android.text.*;
 import android.util.*;
 import android.view.*;
+import java.util.*;
 
 
 public class InfoPagerAdapter extends FragmentStatePagerAdapter
@@ -12,8 +13,9 @@ public class InfoPagerAdapter extends FragmentStatePagerAdapter
 	    private static final String TAG = "NW InfoPagerAdapter";
 	    private String prompt;
 		private String templateName;
-		private String novelFileName;
+		//private String novelFileName;
 		private SpannableString templateSummary;
+		private SpannableString wordCounterList;
 		
 		private PromptFragment promptFragment;
 		private FragmentManager fragmentManager;
@@ -53,9 +55,9 @@ public class InfoPagerAdapter extends FragmentStatePagerAdapter
 				case 2:
 					fragment = new WordCountersFragment();
 					args = new Bundle();
-					args.putString(WordCountersFragment.ARG_TEMPLATE_NAME, templateName); 
+					args.putString(WordCountersFragment.ARG_COUNTER_NAME, templateName); 
 					//spannable is not serializable so it cannot be sent as an argument
-					((WordCountersFragment)fragment).setWordCounters(templateName, templateSummary);
+					((WordCountersFragment)fragment).setWordCounters(templateName, wordCounterList);
 					fragment.setArguments(args);
 					break;
 				
@@ -63,8 +65,7 @@ public class InfoPagerAdapter extends FragmentStatePagerAdapter
 				default:
 				
 			}
-			
-			
+						
             return fragment;
         }
 
@@ -83,6 +84,11 @@ public class InfoPagerAdapter extends FragmentStatePagerAdapter
 			templateName = aName;
 			templateSummary = aSummary;
 		}
+		
+	public void setWordCounters(String aName, SpannableString aWordCounterList){
+		    templateName = aName;
+		    wordCounterList = aWordCounterList;
+	    }
 		
 		public String getPrompt(){
 			return promptFragment.getPrompt();

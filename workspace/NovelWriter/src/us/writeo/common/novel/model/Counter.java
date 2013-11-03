@@ -11,7 +11,7 @@ import org.simpleframework.xml.*;
 		protected Date date;
 
 		@Element(name="value")
-		protected int value;
+		protected long value;
 
 		public void setDate(Date aDate)
 		{
@@ -23,12 +23,12 @@ import org.simpleframework.xml.*;
 			return date;
 		}
 
-		public void setValue(int aValue)
+		public void setValue(long aValue)
 		{
 			value = aValue;
 		}
 
-		public int getValue()
+		public long getValue()
 		{
 			return value;
 		}	

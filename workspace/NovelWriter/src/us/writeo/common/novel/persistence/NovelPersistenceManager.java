@@ -23,4 +23,8 @@ public interface NovelPersistenceManager
 	
 	public void deleteEntries(List<String> entryNames);
 	
+	public DailyCounters getDailyWordCounters();
+	
+	public void saveDailyWordCounters(DailyCounters aDailyWordCounterList);
+	
 }

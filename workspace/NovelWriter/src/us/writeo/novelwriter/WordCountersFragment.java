@@ -10,26 +10,26 @@ import com.actionbarsherlock.app.*;
 	public class WordCountersFragment extends SherlockFragment
 	{
 
-        public static final String ARG_TEMPLATE_NAME = "templateName";
-	    public static final String ARG_TEMPLATE_SUMMARY = "templateSummary";
+        public static final String ARG_COUNTER_NAME = "countersName";
+	    public static final String ARG_COUNTER_SUMMARY = "countersSummary";
 
 		//private TextView templateName;
-		private TextView templateSummary;
-		private SpannableString templateSummaryStr;
+		private TextView countersSummary;
+		private SpannableString countersSummaryStr;
 		private String templateNameStr;
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
 								 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_template_info, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_word_counters, container, false);
 
             //Bundle args = getArguments();
 			//templateName =   ((TextView) rootView.findViewById(R.id.template_name));
             //templateName.setText(args.getString((ARG_TEMPLATE_NAME)));
 
-			templateSummary =   ((TextView) rootView.findViewById(R.id.template_summary));
-			if(templateSummaryStr != null){
-                templateSummary.setText(templateSummaryStr);
+			countersSummary =   ((TextView) rootView.findViewById(R.id.counters_summary));
+			if(countersSummaryStr != null){
+                countersSummary.setText(countersSummaryStr);
 			}
 
             return rootView;
@@ -40,9 +40,9 @@ import com.actionbarsherlock.app.*;
 			//if(templateName != null){
 			//	templateName.setText(aName);
 			//}
-			templateSummaryStr = aWordCountersList;
-			if(templateSummary != null){
-				templateSummary.setText(templateSummaryStr);
+			countersSummaryStr = aWordCountersList;
+			if(countersSummary != null){
+				countersSummary.setText(countersSummaryStr);
 			}
 		}
     }

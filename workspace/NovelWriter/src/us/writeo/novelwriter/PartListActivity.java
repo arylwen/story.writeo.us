@@ -71,9 +71,15 @@ public class PartListActivity extends SherlockFragmentActivity implements
 	private NovelHelper nh;
 	private NovelPersistenceManager npm;
 	
+	//total number of words for the novel
 	private long totalWordCount = 0;
+	//the number of words in the current scene
 	private long currentSceneWordCount = 0;
+	//total number of words less the number of words in the current scene
 	private long partialWordCount = 0;
+	//number of words before the current scene;
+	private long wordsBeforeScene = 0;
+	
 	private String currentPart = "";
 	private boolean first = false;
 	
@@ -165,6 +171,10 @@ public class PartListActivity extends SherlockFragmentActivity implements
 			   editor.putString("fileName", fileName);			   
 			}
 			
+			if(currentTemplate != null){
+				editor.putString("templateFile", currentTemplate.getFile());
+			}
+			
 			editor.commit();
 		}
 	}
@@ -221,6 +231,17 @@ public class PartListActivity extends SherlockFragmentActivity implements
 					onSceneSelected(scene);
 				}
 			}
+			//restore template
+			String restoredTemplateFile = prefs.getString("templateFile", null);
+			List<StructureFileTemplate> templates = templateFileManager.getStructureTemplates();
+			StructureFileTemplate templ = templates.get(0);
+			for(StructureFileTemplate stmpl:templates){
+				if(stmpl.getFile().equals(restoredTemplateFile)){
+					templ = stmpl;
+				}
+			}
+			currentTemplate = templ;
+			//onTemplateChosen(templ);
 		}
 	}
 		
@@ -234,7 +255,8 @@ public class PartListActivity extends SherlockFragmentActivity implements
 	{		
 		currentScene = scene;
 
-		long wordsBeforeScene = countWordsBeforeScene(fileName, scene);
+		wordsBeforeScene = countWordsBeforeScene(fileName, scene);
+		totalWordCount = countWordsForNovel(fileName);
 		Log.e(TAG, "wordsBeforeScene "+wordsBeforeScene);
 		
 		if (mTwoPane) {			
@@ -282,6 +304,7 @@ public class PartListActivity extends SherlockFragmentActivity implements
 
 		menu.add(0, MENU_NEW_FILE, 0, "New Novel").setShortcut('N', 'n').setIcon(R.drawable.ic_new);		
 		menu.add(0, MENU_OPEN_FILE, 0, "Open Novel").setShortcut('0', 'o').setIcon(R.drawable.ic_open);
+		menu.add(0, MENU_SAVE_FILE_AS, 0, "Export Novel").setShortcut('X', 'x').setIcon(R.drawable.ic_save);
 		menu.add(0, MENU_CHOOSE_STRUCT, 0, "Choose Structure...").
 		            setShortcut('S', 's').setIcon(R.drawable.ic_open);
 		menu.add(0, MENU_GENERATE_NOVEL, 0, "Generate Novel").
@@ -330,20 +353,8 @@ public class PartListActivity extends SherlockFragmentActivity implements
 			case MENU_GENERATE_NOVEL:	
 		
 		        fpk.pickDirectory();
-		
-			    /*NovelGenerator ng = new ZipNovelGenerator(this);
-				fileName = ng.generate();
-				
-				totalWordCount = countWordsForNovel(fileName);
-				partialWordCount = totalWordCount; //no scene selected yet
-				updateTitle();
-				npm = new NovelZipManager(fileName, null, getCacheDir());
-				novel = partList.resetModel(npm);
-				isUntitled = false;*/
-				
 				break;
-				
-				
+							
 			case MENU_SAVE_FILE_AS:
 			    fpk.pickFileForSave();
 			break;
@@ -423,12 +434,48 @@ public class PartListActivity extends SherlockFragmentActivity implements
 				    Uri fileUri = intent.getData();
 					String fName = fileUri.getPath();
 					
-					//save story, update file name and save state
-					//fm.saveText(fName, text.getText().toString(), this);					
-					//updateText(text.getText().toString(), fName);
+					try {
+						File f = new File(fName.toString());
+
+						if ( (f.exists() && !f.canWrite()) || (!f.exists() && !f.getParentFile().canWrite()))
+						{
+
+							Toast.makeText(this, "Cannot save, not enough permissions!", Toast.LENGTH_SHORT).show();
+
+							f = null;
+
+						} else {
+							f = null; // hopefully this gets garbage collected
+
+							// Create file 
+							FileWriter fstream = new FileWriter(fName.toString());
+							BufferedWriter out = new BufferedWriter(fstream);
+
+							Novel tmpNovel = npm.getNovel();
+							if(tmpNovel != null){
+								for(Chapter c:tmpNovel.getChapters()){
+									for(Scene s:c.getScenes()){
+										String sceneTxt = npm.getScene(s.getPath());
+                                        out.write("\n          ***          \n");										
+										out.write(sceneTxt);
+										out.write("\n");
+									}
+								}
+							}
+							
+							
+
+							out.close();
+
+							// inform the user of success			     				 				 
+							Toast.makeText(this, "Novel exported", Toast.LENGTH_SHORT).show();		
+							//success = true;
+						}
+					} catch (Exception e) { //Catch exception if any
+						Toast.makeText(this, "There was an exporting the novel. "+
+									   e.getMessage(), Toast.LENGTH_SHORT).show();
+					}			
 					
-					//save prompt 
-					//fm.saveText(getPromptFileName(fName), prompt.getText().toString(), this);
 				}
 			break;
 			
@@ -484,7 +531,8 @@ public class PartListActivity extends SherlockFragmentActivity implements
 	
 	private void updateTitle(){
 		totalWordCount = currentSceneWordCount+partialWordCount;
-		title.setText(fileName+" "+currentSceneWordCount+":"+(totalWordCount)+":"+currentPart);		
+		long currentWordPosition = wordsBeforeScene + currentSceneWordCount;
+		title.setText(fileName+" "+currentSceneWordCount+":"+currentWordPosition+":"+(totalWordCount)+":"+currentPart);		
 	}
 	
 	private long countWordsForNovel(String fileName){

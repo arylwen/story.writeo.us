@@ -6,8 +6,8 @@
 	
 	<string name="new_title">New file name...</string>
 	<string name="new_button">Create</string>
-	<string name="save_title">Save as...</string>
-	<string name="save_button">Save</string>
+	<string name="save_title">Export novel...</string>
+	<string name="save_button">Export</string>
 	<string name="open_title">Choose story...</string>
 	<string name="open_button">Open</string>
 

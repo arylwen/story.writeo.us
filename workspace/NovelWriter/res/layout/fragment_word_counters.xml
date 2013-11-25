@@ -1,26 +1,34 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
-	android:orientation="vertical" >
+	android:orientation="vertical" -->
 
 	<!--TextView
-		android:id="@+id/counters_name"
-		android:layout_width="fill_parent" 
-		android:layout_height="wrap_content"
-		android:background="@null"
-		android:textColor="#FFCCCCCC"
-		android:text="none"
-		android:padding="5dip"
-		android:textAppearance="?android:attr/textAppearanceLarge"/-->
+	android:id="@+id/counters_name"
+	android:layout_width="fill_parent" 
+	android:layout_height="wrap_content"
+	android:background="@null"
+	android:textColor="#FFCCCCCC"
+	android:text="none"
+	android:padding="5dip"
+	android:textAppearance="?android:attr/textAppearanceLarge"/-->
 
-	<TextView
-		android:id="@+id/counters_summary"
-		android:layout_width="fill_parent" 
-		android:layout_height="wrap_content"
-		android:background="@null"
-		android:textColor="#FFCCCCCC"
-		android:text="Current template"
-		android:padding="5dip"
-		android:textAppearance="?android:attr/textAppearanceLarge"/>
-
-</LinearLayout>
+	<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
+		android:id="@+id/word_counters_scroll"
+		android:orientation="vertical"
+		android:layout_width="0dp"
+		android:layout_weight="1"
+		android:layout_height="fill_parent"
+		android:fadingEdge="none">
+		
+		<TextView
+			android:id="@+id/counters_summary"
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content"
+			android:background="@null"
+			android:textColor="#FFCCCCCC"
+			android:text="No word counters."
+			android:padding="5dip"
+			android:textAppearance="?android:attr/textAppearanceLarge"/>
+	</ScrollView>
+<!--/LinearLayout-->

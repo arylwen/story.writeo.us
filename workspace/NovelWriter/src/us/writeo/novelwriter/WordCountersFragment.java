@@ -23,6 +23,13 @@ import com.actionbarsherlock.app.*;
 								 Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_word_counters, container, false);
 
+			ScrollView scroll = (ScrollView) rootView
+				.findViewById(R.id.word_counters_scroll);
+			if (scroll != null) {
+				scroll.setFillViewport(true);
+				scroll.setHorizontalScrollBarEnabled(false);
+			}
+			
             //Bundle args = getArguments();
 			//templateName =   ((TextView) rootView.findViewById(R.id.template_name));
             //templateName.setText(args.getString((ARG_TEMPLATE_NAME)));

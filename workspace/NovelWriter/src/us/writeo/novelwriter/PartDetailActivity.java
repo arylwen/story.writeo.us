@@ -33,10 +33,16 @@ public class PartDetailActivity extends SherlockFragmentActivity
 	private String fileName;
 	private Scene scene;
 		   
+	//total number of words for the novel
 	private long totalWordCount = 0;
+	//the number of words in the current scene
 	private long currentSceneWordCount = 0;
+	//total number of words less the number of words in the current scene
 	private long partialWordCount = 0;
-	private String currentPart = "";	   
+	//number of words before the current scene;
+	private long wordsBeforeScene = 0;
+	
+	private String currentPart = "";
 	private boolean first;
 	
 	private PartDetailFragment detailFragment;
@@ -72,8 +78,10 @@ public class PartDetailActivity extends SherlockFragmentActivity
 			arguments.putSerializable(PartDetailFragment.ARG_FILE_NAME, getIntent()
 									  .getSerializableExtra(PartDetailFragment.ARG_FILE_NAME));
 					
-			arguments.putLong("wordsBeforeScene", getIntent().getLongExtra("wordsBeforeScene", 0));	
-			arguments.putSerializable("currentTemplate", getIntent().getSerializableExtra("currentTemplate"));	
+			wordsBeforeScene = getIntent().getLongExtra("wordsBeforeScene", 0);
+			arguments.putLong( "wordsBeforeScene", wordsBeforeScene );	
+			arguments.putSerializable("currentTemplate", 
+			          getIntent().getSerializableExtra("currentTemplate"));	
 			
 			detailFragment = new PartDetailFragment();
 			detailFragment.setArguments(arguments);
@@ -135,6 +143,10 @@ public class PartDetailActivity extends SherlockFragmentActivity
 		
 		currentSceneWordCount = wordCount;
 		updateTitle();
+		
+		if(detailFragment != null){
+			detailFragment.updateDailyWordCounters(totalWordCount);
+		}
 	}
 
 	public void onPartUpdate(String aPart)
@@ -145,7 +157,9 @@ public class PartDetailActivity extends SherlockFragmentActivity
 	
 	private void updateTitle(){
 		totalWordCount = currentSceneWordCount+partialWordCount;
-		title.setText(fileName+" "+currentSceneWordCount+":"+(totalWordCount)+":"+currentPart);		
+		long currentWordPosition = wordsBeforeScene + currentSceneWordCount;
+		title.setText(fileName+" "+currentSceneWordCount+":"+
+		     currentWordPosition+":"+(totalWordCount)+":"+currentPart);		
 	}
 	
 	@Override

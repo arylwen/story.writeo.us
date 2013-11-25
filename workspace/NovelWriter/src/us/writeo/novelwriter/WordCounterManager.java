@@ -45,7 +45,8 @@ public class WordCounterManager
 	 public SpannableString getColorisedWordCountInfo()
 	 {
 		StringBuilder sb = new StringBuilder();
-		SimpleDateFormat sdf = new SimpleDateFormat("EE MMM dd yy");
+		//SimpleDateFormat sdf = new SimpleDateFormat("EE MMM dd yy");
+		SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yy");
 		
 		List<Integer> slimits = new ArrayList<Integer>();
 		for( Counter wordCounter:wordCounterList )

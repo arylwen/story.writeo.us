@@ -456,7 +456,7 @@ public class PartListActivity extends SherlockFragmentActivity implements
 								for(Chapter c:tmpNovel.getChapters()){
 									for(Scene s:c.getScenes()){
 										String sceneTxt = npm.getScene(s.getPath());
-                                        out.write("\n          ***          \n");										
+                                        out.write("\n          *** "+ s.getName() +" ***         \n\n");										
 										out.write(sceneTxt);
 										out.write("\n");
 									}
@@ -472,8 +472,8 @@ public class PartListActivity extends SherlockFragmentActivity implements
 							//success = true;
 						}
 					} catch (Exception e) { //Catch exception if any
-						Toast.makeText(this, "There was an exporting the novel. "+
-									   e.getMessage(), Toast.LENGTH_SHORT).show();
+						Toast.makeText(this, "There was an exception exporting the novel. "+
+									   e.getMessage() + e.getStackTrace(), Toast.LENGTH_SHORT).show();
 					}			
 					
 				}

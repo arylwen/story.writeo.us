@@ -115,7 +115,11 @@ public class InfoPagerAdapter extends FragmentStatePagerAdapter
 	//undo/redo related functions
 	public boolean canUndo()
 	{
-		return promptFragment.canUndo();
+		boolean result = false;
+		if(promptFragment != null)
+			result =  promptFragment.canUndo();
+		
+		return result;
 	}
 
 	public boolean canRedo()

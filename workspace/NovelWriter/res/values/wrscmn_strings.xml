@@ -3,6 +3,6 @@
 	<string name="wrscmn_new_button">Create</string>
 	<string name="wrscmn_save_title">Save as...</string>
 	<string name="wrscmn_save_button">Save</string>
-	<string name="wrscmn_open_title">Choose story...</string>
+	<string name="wrscmn_open_title">Choose novel...</string>
 	<string name="wrscmn_open_button">Open</string>
 </resources>

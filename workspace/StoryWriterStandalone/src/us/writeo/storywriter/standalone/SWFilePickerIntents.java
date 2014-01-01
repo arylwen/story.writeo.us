@@ -1,6 +1,6 @@
 package us.writeo.storywriter.standalone;
 
-public final class StoryWriterIntents
+public final class SWFilePickerIntents
 {
 	/**
 	 * Activity Action: Pick a file through the file manager, or let user

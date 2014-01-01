@@ -1,12 +1,15 @@
 package us.writeo.novelwriter;
-import android.app.*;
-import android.content.*;
-import android.os.*;
-import android.view.*;
-import android.widget.*;
-import com.actionbarsherlock.app.*;
-import us.writeo.common.novel.model.*;
-import us.writeo.*;
+import us.writeo.common.novel.model.Chapter;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
+
+import com.actionbarsherlock.app.SherlockDialogFragment;
 
 
 public class EditChapterDataDialogFragment extends SherlockDialogFragment {
@@ -35,9 +38,9 @@ public class EditChapterDataDialogFragment extends SherlockDialogFragment {
 	@Override public void onAttach(Activity activity) {
 		super.onAttach(activity);
 
-		// Verify that the host activity implements the callback interface        
+		// Verify that the host activity implements the callback interface 
 		try {
-			// Instantiate the NoticeDialogListener so we can send events to the host            
+			// Instantiate the NoticeDialogListener so we can send events to the host� 
 			mListener = (EditChapterDialogListener) activity;
 
 		} catch (ClassCastException e) {

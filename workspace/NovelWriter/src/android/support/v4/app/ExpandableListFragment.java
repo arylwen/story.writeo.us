@@ -1,5 +1,7 @@
 package android.support.v4.app;
 
+import android.R;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.ContextMenu;
@@ -92,6 +94,8 @@ ExpandableListView.OnGroupCollapseListener, ExpandableListView.OnGroupExpandList
         ExpandableListView lv = new ExpandableListView(getActivity());
         lv.setId(android.R.id.list);
         lv.setDrawSelectorOnTop(false);
+        //lv.setGroupIndicator(new ColorDrawable(R.color.transparent));
+        //lv.setIndicatorBounds(0, 1);
         lframe.addView(lv,
 					   new FrameLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
 

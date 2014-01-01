@@ -1,15 +1,22 @@
 package us.writeo.novelwriter;
 
-import android.content.*;
-import android.database.*;
-import android.util.*;
-import android.view.*;
-import android.view.View.*;
-import android.widget.*;
-import java.util.*;
-import us.writeo.*;
-import us.writeo.common.novel.model.*;
-import us.writeo.common.novel.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import us.writeo.common.novel.model.Chapter;
+import us.writeo.common.novel.model.Novel;
+import us.writeo.common.novel.model.Scene;
+import us.writeo.common.novel.persistence.NovelPersistenceManager;
+import android.content.Context;
+import android.database.DataSetObserver;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 public class ExpandableNovelAdapter extends BaseExpandableListAdapter implements OnClickListener {
 
